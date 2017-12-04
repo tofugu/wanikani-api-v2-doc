@@ -1,0 +1,7 @@
+.toc-header {
+  @extend .toc-link;
+  small {
+    display: block;
+    opacity: 0.5;
+  }
+}
