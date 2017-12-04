@@ -1,5 +1,9 @@
 .toc-header {
   @extend .toc-link;
+  a {
+    color: #fff;
+    text-decoration: none;
+  }
   small {
     display: block;
     opacity: 0.5;

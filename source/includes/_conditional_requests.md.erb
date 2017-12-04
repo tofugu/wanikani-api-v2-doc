@@ -1,0 +1,53 @@
+# Conditional Requests
+
+WaniKani API optionally accepts request headers `If-None-Match` and `If-Modified-Since`. Every API endpoint response header includes an `ETag` and `Last-Modified`. These values can be utilized in future requests at the matching endpoint.
+
+If the response body has not been modified since the last request then a HTTP status code `304` (Not Modified) and an empty response body is returned. The advantage to using these headers is a faster response time since the body is not generated; it is assumed the consumer has the unmodified data cached.
+
+If both `If-None-Match` and `If-Modified-Since` are passed in, then `If-None-Match` takes precedence.
+
+## If-None-Match
+
+> To define `If-None-Match`, use this code:
+
+```shell
+curl "api_endpoint_here"
+  -H "Authorization: Token token=api_key_here"
+  -H "Wanikani-Revision: <%= ENV['REVISION'] %>"
+  -H "If-None-Match: etag_here"
+```
+
+```javascript
+
+```
+
+> Make sure to replace `etag_here` with the `ETag` value extracted from a previous response header.
+
+The `If-None-Match` request header takes in an `ETag` value from the last request's response header:
+
+`If-None-Match: etag_here`
+
+More information about `If-None-Match` can be found at the [MDN web docs](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/If-None-Match).
+
+## If-Modified-Since
+
+> To define `If-Modified-Since`, use this code:
+
+```shell
+curl "api_endpoint_here"
+  -H "Authorization: Token token=api_key_here"
+  -H "Wanikani-Revision: <%= ENV['REVISION'] %>"
+  -H "If-Modified-Since: last_modified_here"
+```
+
+```javascript
+
+```
+
+> Make sure to replace `last_modified_here` with the `Last-Modified` value extracted from a previous response header.
+
+The `If-Modified-Since` request header takes in an `Last-Modified` value from the last request's response header:
+
+`If-Modified-Since: last_modified_here`
+
+More information about `If-Modified-Since` can be found at the [MDN web docs](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/If-Modified-Since).

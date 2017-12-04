@@ -1,0 +1,27 @@
+# Revisions
+
+> To define the revision, use this code:
+
+```shell
+curl "api_endpoint_here"
+  -H "Authorization: Token token=api_key_here"
+  -H "Wanikani-Revision: <%= ENV['REVISION'] %>"
+```
+
+```javascript
+
+```
+
+Revisions on WaniKani API v2 will be designated by timestamps in the ISO format `YYYYMMDD`.
+
+The revision timestamp for this documentation is `<%= ENV['REVISION'] %>`.
+
+WaniKani API expects for the revision to be included in all API requests to the server in a header that looks like the following:
+
+`Wanikani-Revision: <%= ENV['REVISION'] %>`
+
+A list of revisions and change logs can be found [here](<%= ENV['ROOT_PATH'] %>).
+
+<aside class="notice">
+If no revision is specified, the API will default to <a href="<%= ENV['ROOT_PATH'] %>/<%= ENV['DEFAULT_REVISION'] %>" title="View API revision 20170710 documentation">revision <%= ENV['DEFAULT_REVISION'] %></a>.
+</aside>
