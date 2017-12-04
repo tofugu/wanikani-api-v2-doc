@@ -28,6 +28,7 @@ includes:
   - subjects
   - user
   - errors
+  - notable_cases
 
 search: true
 ---
