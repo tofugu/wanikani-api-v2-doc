@@ -53,8 +53,8 @@ under the License.
     <div class="toc-wrapper">
       <%= image_tag "logo-wanikani.png", class: 'logo' %>
       <h2 class="toc-header">
-        <a href="<%= ENV['ROOT_PATH'] %>/<%= ENV['REVISION'] %>" title="View WaniKani API v2 Revision <%= ENV['REVISION'] %>">
-          WaniKani API v2 <small>Revision <%= ENV['REVISION'] %></small>
+        <a href="<%= ENV['ROOT_PATH'] %>/<%= current_page.data.api_revision %>" title="View WaniKani API v2 Revision <%= current_page.data.api_revision %>">
+          WaniKani API v2 <small>Revision <%= current_page.data.api_revision %></small>
         </a>
       </h2>
       <% if language_tabs.any? %>

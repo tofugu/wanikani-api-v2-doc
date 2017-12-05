@@ -5,7 +5,7 @@
 ```shell
 curl "api_endpoint_here"
   -H "Authorization: Token token=api_token_here"
-  -H "Wanikani-Revision: <%= ENV['REVISION'] %>"
+  -H "Wanikani-Revision: <%= current_page.data.api_revision %>"
 ```
 
 ```javascript
@@ -14,13 +14,13 @@ curl "api_endpoint_here"
 
 Revisions on WaniKani API v2 will be designated by timestamps in the ISO format `YYYYMMDD`.
 
-The revision timestamp for this documentation is `<%= ENV['REVISION'] %>`.
+The revision timestamp for this documentation is `<%= current_page.data.api_revision %>`.
 
 WaniKani API expects for the revision to be included in all API requests to the server in a header that looks like the following:
 
-`Wanikani-Revision: <%= ENV['REVISION'] %>`
+`Wanikani-Revision: <%= current_page.data.api_revision %>`
 
-A list of revisions and change logs can be found [here](<%= ENV['ROOT_PATH'] %>).
+See the [list of revisions and changelogs](<%= ENV['ROOT_PATH'] %>) for more details.
 
 <aside class="notice">
 If no revision is specified, the API will default to <a href="<%= ENV['ROOT_PATH'] %>/<%= ENV['DEFAULT_REVISION'] %>" title="View API revision 20170710 documentation">revision <%= ENV['DEFAULT_REVISION'] %></a>.
