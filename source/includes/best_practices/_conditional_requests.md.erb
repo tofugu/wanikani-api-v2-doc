@@ -27,7 +27,7 @@ The `If-None-Match` request header takes in an `ETag` value from the last reques
 
 `If-None-Match: etag_here`
 
-More information about `If-None-Match` can be found at the [MDN web docs](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/If-None-Match).
+More information on `If-None-Match` can be found at the [MDN web docs](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/If-None-Match).
 
 ### If-Modified-Since
 
@@ -44,10 +44,23 @@ curl "api_endpoint_here"
 
 ```
 
-> Make sure to replace `last_modified_here` with the `Last-Modified` value extracted from a previous response header.
+> Make sure to replace `last_modified_here` with the `Last-Modified` value extracted from a previous response header or any datetime.
 
-The `If-Modified-Since` request header takes in an `Last-Modified` value from the last request's response header:
+The `If-Modified-Since` request header takes in an `Last-Modified` value from the last request's response header or any datetime in the following format:
 
-`If-Modified-Since: last_modified_here`
+`If-Modified-Since: <day-name>, <day> <month> <year> <hour>:<minute>:<second> GMT`
 
-More information about `If-Modified-Since` can be found at the [MDN web docs](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/If-Modified-Since).
+Where:
+
+* `<day-name>` — One of "Mon", "Tue", "Wed", "Thu", "Fri", "Sat", or "Sun" (case-sensitive).
+* `<day>` — 2 digit day number, e.g. "04" or "23".
+* `<month>` — One of "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec" (case sensitive).
+* `<year>` — 4 digit year number, e.g. "1990" or "2016".
+* `<hour>` — 2 digit hour number, e.g. "09" or "23".
+* `<minute>` — 2 digit minute number, e.g. "04" or "59".
+* `<second>` — 2 digit second number, e.g. "04" or "59".
+* `GMT` — Greenwich Mean Time. HTTP dates are always expressed in GMT, never in local time.
+
+Example: `If-Modified-Since: Fri, 11 Nov 2011 11:11:11 GMT`
+
+More information on `If-Modified-Since` can be found at the [MDN web docs](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/If-Modified-Since).
