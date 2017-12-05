@@ -1,4 +1,4 @@
-# Filters
+## Filters
 
 Collection endpoints have optional filter options to scope down the results. The filters are passed in as URL parameters, e.g `?parameter=value&other_parameter=value`.
 

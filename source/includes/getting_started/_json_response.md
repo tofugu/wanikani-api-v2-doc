@@ -1,4 +1,4 @@
-# JSON Response
+## JSON Response
 
 > Collections generally follow the pattern:
 

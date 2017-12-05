@@ -1,4 +1,4 @@
-# Nomenclature
+## Nomenclature
 
 * **Developer** — One who is developing against the API
 * **User** — The owner of the API key

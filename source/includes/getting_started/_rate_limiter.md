@@ -1,4 +1,4 @@
-# Rate Limiter
+## Rate Limiter
 
 WaniKani API has the following rate limits active:
 

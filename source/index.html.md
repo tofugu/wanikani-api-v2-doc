@@ -7,18 +7,20 @@ language_tabs: # must be one of https://git.io/vQNgJ
 
 toc_footers:
   - <a href='https://www.wanikani.com'>Visit WaniKani</a>
+  - <a href='mailto:hello@wanikani.com'>Contact Us</a>
   - <a href='https://github.com/lord/slate'>Documentation Powered by Slate</a>
 
 includes:
   - introduction
-  - nomenclature
-  - rest_client_import_files
-  - authentication
-  - revisions
-  - conditional_requests
-  - rate_limiter
-  - json_response
-  - filters
+  - getting_started
+  - getting_started/nomenclature
+  - getting_started/rest_client_import_files
+  - getting_started/authentication
+  - getting_started/revisions
+  - getting_started/conditional_requests
+  - getting_started/rate_limiter
+  - getting_started/json_response
+  - getting_started/filters
   - assignments
   - level_progressions
   - review_statistics
@@ -28,6 +30,7 @@ includes:
   - subjects
   - user
   - errors
+  - best_practices
   - notable_cases
 
 search: true
