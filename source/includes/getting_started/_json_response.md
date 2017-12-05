@@ -67,7 +67,7 @@ And a list of specific resource objects:
 
 ### Collection Size
 
-By default the number of resources returned for all collections is set to a maximum of 1000. Some endpoints may return a different size.
+By default the number of resources returned for all collection endpoints is set to a maximum of 1000. Some endpoints may return a different size. The value can be found on `pages.per_page`.
 
 The `total_count` field is a count of all resources available within the [specified scope](#filters), not limited to pagination.
 
