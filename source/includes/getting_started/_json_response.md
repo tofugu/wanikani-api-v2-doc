@@ -65,13 +65,16 @@ And a list of specific resource objects:
 * `user`
 * `vocabulary`
 
-### Collection Size and Pagination
+### Collection Size
 
 By default the number of resources returned for all collections is set to a maximum of 1000. Some endpoints may return a different size.
 
+The `total_count` field is a count of all resources available within the [specified scope](#filters), not limited to pagination.
+
+### Pagination
+
 To help with paging through results, a couple pieces of information is provided on collections:
 
-* `total_count` — Total count of all resources available within the [specified scope](#filters), not limited to pagination.
 * `pages.next_url` — A url if the next page exists. Else the value is `null`.
 * `pages.previous_url` — A url if the previous page exists. Else the value is `null`.
 * `pages.per_page` — Maximum number of resources delivered for this collection.
@@ -82,7 +85,7 @@ Protip: the first page has no previous page, and the last page has no next page.
 
 WaniKani API uses a cursor-based pagination scheme, with the `id` of a resource acting as the cursor.
 
-The previous page of results can be requested by passing in the `page_before_id` filter parameter, with the value being the `id` you want to look before. Similar logic applies for the next page. Pass in the `page_after_id` parameter with with the `id` you want to look after.
+The previous page of results can be requested by passing in the `page_before_id` parameter, with the value being the `id` you want to look before. Similar logic applies for the next page. Pass in the `page_after_id` parameter with with the `id` you want to look after.
 
 If a cursor is outside range of IDs for the collection, an empty result set is returned for `data`.
 
