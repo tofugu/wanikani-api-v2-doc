@@ -96,6 +96,10 @@ If a request to `/api/v2/subjects/?page_before_id=3` is initiated, then the resp
 
 If a request to `/api/v2/subjects/?page_after_id=5` is initiated, then the collection will yield empty result set.
 
+### Resource Ordering in Collections
+
+Resources in a collection are ordered by ascending `created_at`.
+
 ### Timestamps
 
 All timestamps are rendered in [ISO8601](https://xkcd.com/1179/) to the microsecond.
