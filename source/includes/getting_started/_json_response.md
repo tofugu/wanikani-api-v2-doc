@@ -4,16 +4,16 @@
 
 ```
 {
-  object: :string,
-  url: :string,
-  pages: {
-    next_url: :string_or_null,
-    previous_url: :string_or_null,
-    per_page: :integer
+  "object": <string>,
+  "url": <string>,
+  "pages": {
+    "next_url": <string_or_null>,
+    "previous_url": <string_or_null>,
+    "per_page": <integer>
   },
-  total_count: :integer,
-  data_updated_at: :date,
-  data: :array_of_objects
+  "total_count": <integer>,
+  "data_updated_at": <date>,
+  "data": <array_of_objects>
 }
 ```
 
@@ -21,11 +21,11 @@
 
 ```
 {
-  id: :integer,
-  object: :string,
-  url: :string,
-  data_updated_at: :date,
-  data: :object
+  "id": <integer>,
+  "object": <string>,
+  "url": <string>,
+  "data_updated_at": <date>,
+  "data": <object>
 }
 ```
 

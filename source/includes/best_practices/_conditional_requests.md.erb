@@ -11,21 +11,30 @@ If both `If-None-Match` and `If-Modified-Since` are passed in, then `If-None-Mat
 > To define `If-None-Match`, use this code:
 
 ```shell
-curl "api_endpoint_here"
-  -H "Authorization: Token token=api_token_here"
+curl "<api_endpoint_here>"
+  -H "Authorization: Bearer <api_token_here>"
   -H "Wanikani-Revision: <%= current_page.data.api_revision %>"
-  -H "If-None-Match: etag_here"
+  -H "If-None-Match: <etag_here>"
 ```
 
 ```javascript
+var requestHeaders = new Headers();
+requestHeaders.append('Authorization', 'Bearer <api_token_here>');
+requestHeaders.append('Wanikani-Revision', '<%= current_page.data.api_revision %>');
+requestHeaders.append('If-None-Match', '<etag_here>');
+var requestInit = { method: 'GET', headers: requestHeaders };
+var endpoint = new Request('<api_endpoint_here>', requestInit);
 
+fetch(endpoint)
+  .then(function(response) { return response.json(); })
+  .then(function(responseBody) { console.log(responseBody); });
 ```
 
-> Make sure to replace `etag_here` with the `ETag` value extracted from a previous response header.
+> Make sure to replace `<etag_here>` with the `ETag` value extracted from a previous response header.
 
 The `If-None-Match` request header takes in an `ETag` value from the last request's response header:
 
-`If-None-Match: etag_here`
+`If-None-Match: <etag_here>`
 
 More information on `If-None-Match` can be found at the [MDN web docs](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/If-None-Match).
 
@@ -34,17 +43,26 @@ More information on `If-None-Match` can be found at the [MDN web docs](https://d
 > To define `If-Modified-Since`, use this code:
 
 ```shell
-curl "api_endpoint_here"
-  -H "Authorization: Token token=api_token_here"
+curl "<api_endpoint_here>"
+  -H "Authorization: Bearer <api_token_here>"
   -H "Wanikani-Revision: <%= current_page.data.api_revision %>"
-  -H "If-Modified-Since: last_modified_here"
+  -H "If-Modified-Since: <last_modified_date_here>"
 ```
 
 ```javascript
+var requestHeaders = new Headers();
+requestHeaders.append('Authorization', 'Bearer <api_token_here>');
+requestHeaders.append('Wanikani-Revision', '<%= current_page.data.api_revision %>');
+requestHeaders.append('If-Modified-Since', '<last_modified_date_here>');
+var requestInit = { method: 'GET', headers: requestHeaders };
+var endpoint = new Request('<api_endpoint_here>', requestInit);
 
+fetch(endpoint)
+  .then(function(response) { return response.json(); })
+  .then(function(responseBody) { console.log(responseBody); });
 ```
 
-> Make sure to replace `last_modified_here` with the `Last-Modified` value extracted from a previous response header or any datetime.
+> Make sure to replace `<last_modified_date_here>` with the `Last-Modified` value extracted from a previous response header or any datetime.
 
 The `If-Modified-Since` request header takes in an `Last-Modified` value from the last request's response header or any datetime in the following format:
 
