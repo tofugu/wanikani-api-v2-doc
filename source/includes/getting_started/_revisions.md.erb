@@ -25,3 +25,9 @@ See the [list of revisions and changelogs](<%= ENV['ROOT_PATH'] %>) for more det
 <aside class="notice">
 If no revision is specified, the API will default to <a href="<%= ENV['ROOT_PATH'] %>/<%= ENV['DEFAULT_REVISION'] %>" title="View API revision 20170710 documentation">revision <%= ENV['DEFAULT_REVISION'] %></a>.
 </aside>
+
+### Revision Policy
+
+Breaking changes introduced to the API will be given a new revision timestamp. An example would be the renaming of a field in a resource.
+
+Changes which do not break will be introduced into existing revisions. An example would be the inclusion of a new field in a resource.
