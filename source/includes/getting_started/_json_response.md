@@ -42,7 +42,7 @@ Details on some of the fields:
 
 Rest of the fields are discussed below.
 
-## Object Types
+### Object Types
 
 Each resource and collection contains an `object` key with an identifying value.
 
@@ -65,7 +65,7 @@ And a list of specific resource objects:
 * `user`
 * `vocabulary`
 
-## Collection Size and Pagination
+### Collection Size and Pagination
 
 By default the number of resources returned for all collections is set to a maximum of 1000. Some endpoints may return a different size.
 
@@ -96,6 +96,6 @@ If a request to `/api/v2/subjects/?page_before_id=3` is initiated, then the resp
 
 If a request to `/api/v2/subjects/?page_after_id=5` is initiated, then the collection will yield empty result set.
 
-## Dates
+### Timestamps
 
-All dates are rendered in [ISO8601](https://xkcd.com/1179/) to the microsecond.
+All timestamps are rendered in [ISO8601](https://xkcd.com/1179/) to the microsecond.

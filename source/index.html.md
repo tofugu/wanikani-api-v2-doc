@@ -15,10 +15,9 @@ includes:
   - getting_started
   - getting_started/nomenclature
   - getting_started/rest_client_import_files
+  - getting_started/rate_limit
   - getting_started/authentication
   - getting_started/revisions
-  - getting_started/conditional_requests
-  - getting_started/rate_limiter
   - getting_started/json_response
   - getting_started/filters
   - assignments
@@ -31,6 +30,9 @@ includes:
   - user
   - errors
   - best_practices
+  - best_practices/caching
+  - best_practices/leveraging_updated_after_filter
+  - best_practices/conditional_requests
   - notable_cases
 
 search: true
