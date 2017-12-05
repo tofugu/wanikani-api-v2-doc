@@ -89,15 +89,15 @@ The previous page of results can be requested by passing in the `page_before_id`
 
 If a cursor is outside the range of `id`s for the collection, an empty result set is returned for `data`.
 
-Since it’s slightly ambiguous, here is a simple example:
+#### Example
 
-Let’s say there are four Subject resources with `id` of 1, 2, 3, 4.
+Let’s say there are four resources with `id` of 1, 2, 3, 4.
 
-If a request to `/api/v2/subjects/?page_after_id=2` is initiated, then the response will have resources of `id` 3 and 4.
+If a request to `...?page_after_id=2` is initiated, then the response will have resources of `id` 3 and 4.
 
-If a request to `/api/v2/subjects/?page_before_id=3` is initiated, then the response will have resources of `id` 1 and 2.
+If a request to `...?page_before_id=3` is initiated, then the response will have resources of `id` 1 and 2.
 
-If a request to `/api/v2/subjects/?page_after_id=5` is initiated, then the collection will yield empty result set.
+If a request to `...?page_after_id=5` is initiated, then the collection will yield empty result set.
 
 ### Resource Ordering in Collections
 
