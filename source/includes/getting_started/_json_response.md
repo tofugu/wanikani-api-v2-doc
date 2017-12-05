@@ -87,7 +87,7 @@ WaniKani API uses a cursor-based pagination scheme, with the `id` of a resource 
 
 The previous page of results can be requested by passing in the `page_before_id` parameter, with the value being the `id` you want to look before. Similar logic applies for the next page. Pass in the `page_after_id` parameter with with the `id` you want to look after.
 
-If a cursor is outside range of IDs for the collection, an empty result set is returned for `data`.
+If a cursor is outside the range of `id`s for the collection, an empty result set is returned for `data`.
 
 Since it’s slightly ambiguous, here is a simple example:
 
