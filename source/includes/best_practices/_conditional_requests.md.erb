@@ -12,7 +12,7 @@ If both `If-None-Match` and `If-Modified-Since` are passed in, then `If-None-Mat
 
 ```shell
 curl "api_endpoint_here"
-  -H "Authorization: Token token=api_key_here"
+  -H "Authorization: Token token=api_token_here"
   -H "Wanikani-Revision: <%= ENV['REVISION'] %>"
   -H "If-None-Match: etag_here"
 ```
@@ -35,7 +35,7 @@ More information about `If-None-Match` can be found at the [MDN web docs](https:
 
 ```shell
 curl "api_endpoint_here"
-  -H "Authorization: Token token=api_key_here"
+  -H "Authorization: Token token=api_token_here"
   -H "Wanikani-Revision: <%= ENV['REVISION'] %>"
   -H "If-Modified-Since: last_modified_here"
 ```
