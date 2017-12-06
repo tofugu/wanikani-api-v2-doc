@@ -8,7 +8,7 @@ Welcome to the WaniKani API! You can use our API to access read-only endpoints, 
 
 All responses return JSON.
 
-We currently have language bindings in Shell and Javascript! You can view code examples in the dark area to the right, and you can switch the programming language of the examples with the tabs in the top right.
+We currently have examples in Shell and Javascript! You can view code examples in the dark area to the right, and you can switch the programming language of the examples with the tabs in the top right.
 
 ## Roadmap
 

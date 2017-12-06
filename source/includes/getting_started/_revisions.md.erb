@@ -8,17 +8,7 @@ curl "<api_endpoint_here>"
   -H "Wanikani-Revision: <%= current_page.data.api_revision %>"
 ```
 
-```javascript
-var requestHeaders = new Headers();
-requestHeaders.append('Authorization', 'Bearer <api_token_here>');
-requestHeaders.append('Wanikani-Revision', '<%= current_page.data.api_revision %>');
-var requestInit = { method: 'GET', headers: requestHeaders };
-var endpoint = new Request('<api_endpoint_here>', requestInit);
-
-fetch(endpoint)
-  .then(function(response) { return response.json(); })
-  .then(function(responseBody) { console.log(responseBody); });
-```
+<%= partial('examples/GET_javascript') %>
 
 Revisions on WaniKani API v2 will be designated by timestamps in the ISO format `YYYYMMDD`.
 
@@ -28,10 +18,10 @@ WaniKani API expects the revision to be included in all API requests to the serv
 
 `Wanikani-Revision: <%= current_page.data.api_revision %>`
 
-See the [list of revisions and changelogs](<%= ENV['DOCUMENTATION_ROOT_PATH'] %>) for more details.
+See the [list of revisions and changelogs](<%= current_page.data.documentation_root_path %>) for more details.
 
 <aside class="notice">
-If no revision is specified, the API will default to <a href="<%= ENV['DOCUMENTATION_ROOT_PATH'] %>/<%= ENV['DEFAULT_REVISION'] %>" title="View API revision 20170710 documentation">revision <%= ENV['DEFAULT_REVISION'] %></a>.
+If no revision is specified, the API will default to <a href="<%= current_page.data.documentation_root_path %>/<%= current_page.data.base_revision %>" title="View API revision 20170710 documentation">revision <%= current_page.data.base_revision %></a>.
 </aside>
 
 ### Revision Policy

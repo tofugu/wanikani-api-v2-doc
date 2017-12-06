@@ -101,7 +101,7 @@ If a request to `...?page_after_id=5` is initiated, then the collection will yie
 
 ### Resource Ordering in Collections
 
-Resources in a collection are ordered by ascending `created_at`.
+Resources in a collection are ordered by ascending `id`.
 
 ### Timestamps
 

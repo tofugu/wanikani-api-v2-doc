@@ -1,1 +1,95 @@
 # Assignments
+
+Assignment resources contain information regarding the user's current SRS state and milestones with an associated subject.
+
+## Get All Assignments
+
+```shell
+curl "<%= current_page.data.api_root_url %>/subjects"
+  -H "Authorization: Bearer <api_token_here>"
+  -H "Wanikani-Revision: <%= current_page.data.api_revision %>"
+```
+
+<%= partial('examples/GET_javascript', locals: { api_endpoint: 'subjects' }) %>
+
+> The above command returns JSON structured like this:
+
+```json
+{
+  "object": "collection",
+  "url": "<%= current_page.data.api_root_url %>/assignments",
+  "pages": {
+    "per_page": 1000,
+    "next_url": "<%= current_page.data.api_root_url %>/assignments?page_after_id=80469434",
+    "previous_url": null
+  },
+  "total_count": 1600,
+  "data_updated_at": "2017-11-29T19:37:03.571377Z",
+  "data": [
+    {
+      "id": 80463006,
+      "object": "assignment",
+      "url": "<%= current_page.data.api_root_url %>/assignments/80463006",
+      "data_updated_at": "2017-10-30T01:51:10.438432Z",
+      "data": {
+        "subject_id": 8761,
+        "subject_type": "radical",
+        "level": 1,
+        "srs_stage": 8,
+        "srs_stage_name": "Enlightened",
+        "unlocked_at": "2017-09-05T23:38:10.695133Z",
+        "started_at": "2017-09-05T23:41:28.980679Z",
+        "passed_at": "2017-09-07T17:14:14.491889Z",
+        "burned_at": null,
+        "available_at": "2018-02-27T00:00:00.000000Z",
+        "passed": true,
+        "resurrected": false
+      }
+    }
+  ]
+}
+```
+
+This endpoint retrieves all assignments.
+
+### HTTP Request
+
+`GET <%= current_page.data.api_root_url %>/assignments`
+
+### Query Parameters
+
+Parameter | Default | Description
+--------- | ------- | -----------
+include_cats | false | If set to true, the result will also include cats.
+available | true | If set to false, the result will include kittens that have already been adopted.
+
+<aside class="success">
+Remember — a happy kitten is an authenticated kitten!
+</aside>
+
+Name | Permitted values | Default | Description
+---- | ---------------- | ------- | -----------
+available_after |
+available_before |
+burned |
+ids |
+levels |
+passed |
+srs_stages |
+subject_ids |
+subject_type |
+updated_after |
+
+| ids | String | Integers | Return results tied to ids |
+| subject_ids      | String   | Integers                      | Return result tied to subject_ids                                                                                       |
+| subject_type     | String   | radical, kanji, vocabulary    | Return results of specified subject_type                                                                                |
+| levels           | String   | Integers between 1 and 60     | Return results of specified levels                                                                                      |
+| available_before | String   | ISO8601 timestamp             | Return assignment reviews available before timestamp                                                                    |
+| available_after  | String   | ISO8601 timestamp             | Return assignment reviews available after timestamp                                                                     |
+| srs_stages       | String   | Integers between 0 and 9      | Return assignments of specified srs stages. Note, 0 is lessons, 9 is the burned state                                   |
+| passed           | Boolean  | true, false                   | Return assignments which have reach Guru (aka srs_stage 5) at some point (true) or which have never been Guru’d (false) |
+| burned           | Boolean  | true, false                   | Return assignments which have been burned at some point (true) or never have been burned (false)                        |
+| updated_after    | String   | ISO8601 timestamp in the past | Return results which have been updated after the timestamp                                                              |
+
+
+### Query Parameter Examples

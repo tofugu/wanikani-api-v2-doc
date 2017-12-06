@@ -2,6 +2,11 @@
 title: API Reference
 
 api_revision: 20170710
+api_root_url: 'https://www.wanikani.com/api/v2'
+api_token_placeholder: '<api_token_here>'
+api_endpoint_placeholder: '<api_endpoint_here>'
+base_revision: 20170710
+documentation_root_path: '/api/v2'
 
 language_tabs: # must be one of https://git.io/vQNgJ
   - shell
@@ -15,6 +20,7 @@ toc_footers:
 includes:
   - introduction
   - getting_started
+  - getting_started/documentation
   - getting_started/nomenclature
   - getting_started/rest_client_import_files
   - getting_started/rate_limit

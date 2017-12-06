@@ -1,0 +1,7 @@
+```shell
+curl "<%= current_page.data.api_root_url %>/<%= locals.fetch(:api_endpoint, current_page.data.api_endpoint_placeholder) %>"
+  <% unless locals.fetch(:without_revision, false) %>
+  -H "Wanikani-Revision: <%= current_page.data.api_revision %>"
+  <% end %>
+  -H "Authorization: Bearer <%= locals.fetch(:api_token, current_page.data.api_token_placeholder) %>"
+```
