@@ -4,11 +4,7 @@ Assignment resources contain information regarding the user's current SRS state 
 
 ## Get All Assignments
 
-```shell
-curl "<%= current_page.data.api_root_url %>/subjects"
-  -H "Authorization: Bearer <api_token_here>"
-  -H "Wanikani-Revision: <%= current_page.data.api_revision %>"
-```
+<%= partial('examples/GET_shell', locals: { api_endpoint: 'subjects' }) %>
 
 <%= partial('examples/GET_javascript', locals: { api_endpoint: 'subjects' }) %>
 
