@@ -2,6 +2,8 @@
 
 Assignment resources contain information regarding the User's current SRS state and milestones with an associated subject.
 
+An Assignment resource is created when the User has passed the related Subject's components.
+
 ## Assignment `data` Structure
 
 > Below is the structure of an `assignment` `data` object
@@ -98,7 +100,7 @@ Name | Permitted values | Description
 ---- | ---------------- | -----------
 `available_after` | Date | Returns `data.available_at` > `available_after`.
 `available_before` | Date | Returns `data.available_at` < `available_before`.
-`burned` | Boolean | Returns `data.burned_at` present if `true`. Returns `data.burned_at` with `null` if `false`.
+`burned` | Boolean | Returns `data.burned_at` present if `true`. <br><br>Returns `data.burned_at` with `null` if `false`.
 `ids` | Comma-delimited integers | Returns `data.id` included in values.
 `levels` | Comma-delimited integers, where integer between and including `1` and `60` | Return `data.level` included in values.
 `passed` | Boolean | Return `data.passed` equal to value.
@@ -108,3 +110,58 @@ Name | Permitted values | Description
 `updated_after` | Date | Returns `data_updated_at` > `updated_after`.
 
 ### Query Parameter Examples
+
+#### Assignments Available for Review in Two Hours
+
+If the date time now is November 11, 2017 8:42:00 AM UTC:
+
+`<%= current_page.data.api_root_url %>/assignments?available_after=2017-11-11T10:42:00Z`
+
+#### Level 8 and 42 Kanji Assignments Which Have Been Burned
+
+`<%= current_page.data.api_root_url %>/assignments?levels=8,42&subject_types=kanji&burned=true`
+
+#### Assignments Updated After One Hour Ago and at SRS Stage Master I
+
+If the date time now is November 11, 2017 8:42:00 AM UTC:
+
+`<%= current_page.data.api_root_url %>/assignments?updated_after=2017-11-11T7:42:00Z&srs_stages=7`
+
+## Get a Specific Assignment
+
+> To `GET` a specific assignment use the code below:
+
+<%= partial('examples/GET_shell', locals: { api_endpoint: 'assignments/80463006' }) %>
+
+<%= partial('examples/GET_javascript', locals: { api_endpoint: 'assignments/80463006' }) %>
+
+> The above command returns JSON structured like this:
+
+```json
+{
+  "id": 80463006,
+  "object": "assignment",
+  "url": "<%= current_page.data.api_root_url %>/assignments/80463006",
+  "data_updated_at": "2017-11-29T19:37:03.571377Z",
+  "data": {
+    "subject_id": 8761,
+    "subject_type": "radical",
+    "level": 1,
+    "srs_stage": 8,
+    "srs_stage_name": "Enlightened",
+    "unlocked_at": "2017-09-05T23:38:10.695133Z",
+    "started_at": "2017-09-05T23:41:28.980679Z",
+    "passed_at": "2017-09-07T17:14:14.491889Z",
+    "burned_at": null,
+    "available_at": "2018-02-27T00:00:00.000000Z",
+    "passed": true,
+    "resurrected": false
+  }
+}
+```
+
+This endpoint retrieves a specific assignment by its `id`.
+
+<aside class="warning">
+Make sure to replace the <code>80463006</code> in the example with the specific assignment's id.
+</aside>
