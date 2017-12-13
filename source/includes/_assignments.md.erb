@@ -1,8 +1,46 @@
 # Assignments
 
-Assignment resources contain information regarding the user's current SRS state and milestones with an associated subject.
+Assignment resources contain information regarding the User's current SRS state and milestones with an associated subject.
+
+## Assignment `data` Structure
+
+> Below is the structure of an `assignment` `data` object
+
+```
+{
+  "subject_id": <integer>,
+  "subject_type": <string>,
+  "level": <integer>,
+  "srs_stage": <integer>,
+  "srs_stage_name": <string>,
+  "unlocked_at": <date_or_null>,
+  "started_at": <date_or_null>,
+  "passed_at": <date_or_null>,
+  "burned_at": <date_or_null>,
+  "available_at": <date_or_null>,
+  "passed": <boolean>,
+  "resurrected": <boolean>
+}
+```
+
+Attribute | Possible Values | Description
+--------- | --------------- | -----------
+`subject_id` | Integers     | Unique identification related to one `subject` resource. See [Subjects](#subjects).
+`subject_type` | `Kanji`, `Radical`, or `Vocabulary` | The subject type the `assignment` is related to. See [Subjects](#subjects).
+`level` | Between and including `1` and `60` | The WaniKani level the related `subject` belongs to.
+`srs_stage` | Between and including `0` and `9` | The current SRS progression stage the related `subject` is at. <br><br>`0` — Has not been completed in lessons, and therefore not in the review state. <br><br>`1` to `8` — Currently in the review state. <br><br>`9` — Burned, therefore no longer in the review state.
+`srs_stage_name` | `Initiate`, `Apprentice I`, `Apprentice II`, `Apprentice III`, `Apprentice IV`, `Guru I`, `Guru II`, `Master`, `Enlightened`, or `Burned` | The WaniKani SRS stage name associated to the `srs_stage`.
+`unlocked_at` | `null` or Date | The timestamp when the related `subject` has its prerequisites satisfied and made available to lessons. <br><br>Prerequisites are the following: <br><br>The subject components have have reached `srs_stage` `5` the first time (passing). <br><br>The User's level is equal to or greater than the `subject` resource `level`.
+`started_at` | `null` or Date | The timestamp when the User has complete the lesson for the related `subject`.
+`passed_at` | `null` or Date | The timestamp when the User has reached the satisfactory `srs_stage` (`5`) the first time.
+`burned_at` | `null` or Date | The timestamp when the User has reached `srs_stage` `9` the first time.
+`available_at` | `null` or Date | The date when the related `subject` will be available in the User's review queue.
+`passed` | Boolean | The Boolean equivalent of `passed_at`
+`resurrected` | Boolean | The state if the User has unburned the subject and added back to the review queue.
 
 ## Get All Assignments
+
+> To `GET` all the assignments use the code below:
 
 <%= partial('examples/GET_shell', locals: { api_endpoint: 'subjects' }) %>
 
@@ -46,7 +84,7 @@ Assignment resources contain information regarding the user's current SRS state 
 }
 ```
 
-This endpoint retrieves all assignments.
+This endpoint retrieves all assignments, paginated by 1000 `assignment` resources.
 
 ### HTTP Request
 
@@ -54,38 +92,19 @@ This endpoint retrieves all assignments.
 
 ### Query Parameters
 
-Parameter | Default | Description
---------- | ------- | -----------
-include_cats | false | If set to true, the result will also include cats.
-available | true | If set to false, the result will include kittens that have already been adopted.
+If any of the parameters are included in the query, the `data` collection will include `assignments` based on the conditions assigned.
 
-<aside class="success">
-Remember — a happy kitten is an authenticated kitten!
-</aside>
-
-Name | Permitted values | Default | Description
----- | ---------------- | ------- | -----------
-available_after |
-available_before |
-burned |
-ids |
-levels |
-passed |
-srs_stages |
-subject_ids |
-subject_type |
-updated_after |
-
-| ids | String | Integers | Return results tied to ids |
-| subject_ids      | String   | Integers                      | Return result tied to subject_ids                                                                                       |
-| subject_type     | String   | radical, kanji, vocabulary    | Return results of specified subject_type                                                                                |
-| levels           | String   | Integers between 1 and 60     | Return results of specified levels                                                                                      |
-| available_before | String   | ISO8601 timestamp             | Return assignment reviews available before timestamp                                                                    |
-| available_after  | String   | ISO8601 timestamp             | Return assignment reviews available after timestamp                                                                     |
-| srs_stages       | String   | Integers between 0 and 9      | Return assignments of specified srs stages. Note, 0 is lessons, 9 is the burned state                                   |
-| passed           | Boolean  | true, false                   | Return assignments which have reach Guru (aka srs_stage 5) at some point (true) or which have never been Guru’d (false) |
-| burned           | Boolean  | true, false                   | Return assignments which have been burned at some point (true) or never have been burned (false)                        |
-| updated_after    | String   | ISO8601 timestamp in the past | Return results which have been updated after the timestamp                                                              |
-
+Name | Permitted values | Description
+---- | ---------------- | -----------
+`available_after` | Date | Returns `data.available_at` > `available_after`.
+`available_before` | Date | Returns `data.available_at` < `available_before`.
+`burned` | Boolean | Returns `data.burned_at` present if `true`. Returns `data.burned_at` with `null` if `false`.
+`ids` | Comma-delimited integers | Returns `data.id` included in values.
+`levels` | Comma-delimited integers, where integer between and including `1` and `60` | Return `data.level` included in values.
+`passed` | Boolean | Return `data.passed` equal to value.
+`srs_stages` | Comma-delimited integers, where integer between and including `0` and `9` | Returns `data.srs_stage` included in values.
+`subject_ids` | Comma-delimited integers | Returns `data.subject_id` included in values.
+`subject_types` | Comma-delimited strings, where string is `radical`, `kanji`, or `vocabulary` | Returns `data.subject_type` included in values.
+`updated_after` | Date | Returns `data_updated_at` > `updated_after`.
 
 ### Query Parameter Examples
