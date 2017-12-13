@@ -15,6 +15,6 @@ var apiEndpoint =
   });
 
 fetch(apiEndpoint)
-  .then(function(response) { return response.json(); })
-  .then(function(responseBody) { console.log(responseBody); });
+  .then(response => response.json())
+  .then(responseBody => console.log(responseBody));
 ```
