@@ -20,6 +20,7 @@ An Assignment resource is created when the User has passed the related Subject's
   "passed_at": <date_or_null>,
   "burned_at": <date_or_null>,
   "available_at": <date_or_null>,
+  "resurrected_at": <date_or_null>,
   "passed": <boolean>,
   "resurrected": <boolean>
 }
@@ -37,6 +38,7 @@ Attribute | Possible Values | Description
 `passed_at` | `null` or Date | The timestamp when the User has reached the satisfactory `srs_stage` (`5`) the first time.
 `burned_at` | `null` or Date | The timestamp when the User has reached `srs_stage` `9` the first time.
 `available_at` | `null` or Date | The date when the related `subject` will be available in the User's review queue.
+`resurrected_at` | `null` or Date | The date when the related `subject` was resurrected.
 `passed` | Boolean | The Boolean equivalent of `passed_at`
 `resurrected` | Boolean | The state if the User has unburned the subject and added back to the review queue.
 
@@ -78,6 +80,7 @@ Attribute | Possible Values | Description
         "passed_at": "2017-09-07T17:14:14.491889Z",
         "burned_at": null,
         "available_at": "2018-02-27T00:00:00.000000Z",
+        "resurrected_at": null,
         "passed": true,
         "resurrected": false
       }
@@ -104,6 +107,7 @@ Name | Permitted values | Description
 `ids` | Comma-delimited integers | Returns `data.id` included in values.
 `levels` | Comma-delimited integers, where integer between and including `1` and `60` | Return `data.level` included in values.
 `passed` | Boolean | Return `data.passed` equal to value.
+`resurrected` | Return `data.resurrected` equal to value.
 `srs_stages` | Comma-delimited integers, where integer between and including `0` and `9` | Returns `data.srs_stage` included in values.
 `subject_ids` | Comma-delimited integers | Returns `data.subject_id` included in values.
 `subject_types` | Comma-delimited strings, where string is `radical`, `kanji`, or `vocabulary` | Returns `data.subject_type` included in values.
