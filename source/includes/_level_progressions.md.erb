@@ -1,1 +1,143 @@
 # Level Progressions
+
+Level progression resources contain information regarding the user's progression through the WaniKani levels.
+
+A level progression resource is created when the User has met the prerequisites on leveling up.
+
+Leveling up requires the following to be met:
+
+* Achieve 90% or above passing rate on assignments belonging to the levels — Passed assignment resources belong to the level have `data.passed` equal to `true`.
+* User has permissions to access the level — Under `/user`, the `data.level` must be less than or equal to `data.max_level_granted_by_subscription`.
+
+## Level Progression `data` Structure
+
+> Below is the struct of an `level_progression` `data` object
+
+```
+{
+  created_at: :date,
+  level: :integer,
+  unlocked_at: :date_or_null,
+  started_at: :date_or_null,
+  passed_at: :date_or_null,
+  completed_at: :date_or_null,
+  abandoned_at: :date_or_null
+}
+```
+
+Attribute | Possible Values | Description
+--------- | --------------- | -----------
+`created_at` | Date | Timestamp when the object was created
+`level` | Integer | The WaniKani level the object is concerned with.
+`unlocked_at` | `null` or Date | Timestamp when the User has access to the level for lessons and reviews.
+`started_at` | `null` or Date | Timestamp when the User has started their first lesson of a subject belonging to the `level`.
+`passed_at` | `null` or Date | Timestamp when the User has passed at least 90% of the subjects belonging to the level.
+`completed_at` | `null` or Date | Timestamp when the User has burned 100% of the subjects belonging to the level.
+`abandoned_at` | `null` or Date | Timestamp when the User has abandoned the level. This is primary used when the User has initiated a [reset](#resets).
+
+## Get All Level Progressions
+
+> To `GET` all the level_progressions use the code below:
+
+<%= partial('examples/GET_shell', locals: { api_endpoint: 'level_progressions' }) %>
+
+<%= partial('examples/GET_javascript', locals: { api_endpoint: 'level_progressions' }) %>
+
+> The above command returns JSON structured like this:
+
+```json
+{
+  "object": "collection",
+  "url": "https://www.wanikani.com/api/v2/level_progressions",
+  "pages": {
+    "per_page": 1000,
+    "next_url": null,
+    "previous_url": null
+  },
+  "total_count": 42,
+  "data_updated_at": "2017-09-21T11:45:01.691388Z",
+  "data": [
+    {
+      "id": 49392,
+      "object": "level_progression",
+      "url": "https://www.wanikani.com/api/v2/level_progressions/49392",
+      "data_updated_at": "2017-03-30T11:31:20.438432Z",
+      "data": {
+        "created_at": "2017-03-30T08:21:51.439918Z",
+        "level": 42,
+        "unlocked_at": "2017-03-30T08:21:51.439918Z",
+        "started_at": "2017-03-30T11:31:20.438432Z",
+        "passed_at": null,
+        "completed_at": null,
+        "abandoned_at": null
+      }
+    }
+  ]
+}
+```
+
+This endpoint retrieves all level_progressions in the following states:
+
+ * Ordered by ascending `created_at`
+ * Paginated by 1000 resources.
+
+<aside class="warning">
+Logging for this endpoint has been implemented late in the application's life. Therefore, some Users will not have a full history.
+</aside>
+
+### HTTP Request
+
+`GET <%= current_page.data.api_root_url %>/level_progressions`
+
+### Query Parameters
+
+If any of the parameters are included in the query, the `data` collection will return `level_progressions` based on the conditions assigned.
+
+Name | Permitted values | Description
+---- | ---------------- | -----------
+`ids` | Comma-delimited integers | Returns `data.id` included in values.
+`updated_after` | Date | Returns `data_updated_at` > `updated_after`.
+
+## Get a Specific Level Progression
+
+<%= partial('examples/GET_shell', locals: { api_endpoint: 'assignments/49392' }) %>
+
+<%= partial('examples/GET_javascript', locals: { api_endpoint: 'assignments/49392' }) %>
+
+> The above command returns JSON structured like this:
+
+```json
+{
+  "id": 49392,
+  "object": "level_progression",
+  "url": "<%= current_page.data.api_root_url %>/level_progressions/49392",
+  "data_updated_at": "2017-03-30T11:31:20.438432Z",
+  "data": {
+    "created_at": "2017-03-30T08:21:51.439918Z",
+    "level": 42,
+    "unlocked_at": "2017-03-30T08:21:51.439918Z",
+    "started_at": "2017-03-30T11:31:20.438432Z",
+    "passed_at": null,
+    "completed_at": null,
+    "abandoned_at": null
+  }
+}
+```
+
+This endpoint retrieves a specific assignment by its `id`.
+
+<aside class="warning">
+Make sure to replace the <code>49392</code> in the example with the specific level_progression's id.
+</aside>
+
+### Timestamps
+
+`unlocked_at`, `started_at`, `passed_at`, `completed_at` timestamps are in sequential order as listed.
+
+Order | Attribute | Description
+----- | --------- | -----------
+1 | `unlocked_at` | Timestamped when the user has passed the previous level.
+2 | `started_at` | Timestamped when the user finishes the first lesson for a subject belonging to the level.
+3 | `passed_at` | Timestamped once the user passes 90% of the subject object `kanji` for that level.
+4 | `completed_at` | Timestamped when the user has burned all subjects related to the level.
+5 | `abandoned_at` | Timestamped for user initiated events such as a user [reset](#resets).
