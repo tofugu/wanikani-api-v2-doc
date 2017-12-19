@@ -59,6 +59,7 @@ And a list of specific resource objects:
 * `level_progression`
 * `kanji`
 * `radical`
+* `reset`
 * `review`
 * `review_statistic`
 * `study_material`
