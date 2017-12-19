@@ -10,6 +10,7 @@ An Assignment resource is created when the User has passed the related Subject's
 
 ```
 {
+  "created_at": <date>,
   "subject_id": <integer>,
   "subject_type": <string>,
   "level": <integer>,
@@ -28,7 +29,8 @@ An Assignment resource is created when the User has passed the related Subject's
 
 Attribute | Possible Values | Description
 --------- | --------------- | -----------
-`subject_id` | Integers     | Unique identification related to one `subject` resource. See [Subjects](#subjects).
+`created_at` | Date | Timestamp when the resource was created.
+`subject_id` | Integers | Unique identification related to one `subject` resource. See [Subjects](#subjects).
 `subject_type` | `Kanji`, `Radical`, or `Vocabulary` | The subject type the `assignment` is related to. See [Subjects](#subjects).
 `level` | Between and including `1` and `60` | The WaniKani level the related `subject` belongs to.
 `srs_stage` | Between and including `0` and `9` | The current SRS progression stage the related `subject` is at. <br><br>`0` — Has not been completed in lessons, and therefore not in the review state. <br><br>`1` to `8` — Currently in the review state. <br><br>`9` — Burned, therefore no longer in the review state.
@@ -70,6 +72,7 @@ Attribute | Possible Values | Description
       "url": "<%= current_page.data.api_root_url %>/assignments/80463006",
       "data_updated_at": "2017-10-30T01:51:10.438432Z",
       "data": {
+        "created_at": "2017-09-05T23:38:10.695133Z",
         "subject_id": 8761,
         "subject_type": "radical",
         "level": 1,
@@ -89,7 +92,10 @@ Attribute | Possible Values | Description
 }
 ```
 
-This endpoint retrieves all assignments, paginated by 1000 `assignment` resources.
+This endpoint retrieves all assignments in the following states:
+
+ * Ordered by ascending `created_at`
+ * Paginated by 1000 resources.
 
 ### HTTP Request
 
@@ -97,7 +103,7 @@ This endpoint retrieves all assignments, paginated by 1000 `assignment` resource
 
 ### Query Parameters
 
-If any of the parameters are included in the query, the `data` collection will include `assignments` based on the conditions assigned.
+If any of the parameters are included in the query, the `data` collection will return `assignments` based on the conditions assigned.
 
 Name | Permitted values | Description
 ---- | ---------------- | -----------
@@ -148,6 +154,7 @@ If the date time now is November 11, 2017 8:42:00 AM UTC:
   "url": "<%= current_page.data.api_root_url %>/assignments/80463006",
   "data_updated_at": "2017-11-29T19:37:03.571377Z",
   "data": {
+    "created_at": "2017-09-05T23:38:10.695133Z",
     "subject_id": 8761,
     "subject_type": "radical",
     "level": 1,
