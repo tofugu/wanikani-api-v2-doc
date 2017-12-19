@@ -30,6 +30,7 @@ includes:
   - getting_started/filters
   - assignments
   - level_progressions
+  - resets
   - review_statistics
   - reviews
   - study_materials
