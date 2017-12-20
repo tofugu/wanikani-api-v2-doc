@@ -1,1 +1,146 @@
 # Reviews
+
+Review resources are the User's review logs.
+
+A Review resource is created when the User has answered both meaning and reading correctly. Some subjects require only either meaning or reading and not both.
+
+## Review `data` Structure
+
+> Below is the structure of an `review` `data` object
+
+```
+{
+  "created_at": <date>,
+  "assignment_id": <integer>,
+  "subject_id": <integer>,
+  "starting_srs_stage": <integer>,
+  "starting_srs_stage_name": <string>,
+  "incorrect_meaning_answers": <integer_or_null>,
+  "incorrect_reading_answers": <integer_or_null>
+}
+```
+
+Attribute | Possible Values | Description
+--------- | --------------- | -----------
+`created_at` | Date | Timestamp when the object was created
+`assignment_id` | Integer | Unique identification related to one `assignment` resource. See [Assignments](#assignments).
+`subject_id` | Integer | Unique identification related to one `subject` resource. See [Subjects](#subjects).
+`starting_srs_stage` | Integer between and including `1` and `8` | The starting SRS progression stage
+`starting_srs_stage_name` | `Initiate`, `Apprentice I`, `Apprentice II`, `Apprentice III`, `Apprentice IV`, `Guru I`, `Guru II`, `Master`, `Enlightened`, or `Burned` | The WaniKani SRS stage name associated to the `starting_srs_stage`.
+`incorrect_meaning_answers` | Integer | The number of times the User has answered the meaning incorrectly.
+`incorrect_reading_answers` | Integer | The number of times the User has answered the reading incorrectly.
+
+## Get All Reviews
+
+> To `GET` all the reviews use the code below:
+
+<%= partial('examples/GET_shell', locals: { api_endpoint: 'reviews' }) %>
+
+<%= partial('examples/GET_javascript', locals: { api_endpoint: 'reviews' }) %>
+
+> The above command returns JSON structured like this:
+
+```json
+{
+  "object": "collection",
+  "url": "<%= current_page.data.api_root_url %>/reviews",
+  "pages": {
+    "per_page": 1000,
+    "next_url": "<%= current_page.data.api_root_url %>/reviews?page_after_id=534345",
+    "previous_url": null
+  },
+  "total_count": 19201,
+  "data_updated_at": "2017-12-20T01:10:17.578705Z",
+  "data": [
+    {
+      "id": 534342,
+      "object": "review",
+      "url": "<%= current_page.data.api_root_url %>/reviews/534342",
+      "data_updated_at": "2017-12-20T01:00:59.255427Z",
+      "data": {
+        "created_at": "2017-12-20T01:00:59.255427Z",
+        "assignment_id": 32132,
+        "subject_id": 8,
+        "starting_srs_stage": 4,
+        "starting_srs_stage_name": "Apprentice IV",
+        "incorrect_meaning_answers": 1,
+        "incorrect_reading_answers": 0
+      }
+    }
+  ]
+}
+```
+
+This endpoint retrieves all reviews in the following states:
+
+* Ordered by ascending `created_at`
+* Paginated by 1000 resources.
+
+### HTTP Request
+
+`GET <%= current_page.data.api_root_url %>/reviews`
+
+### Query Parameters
+
+If any of the parameters are included in the query, the `data` collection will return `reviews` based on the conditions assigned.
+
+Name | Permitted values | Description
+---- | ---------------- | -----------
+`ids` | Comma-delimited integers | Returns `data.id` included in values.
+`subject_ids` | Comma-delimited integers | Returns `data.subject_id` included in values.
+`updated_after` | Date | Returns `data_updated_at` > `updated_after`.
+
+### Query Parameter Examples
+
+#### Reviews Belonging to Kanji 大 Reviewed After Yesterday
+
+Assumptions:
+
+* Subject 大 has an id of 42
+* Date time now is November 11, 2017 8:42:00 AM UTC:
+
+`<%= current_page.data.api_root_url %>/reviews?subject_ids=42&updated_after=2017-10-11T10:42:00Z`
+
+## Get a Specific Review
+
+> To `GET` a specific review use the code below:
+
+<%= partial('examples/GET_shell', locals: { api_endpoint: 'reviews/534342' }) %>
+
+<%= partial('examples/GET_javascript', locals: { api_endpoint: 'reviews/534342' }) %>
+
+> The above command returns JSON structured like this:
+
+```json
+{
+  "id": 534342,
+  "object": "review",
+  "url": "<%= current_page.data.api_root_url %>/reviews/80463006",
+  "data_updated_at": "2017-12-20T01:00:59.255427Z",
+  "data": {
+    "created_at": "2017-12-20T01:00:59.255427Z",
+    "assignment_id": 32132,
+    "subject_id": 8,
+    "starting_srs_stage": 4,
+    "starting_srs_stage_name": "Apprentice IV",
+    "incorrect_meaning_answers": 1,
+    "incorrect_reading_answers": 0
+  }
+}
+```
+
+This endpoint retrieves a specific review by its `id`.
+
+<aside class="warning">
+Make sure to replace the <code>534342</code> in the example with the specific review's id.
+</aside>
+
+### Caveat
+
+It is important to note a subject (radical, kanji, and vocabulary) may not require a meaning or reading. Therefore attributes `incorrect_meaning_answers` and `incorrect_reading_answers` will return a value of `0` for subjects which do not have the requirement.
+
+Subject type | Answer types allowed
+------------ | --------------------
+kanji        | Meaning, Reading
+radical      | Meaning
+vocabulary   | Meaning, Reading
