@@ -133,11 +133,3 @@ Make sure to replace the <code>49392</code> in the example with the specific lev
 ### Timestamps
 
 `unlocked_at`, `started_at`, `passed_at`, `completed_at` timestamps are in sequential order as listed.
-
-Order | Attribute | Description
------ | --------- | -----------
-1 | `unlocked_at` | Timestamped when the user has passed the previous level.
-2 | `started_at` | Timestamped when the user finishes the first lesson for a subject belonging to the level.
-3 | `passed_at` | Timestamped once the user passes 90% of the subject object `kanji` for that level.
-4 | `completed_at` | Timestamped when the user has burned all subjects related to the level.
-5 | `abandoned_at` | Timestamped for user initiated events such as a user [reset](#resets).
