@@ -24,7 +24,7 @@ Attribute | Possible Values | Description
 `target_level` | Integer between and including `1` and `60` | The User's `level` after the reset.
 `confirmed_at` | Date | Timestamp when the User confirmed the reset.
 
-# Get All Resets
+## Get All Resets
 
 > To `GET` all the assignments use the code below:
 
