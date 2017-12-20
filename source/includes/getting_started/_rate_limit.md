@@ -2,7 +2,9 @@
 
 WaniKani API has the following rate limits active:
 
-* 60 requests per minute
-* 10 requests per second
+Throttle | Value
+-------- | -----
+Requests per minute | 45
+Requests per second | 10
 
-HTTP status code `403` (Forbidden) and body with message "Rate Limit Exceeded" is returned if the limits are exceeded.
+HTTP status code `429` (Forbidden) and body with the message `Rate Limit Exceeded` is returned if the limits are exceeded.

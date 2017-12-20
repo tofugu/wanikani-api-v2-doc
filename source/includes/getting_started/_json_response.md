@@ -29,18 +29,20 @@
 }
 ```
 
-> Here, `data` returns the specific fields for that kind of resource.
+> Here, `data` returns the specific attributes for that kind of resource.
 
 WaniKani API is structured to be RESTful.
 
-Details on some of the fields:
+Details on some of the attributes:
 
-* `id` — Unique identifier of the resource.
-* `url` — URL of the request
-* `data_updated_at` — If a response from a collection endpoint, then the latest updated timestamp of all the resources available within the [specified scope](#filters), not limited to pagination. If a response from a resource endpoint, then the updated timestamp of the resource object.
-* `data` — The requested resource(s).
+Attribute | Description
+--------- | -----------
+`id` | Unique identifier of the resource.
+`url` | URL of the request
+`data_updated_at` | If a response from a collection endpoint, then the latest updated timestamp of all the resources available within the [specified scope](#filters), not limited to pagination. If a response from a resource endpoint, then the updated timestamp of the resource object.
+`data` | The requested resource(s).
 
-Rest of the fields are discussed below.
+Rest of the attributes are discussed below.
 
 ### Object Types
 
@@ -70,21 +72,23 @@ And a list of specific resource objects:
 
 By default the number of resources returned for all collection endpoints is set to a maximum of 1000. Some endpoints may return a different size. The value can be found on `pages.per_page`.
 
-The `total_count` field is a count of all resources available within the [specified scope](#filters), not limited to pagination.
+The `total_count` attribute is a count of all resources available within the [specified scope](#filters), not limited to pagination.
 
 ### Pagination
 
 To help with paging through results, a couple pieces of information is provided on collections:
 
-* `pages.next_url` — A url if the next page exists. Else the value is `null`.
-* `pages.previous_url` — A url if the previous page exists. Else the value is `null`.
-* `pages.per_page` — Maximum number of resources delivered for this collection.
+Attribute | Description
+--------- | -----------
+`pages.next_url` | A url if the next page exists. Else the value is `null`.
+`pages.previous_url` | A url if the previous page exists. Else the value is `null`.
+`pages.per_page` | Maximum number of resources delivered for this collection.
 
 <aside class="notice">
 Protip: the first page has no previous page, and the last page has no next page.
 </aside>
 
-WaniKani API uses a cursor-based pagination scheme, with the `id` of a resource acting as the cursor.
+WaniKani API uses a [cursor-based pagination](https://www.sitepoint.com/paginating-real-time-data-cursor-based-pagination/) scheme, with the `id` of a resource acting as the cursor.
 
 The previous page of results can be requested by passing in the `page_before_id` parameter, with the value being the `id` you want to look before. Similar logic applies for the next page. Pass in the `page_after_id` parameter with with the `id` you want to look after.
 
