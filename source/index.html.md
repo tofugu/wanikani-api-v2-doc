@@ -43,6 +43,7 @@ includes:
   - best_practices/leveraging_updated_after_filter
   - best_practices/conditional_requests
   - notable_cases
+  - additional_information
 
 search: true
 ---
