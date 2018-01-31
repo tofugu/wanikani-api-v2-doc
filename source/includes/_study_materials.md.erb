@@ -1,1 +1,138 @@
 # Study Materials
+
+Study material resources contain user inputted study aids for the associated subject.
+
+A study material is created when the User has added study aid information.
+
+## Study Material `data` Structure
+
+> Below is the structure of an `study_material` `data` object
+
+```
+{
+  "id": <integer>,
+  "object": <string>,
+  "url": <string>,
+  "data_updated_at": <date>,
+  "data": {
+    "created_at": <date>,
+    "subject_id": <integer>,
+    "subject_type": <string>,
+    "meaning_note": <string_or_null>,
+    "reading_note": <string_or_null>,
+    "meaning_synonyms": <array_of_strings>
+  }
+}
+```
+
+Attribute | Possible Values | Description
+--------- | --------------- | -----------
+`created_at` | Date | Timestamp when the resource was created.
+`subject_id` | Integer | Unique identification related to one `subject` resource. See [Subjects](#subjects).
+`subject_type` | `Kanji`, `Radical`, or `Vocabulary` | The subject type the `study_material` is related to. See [Subjects](#subjects).
+`meaning_note` | String | Subject meaning related note the user inputted
+`reading_note` | String | Subject reading related note the user inputted
+`meaning_synonyms` | String | Meaning answer synonyms the user inputted. These are used as correct answers, along with WaniKani defaults for reviews.
+
+## Get All Study Materials
+
+> To `GET` all the assignments use the code below:
+
+<%= partial('examples/GET_shell', locals: { api_endpoint: 'study_materials' }) %>
+
+<%= partial('examples/GET_javascript', locals: { api_endpoint: 'study_materials' }) %>
+
+> The above command returns JSON structured like this:
+
+```json
+{
+  "object": "collection",
+  "url": "<%= current_page.data.api_root_url %>/study_materials",
+  "pages": {
+    "per_page": 500,
+    "next_url": "<%= current_page.data.api_root_url %>/study_materials?page_after_id=52342",
+    "previous_url": null
+  },
+  "total_count": 88,
+  "data_updated_at": "2017-12-21T22:42:11.468155Z",
+  "data": [
+    {
+      "id": 65231,
+      "object": "study_material",
+      "url": "<%= current_page.data.api_root_url %>/study_materials/65231",
+      "data_updated_at": "2017-09-30T01:42:13.453291Z",
+      "data": {
+        "created_at": "2017-09-30T01:42:13.453291Z",
+        "subject_id": 241,
+        "subject_type": "radical",
+        "meaning_note": "I like turtles",
+        "reading_note": "I like たrtles",
+        "meaning_synonyms": ["burn", "sizzle"]
+      }
+    }
+  ]
+}
+```
+
+This endpoint retrieves all study_materials in the following states:
+
+ * Ordered by ascending `created_at`
+ * Paginated by 500 resources.
+
+ ### HTTP Request
+
+ `GET <%= current_page.data.api_root_url %>/study_materials`
+
+ ### Query Parameters
+
+ If any of the parameters are included in the query, the `data` collection will return `study_materials` based on the conditions assigned.
+
+ Name | Permitted values | Description
+ ---- | ---------------- | -----------
+ `ids` | Comma-delimited integers | Returns `data.id` included in values.
+ `subject_ids` | Comma-delimited integers | Returns `data.subject_id` included in values.
+ `subject_types` | Comma-delimited strings, where string is `radical`, `kanji`, or `vocabulary` | Returns `data.subject_type` included in values.
+ `updated_after` | Date | Returns `data_updated_at` > `updated_after`.
+
+ ### Query Parameter Examples
+
+ #### Study Materials Updated Since Yesterday
+
+ Assumptions:
+
+ * Date time now is November 11, 2017 8:42:00 AM UTC:
+
+ `<%= current_page.data.api_root_url %>/study_materials?updated_after=2017-10-11T10:42:00Z`
+
+ ## Get a Specific Review
+
+ > To `GET` a specific review use the code below:
+
+ <%= partial('examples/GET_shell', locals: { api_endpoint: 'study_materials/65231' }) %>
+
+ <%= partial('examples/GET_javascript', locals: { api_endpoint: 'study_materials/65231' }) %>
+
+ > The above command returns JSON structured like this:
+
+ ```json
+ {
+   "id": 65231,
+   "object": "study_material",
+   "url": "<%= current_page.data.api_root_url %>/study_materials/65231",
+   "data_updated_at": "2017-09-30T01:42:13.453291Z",
+   "data": {
+     "created_at": "2017-09-30T01:42:13.453291Z",
+     "subject_id": 241,
+     "subject_type": "radical",
+     "meaning_note": "I like turtles",
+     "reading_note": "I like たrtles",
+     "meaning_synonyms": ["burn", "sizzle"]
+   }
+ }
+ ```
+
+ This endpoint retrieves a specific review by its `id`.
+
+ <aside class="warning">
+ Make sure to replace the <code>65231</code> in the example with the specific review's id.
+ </aside>
