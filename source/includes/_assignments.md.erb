@@ -30,7 +30,7 @@ An Assignment resource is created when the User has passed the related subject's
 Attribute | Possible Values | Description
 --------- | --------------- | -----------
 `created_at` | Date | Timestamp when the resource was created.
-`subject_id` | Integers | Unique identification related to one `subject` resource. See [Subjects](#subjects).
+`subject_id` | Integer | Unique identification related to one `subject` resource. See [Subjects](#subjects).
 `subject_type` | `Kanji`, `Radical`, or `Vocabulary` | The subject type the `assignment` is related to. See [Subjects](#subjects).
 `level` | Integer between and including `1` and `60` | The WaniKani level the related `subject` belongs to.
 `srs_stage` | Integer between and including `0` and `9` | The current SRS progression stage the related `subject` is at. <br><br>`0` — Has not been completed in lessons, and therefore not in the review state. <br><br>`1` to `8` — Currently in the review state. <br><br>`9` — Burned, therefore no longer in the review state.
