@@ -1,4 +1,4 @@
-# Errors
+## Errors
 
 > Errors with a message will return with the follow response body structure:
 
