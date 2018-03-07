@@ -35,15 +35,15 @@ includes:
   - best_practices/conditional_requests
   - best_practices/leveraging_updated_after_filter
   - additional_information
-  - assignments
-  - level_progressions
-  - resets
-  - review_statistics
-  - reviews
-  - study_materials
-  - summary
-  - subjects
-  - user
+  - resources/assignments
+  - resources/level_progressions
+  - resources/resets
+  - resources/review_statistics
+  - resources/reviews
+  - resources/study_materials
+  - resources/summary
+  - resources/subjects
+  - resources/user
 
 search: true
 ---
