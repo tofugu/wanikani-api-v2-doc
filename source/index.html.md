@@ -30,6 +30,11 @@ includes:
   - getting_started/rate_limit
   - getting_started/response_structure
   - getting_started/revisions
+  - best_practices
+  - best_practices/caching
+  - best_practices/conditional_requests
+  - best_practices/leveraging_updated_after_filter
+  - additional_information
   - assignments
   - level_progressions
   - resets
@@ -39,11 +44,6 @@ includes:
   - summary
   - subjects
   - user
-  - best_practices
-  - best_practices/caching
-  - best_practices/conditional_requests
-  - best_practices/leveraging_updated_after_filter
-  - additional_information
 
 search: true
 ---
