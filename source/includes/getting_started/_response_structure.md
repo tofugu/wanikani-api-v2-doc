@@ -1,6 +1,24 @@
-## JSON Response
+## Response Structure
 
-> Collections generally follow the pattern:
+We return JSON from all the API endpoints, even when an error occurs.
+
+There are two main structures we return: resources and collections. Singular resource endpoints deliver information about a single entity, such as an assignment or subject. Collections contain summary data about a bunch of resources, and also include each of the resources.
+
+There's a third type of structure that's less common: a report. Reports summarize disparate or novel information into a single place, and don't follow the same structure as collections.
+
+> Resources follow the pattern:
+
+```
+{
+  "id": <integer>,
+  "object": <string>,
+  "url": <string>,
+  "data_updated_at": <date>,
+  "data": <object>
+}
+```
+
+> And collections look like:
 
 ```
 {
@@ -17,96 +35,41 @@
 }
 ```
 
-> The `data` is a collection of resources as patterned:
-
-```
-{
-  "id": <integer>,
-  "object": <string>,
-  "url": <string>,
-  "data_updated_at": <date>,
-  "data": <object>
-}
-```
-
-> Here, `data` returns the specific attributes for that kind of resource.
-
-WaniKani API is structured to be RESTful.
-
-Details on some of the attributes:
+All of the responses have a few shared, high-level attributes: `url`, `data_updated_at`, and `data`.
 
 Attribute | Description
 --------- | -----------
-`id` | Unique identifier of the resource.
-`url` | URL of the request
-`data_updated_at` | If a response from a collection endpoint, then the latest updated timestamp of all the resources available within the [specified scope](#filters), not limited to pagination. If a response from a resource endpoint, then the updated timestamp of the resource object.
-`data` | The requested resource(s).
+`url` | The URL of the request. For collections, that will contain all the filters and options you've passed to the API. Resources have a single URL and don't need to be filtered, so the URL will be the same in both resource and collection responses.
+`data_updated_at` | For collections, this is the timestamp of the most recently updated resource in the [specified scope](#filters) and is not limited by pagination. For a resource, then this is the last time that particular resource was updated.
+`data` | For collections, this is going to be the resources returned by the specified scope. For resources, these are the attributes that are specific to that particular instance and kind of resource.
 
-Rest of the attributes are discussed below.
 
 ### Object Types
 
-Each resource and collection contains an `object` key with an identifying value.
-
-The API has the following high level objects:
+Every successful API response contains an `object` attribute that tells you which kind of thing you're getting. As mentioned before, there are two object types that return information on many different resources:
 
 * `collection`
 * `report`
 
-The purpose of `report` objects is to provide summarize data from various parts of the application. Note `report` do not include `id` in the body.
-
-And a list of specific resource objects:
+The following are singular resources:
 
 * `assignment`
 * `level_progression`
-* `kanji`
-* `radical`
 * `reset`
 * `review`
 * `review_statistic`
 * `study_material`
 * `user`
+
+We have a single 'subjects' endpoint that returns the three possible types of subjects:
+
+* `kanji`
+* `radical`
 * `vocabulary`
-
-### Collection Size
-
-By default the number of resources returned for all collection endpoints is set to a maximum of 500. Some endpoints may return a different size. `reviews` and `subjects` return a maximum collection size of 1,000. The value can be found on `pages.per_page`.
-
-The `total_count` attribute is a count of all resources available within the [specified scope](#filters), not limited to pagination.
-
-### Pagination
-
-To help with paging through results, a couple pieces of information is provided on collections:
-
-Attribute | Description
---------- | -----------
-`pages.next_url` | A url if the next page exists. Else the value is `null`.
-`pages.previous_url` | A url if the previous page exists. Else the value is `null`.
-`pages.per_page` | Maximum number of resources delivered for this collection.
-
-<aside class="notice">
-Protip: the first page has no previous page, and the last page has no next page.
-</aside>
-
-WaniKani API uses a [cursor-based pagination](https://www.sitepoint.com/paginating-real-time-data-cursor-based-pagination/) scheme, with the `id` of a resource acting as the cursor.
-
-The previous page of results can be requested by passing in the `page_before_id` parameter, with the value being the `id` you want to look before. Similar logic applies for the next page. Pass in the `page_after_id` parameter with with the `id` you want to look after.
-
-If a cursor is outside the range of `id`s for the collection, an empty result set is returned for `data`.
-
-#### Example
-
-Let’s say there are four resources with `id` of 1, 2, 3, 4.
-
-If a request to `...?page_after_id=2` is initiated, then the response will have resources of `id` 3 and 4.
-
-If a request to `...?page_before_id=3` is initiated, then the response will have resources of `id` 1 and 2.
-
-If a request to `...?page_after_id=5` is initiated, then the collection will yield empty result set.
 
 ### Resource Ordering in Collections
 
-Resources in a collection are ordered by ascending `id`.
+Resources in a collection are ordered by `id` in ascending order.
 
 ### Timestamps
 

@@ -1,4 +1,8 @@
-## Revisions
+## Revisions (aka Versioning)
+
+Revisions to v2 of the WaniKani API are designated by timestamps in the format `YYYYMMDD`.
+
+Breaking changes introduced to the API will be given a new revision timestamp. An example would be the renaming of a field in a resource. Changes which do not change the existing request/response structure will be introduced into all the existing revisions. Examples of non-breaking changes would be the inclusion of a new field in a resource or the addition of new endpoints.
 
 > To define the revision, use this code:
 
@@ -6,22 +10,10 @@
 
 <%= partial('examples/GET_javascript') %>
 
-Revisions on WaniKani API v2 will be designated by timestamps in the ISO format `YYYYMMDD`.
-
-The revision timestamp for this documentation is `<%= current_page.data.api_revision %>`.
-
-WaniKani API expects the revision to be included in all API requests to the server in a header that looks like the following:
-
-`Wanikani-Revision: <%= current_page.data.api_revision %>`
+We expect the revision to be included in all API requests to the server in a header that looks like the following: `Wanikani-Revision: <%= current_page.data.api_revision %>`.
 
 See the [list of revisions and changelogs](<%= current_page.data.documentation_root_path %>) for more details.
 
 <aside class="notice">
 If no revision is specified, the API will default to <a href="<%= current_page.data.documentation_root_path %>/<%= current_page.data.base_revision %>" title="View API revision 20170710 documentation">revision <%= current_page.data.base_revision %></a>.
 </aside>
-
-### Revision Policy
-
-Breaking changes introduced to the API will be given a new revision timestamp. An example would be the renaming of a field in a resource.
-
-Changes which do not break will be introduced into existing revisions. An example would be the inclusion of a new field in a resource.

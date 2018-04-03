@@ -2,7 +2,7 @@
 title: WaniKani API Reference
 
 api_revision: 20170710
-api_root_url: 'https://www.wanikani.com/api/v2'
+api_root_url: 'https://api.wanikani.com/v2'
 api_token_placeholder: '<api_token_here>'
 api_endpoint_placeholder: '<api_endpoint_here>'
 base_revision: 20170710
@@ -21,20 +21,21 @@ includes:
   - introduction
   - getting_started
   - getting_started/authentication
+  - getting_started/response_structure
+  - getting_started/pagination
+  - getting_started/filters
   # - getting_started/documentation
   # - getting_started/nomenclature
   # - getting_started/rest_client_import_files
   - getting_started/errors
-  - getting_started/filters
-  - getting_started/pagination
   - getting_started/rate_limit
-  - getting_started/response_structure
   - getting_started/revisions
   - best_practices
   - best_practices/caching
   - best_practices/conditional_requests
   - best_practices/leveraging_updated_after_filter
   - additional_information
+  - resources
   - resources/assignments
   - resources/level_progressions
   - resources/resets
