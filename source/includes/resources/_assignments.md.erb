@@ -1,48 +1,52 @@
 # Assignments
 
-Assignment resources contain information regarding the User's current SRS state and milestones with an associated subject.
+Assignments contain information about a user's progress against a particular subject, including their current state and timestamps for various progress milestones. Assignments are created when a user has passed all the components of the given subject _and_ the assignment is at or below their current level.
 
-An Assignment resource is created when the User has passed the related subject's components.
+## Assignment Data Structure
 
-## Assignment `data` Structure
+> Example Structure
 
-> Below is the structure of an `assignment` `data` object
-
-```
+```json
 {
-  "created_at": <date>,
-  "subject_id": <integer>,
-  "subject_type": <string>,
-  "level": <integer>,
-  "srs_stage": <integer>,
-  "srs_stage_name": <string>,
-  "unlocked_at": <date_or_null>,
-  "started_at": <date_or_null>,
-  "passed_at": <date_or_null>,
-  "burned_at": <date_or_null>,
-  "available_at": <date_or_null>,
-  "resurrected_at": <date_or_null>,
-  "passed": <boolean>,
-  "resurrected": <boolean>
+  "id": 80463006,
+  "object": "assignment",
+  "url": "<%= current_page.data.api_root_url %>/assignments/80463006",
+  "data_updated_at": "2017-10-30T01:51:10.438432Z",
+  "data": {
+    "created_at": "2017-09-05T23:38:10.695133Z",
+    "subject_id": 8761,
+    "subject_type": "radical",
+    "level": 1,
+    "srs_stage": 8,
+    "srs_stage_name": "Enlightened",
+    "unlocked_at": "2017-09-05T23:38:10.695133Z",
+    "started_at": "2017-09-05T23:41:28.980679Z",
+    "passed_at": "2017-09-07T17:14:14.491889Z",
+    "burned_at": null,
+    "available_at": "2018-02-27T00:00:00.000000Z",
+    "resurrected_at": null,
+    "passed": true,
+    "resurrected": false
+  }
 }
 ```
 
-Attribute | Possible Values | Description
+Attribute | Data Type | Description
 --------- | --------------- | -----------
-`created_at` | Date | Timestamp when the resource was created.
-`subject_id` | Integer | Unique identification related to one `subject` resource. See [Subjects](#subjects).
-`subject_type` | `Kanji`, `Radical`, or `Vocabulary` | The subject type the `assignment` is related to. See [Subjects](#subjects).
-`level` | Integer between and including `1` and `60` | The WaniKani level the related `subject` belongs to.
-`srs_stage` | Integer between and including `0` and `9` | The current SRS progression stage the related `subject` is at. <br><br>`0` — Has not been completed in lessons, and therefore not in the review state. <br><br>`1` to `8` — Currently in the review state. <br><br>`9` — Burned, therefore no longer in the review state.
-`srs_stage_name` | `Initiate`, `Apprentice I`, `Apprentice II`, `Apprentice III`, `Apprentice IV`, `Guru I`, `Guru II`, `Master`, `Enlightened`, or `Burned` | The WaniKani SRS stage name associated to the `srs_stage`.
-`unlocked_at` | `null` or Date | The timestamp when the related `subject` has its prerequisites satisfied and made available to lessons. <br><br>Prerequisites are the following: <br><br>The subject components have have reached `srs_stage` `5` the first time (passing). <br><br>The User's level is equal to or greater than the `subject` resource `level`.
-`started_at` | `null` or Date | The timestamp when the User has complete the lesson for the related `subject`.
-`passed_at` | `null` or Date | The timestamp when the User has reached the satisfactory `srs_stage` (`5`) the first time.
-`burned_at` | `null` or Date | The timestamp when the User has reached `srs_stage` `9` the first time.
-`available_at` | `null` or Date | The date when the related `subject` will be available in the User's review queue.
-`resurrected_at` | `null` or Date | The date when the related `subject` was resurrected.
+`created_at` | Date | Timestamp when the assignment was created.
+`subject_id` | Integer | Unique identifier of the associated [subject](#subjects).
+`subject_type` | String | The type of the associated [subject](#subjects), one of: `Kanji`, `Radical`, or `Vocabulary`.
+`level` | Integer | The level of the assignment, from `1` to `60`
+`srs_stage` | Integer | The current [SRS stage interval](#srs-stage-intervals), from `0` to `9`.
+`srs_stage_name` | String | The [stage name](#srs-stage-intervals) associated with the `srs_stage`.
+`unlocked_at` | `null`&nbsp;or&nbsp;Date | <p>The timestamp when the related subject has its prerequisites satisfied and is made available in lessons.</p> <p>Prerequisites are:</p><ul><li>The subject components have reached SRS stage `5` once (they have been “passed”).</li><li>The user's level is equal to or greater than the level of the assignment’s subject.</li></ul>
+`started_at` | `null`&nbsp;or&nbsp;Date | Timestamp when the user completes the lesson for the related subject.
+`passed_at` | `null`&nbsp;or&nbsp;Date | Timestamp when the user reaches SRS stage `5` for the first time.
+`burned_at` | `null`&nbsp;or&nbsp;Date | Timestamp when the user reaches SRS stage `9` the first time.
+`available_at` | `null`&nbsp;or&nbsp;Date | The date when the related subject will be available in the user's review queue.
+`resurrected_at` | `null`&nbsp;or&nbsp;Date | The date when the subject is resurrected and placed back in the user's review queue.
 `passed` | Boolean | The Boolean equivalent of `passed_at`
-`resurrected` | Boolean | The state if the User has unburned the subject and added back to the review queue.
+`resurrected` | Boolean | A convenience field indicating that the subject has been burned, resurrected, and is still in the user's review queue. It's possible to figure this out from the other fields, but, hey, this is more convenient!
 
 ## Get All Assignments
 
