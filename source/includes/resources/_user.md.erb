@@ -1,1 +1,16 @@
 # User
+
+## GET `/user`
+    {
+      object: :string,
+      url: :string,
+      data_updated_at: :date,
+      data: {
+        username: :string,
+        level: :integer,
+        max_level_granted_by_subscription: :integer,
+        started_at: :date,
+        subscribed: :boolean,
+        current_vacation_started_at: :date_or_null
+    }
+

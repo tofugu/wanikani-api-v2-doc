@@ -1,1 +1,75 @@
 # Subjects
+
+**Filters**
+
+| **Name**      | **Type** | **Permitted values**          | **Description**                                            |
+| ------------- | -------- | ----------------------------- | ---------------------------------------------------------- |
+| ids | String | Integers | Return results tied to ids |
+| types          | String   | radical, kanji, vocabulary    | Return subjects of the specified types                      |
+| slugs         | String   | String                        | Return subjects of the specified slug                      |
+| levels        | String   | Integers between 1 and 60     | Return subjects at the specified levels                    |
+| hidden | Boolean | true, false | Return subjects which are or are not hidden from the user-facing application |
+| updated_after | String   | ISO8601 timestamp in the past | Return results which have been updated after the timestamp |
+
+## GET `/subjects/:id`
+
+The structure depends on the subject type. Subject types are: radical, kanji, or vocabulary.
+
+**Radical**
+
+    {
+      id: :integer,
+      object: :string,
+      url: :string,
+      data_updated_at: :date,
+      data: {
+        level: :integer,
+        created_at: :date,
+        characters: :string_or_null,
+        character_images: :array_of_objects,
+        meanings: :array_of_objects,
+        document_url: :string,
+        hidden_at: :date_or_null
+      }
+    }
+
+**NOTE:** `character_images` is acting as a placeholder. It’ll output an array of objects consisting of keys `content_type` and `url`. The `image/png`  currently being outputted are broken. We plan on also distributing SVG as a primary rendering for radical characters.
+
+**Kanji**
+
+    {
+      id: :integer,
+      object: :string,
+      url: :string,
+      data_updated_at: :date,
+      data: {
+        level: :integer,
+        created_at: :date,
+        characters: :string,
+        meanings: :array_of_objects,
+        readings: :array_of_objects,
+        subject_component_ids: :array_of_integers,
+        document_url: :string,
+        hidden_at: :date_or_null
+      }
+    }
+
+**Vocabulary**
+
+    {
+      id: :integer,
+      object: :string,
+      url: :string,
+      data_updated_at: :date,
+      data: {
+        level: :integer,
+        created_at: :date,
+        characters: :string,
+        meanings: :array_of_objects,
+        readings: :array_of_objects,
+        parts_of_speech: :array_of_strings,
+        subject_component_ids: :array_of_integers,
+        document_url: :string,
+        hidden_at: :date_or_null
+      }
+    }

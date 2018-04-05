@@ -1,1 +1,13 @@
 # Summary
+
+{
+  object: :string,
+  url: :string,
+  data_updated_at: :date,
+  data: {
+    reviews: :array_of_objects,
+    lessons: :array_of_objects
+  }
+}
+
+reviews and lessons contain a collection of objects with keys available_at and subject_ids. subject_ids are the subjects appearing on available_at. We return for each hour up to 24 hours for reviews. lessons only contains one object.
