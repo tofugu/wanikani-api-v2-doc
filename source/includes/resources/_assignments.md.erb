@@ -39,13 +39,13 @@ Attribute | Data Type | Description
 `level` | Integer | The level of the assignment, from `1` to `60`
 `srs_stage` | Integer | The current [SRS stage interval](#srs-stage-intervals), from `0` to `9`.
 `srs_stage_name` | String | The [stage name](#srs-stage-intervals) associated with the `srs_stage`.
-`unlocked_at` | `null`&nbsp;or&nbsp;Date | <p>The timestamp when the related subject has its prerequisites satisfied and is made available in lessons.</p> <p>Prerequisites are:</p><ul><li>The subject components have reached SRS stage `5` once (they have been “passed”).</li><li>The user's level is equal to or greater than the level of the assignment’s subject.</li></ul>
-`started_at` | `null`&nbsp;or&nbsp;Date | Timestamp when the user completes the lesson for the related subject.
-`passed_at` | `null`&nbsp;or&nbsp;Date | Timestamp when the user reaches SRS stage `5` for the first time.
-`burned_at` | `null`&nbsp;or&nbsp;Date | Timestamp when the user reaches SRS stage `9` the first time.
-`available_at` | `null`&nbsp;or&nbsp;Date | The date when the related subject will be available in the user's review queue.
-`resurrected_at` | `null`&nbsp;or&nbsp;Date | The date when the subject is resurrected and placed back in the user's review queue.
-`passed` | Boolean | The Boolean equivalent of `passed_at`
+`unlocked_at` | `null` or Date | <p>The timestamp when the related subject has its prerequisites satisfied and is made available in lessons.</p> <p>Prerequisites are:</p><ul><li>The subject components have reached SRS stage `5` once (they have been “passed”).</li><li>The user's level is equal to or greater than the level of the assignment’s subject.</li></ul>
+`started_at` | `null` or Date | Timestamp when the user completes the lesson for the related subject.
+`passed_at` | `null` or Date | Timestamp when the user reaches SRS stage `5` for the first time.
+`burned_at` | `null` or Date | Timestamp when the user reaches SRS stage `9` the first time.
+`available_at` | `null` or Date | Timestamp when the related subject will be available in the user's review queue.
+`resurrected_at` | `null` or Date | Timestamp when the subject is resurrected and placed back in the user's review queue.
+`passed` | Boolean | The boolean equivalent of `passed_at`
 `resurrected` | Boolean | A convenience field indicating that the subject has been burned, resurrected, and is still in the user's review queue.
 
 ## Get All Assignments
