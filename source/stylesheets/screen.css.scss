@@ -70,12 +70,12 @@ html, body {
   }
 
   // This is the logo at the top of the ToC
-  &>img {
+  > img {
     display: block;
     max-width: 100%;
   }
 
-  &>.search {
+  > .search {
     position: relative;
 
     input {
@@ -336,13 +336,16 @@ html, body {
     @extend %left-col;
   }
 
-  &>ul, &>ol {
+  > ul,
+  > ol {
     padding-left: $main-padding + 15px;
   }
 
   // the div is the tocify hidden div for placeholding stuff
-  &>h1, &>h2, &>div {
-    clear:both;
+  > h1,
+  > h2,
+  > div {
+    clear: both;
   }
 
   h1 {
@@ -357,7 +360,8 @@ html, body {
     background-color: #fdfdfd;
   }
 
-  h1:first-child, div:first-child + h1 {
+  h1:first-child,
+  div:first-child + h1 {
     border-top-width: 0;
     margin-top: 0;
   }
@@ -543,7 +547,7 @@ html, body {
   }
 
   blockquote {
-    &>p {
+    > p {
       background-color: $code-annotation-bg;
       padding: $code-annotation-padding 2em;
       color: #eee;
