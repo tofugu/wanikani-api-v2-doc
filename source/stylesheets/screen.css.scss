@@ -53,19 +53,33 @@ html, body {
   position: fixed;
   z-index: 30;
   top: 0;
-  left: 0;
+  left: -$nav-width;
   bottom: 0;
   width: $nav-width;
   background-color: $nav-bg;
   font-size: 13px;
   font-weight: bold;
 
+  &.open {
+    left: 0;
+  }
+
+  @media (min-width: $tablet-width) {
+    left: 0;
+  }
+
   // language selector for mobile devices
   .lang-selector {
-    display: none;
+    display: block;
     a {
       padding-top: 0.5em;
       padding-bottom: 0.5em;
+    }
+
+    @media (min-width: $phone-width) {
+      .toc-wrapper .lang-selector {
+        display: none;
+      }
     }
   }
 
@@ -156,6 +170,11 @@ html, body {
   .toc-link.active {
     background-color: $nav-active-bg;
     color: $nav-active-text;
+
+    @media (max-width: $tablet-width) {
+      padding-top: 0.3em;
+      padding-bottom: 0.3em;
+    }
   }
 
   // this is parent links of the currently selected ToC entry
@@ -241,6 +260,10 @@ html, body {
 
   &:hover { opacity: 1; }
   &.open {left: $nav-width}
+
+  @media (max-width: $tablet-width) {
+    display: block;
+  }
 }
 
 
@@ -256,7 +279,12 @@ html, body {
 
   padding-bottom: 1px; // prevent margin overflow
 
+  .page-wrapper .lang-selector {
+    display: none;
+  }
+
   .lang-selector {
+    display: none;
     position: fixed;
     top: 0;
     right: 0;
@@ -269,6 +297,10 @@ html, body {
 
     @media (min-width: $phone-width) and (max-width: $tablet-width) {
       width: 50%;
+    }
+
+    @media (min-width: $phone-width) {
+      display: block;
     }
   }
 
@@ -404,9 +436,11 @@ html, body {
   }
 
   table {
+    width: 100%;
     display: block;
     margin-bottom: 1em;
     overflow: auto;
+
     th,td {
       text-align: left;
       vertical-align: top;
@@ -573,43 +607,8 @@ html, body {
 }
 
 ////////////////////////////////////////////////////////////////////////////////
-// RESPONSIVE DESIGN
+// CODE HIGHLIGHTS
 ////////////////////////////////////////////////////////////////////////////////
-// These are the styles for phones and tablets
-// There are also a couple styles disperesed
-
-@media (max-width: $tablet-width) {
-  .toc-wrapper {
-    left: -$nav-width;
-
-    &.open {
-      left: 0;
-    }
-  }
-
-  .page-wrapper {
-    margin-left: 0;
-  }
-
-  #nav-button {
-    display: block;
-  }
-
-  .toc-link {
-    padding-top: 0.3em;
-    padding-bottom: 0.3em;
-  }
-}
-
-@media (max-width: $phone-width) {
-  .toc-wrapper .lang-selector {
-    display: block;
-  }
-
-  .page-wrapper .lang-selector {
-    display: none;
-  }
-}
 
 .highlight .c, .highlight .cm, .highlight .c1, .highlight .cs {
   color: #909090;
@@ -620,17 +619,3 @@ html, body {
 }
 
 @import 'overrides';
-
-
-#toc a[href='#resources'] {
-  margin-top: 1em;
-  color: #999;
-  border-bottom: 1px solid #666;
-}
-
-#resources {
-  background: none;
-  border-bottom: none;
-  font-size: 2rem;
-  margin-top: 4em;
-}
