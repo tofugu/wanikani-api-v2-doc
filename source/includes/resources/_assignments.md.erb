@@ -46,17 +46,17 @@ Attribute | Data Type | Description
 `available_at` | `null`&nbsp;or&nbsp;Date | The date when the related subject will be available in the user's review queue.
 `resurrected_at` | `null`&nbsp;or&nbsp;Date | The date when the subject is resurrected and placed back in the user's review queue.
 `passed` | Boolean | The Boolean equivalent of `passed_at`
-`resurrected` | Boolean | A convenience field indicating that the subject has been burned, resurrected, and is still in the user's review queue. It's possible to figure this out from the other fields, but, hey, this is more convenient!
+`resurrected` | Boolean | A convenience field indicating that the subject has been burned, resurrected, and is still in the user's review queue.
 
 ## Get All Assignments
 
-> To `GET` all the assignments use the code below:
+> Example Request
 
 <%= partial('examples/GET_shell', locals: { api_endpoint: 'subjects' }) %>
 
 <%= partial('examples/GET_javascript', locals: { api_endpoint: 'subjects' }) %>
 
-> The above command returns JSON structured like this:
+> Example Response
 
 ```json
 {
@@ -96,10 +96,7 @@ Attribute | Data Type | Description
 }
 ```
 
-This endpoint retrieves all assignments in the following states:
-
- * Ordered by ascending `created_at`
- * Paginated by 1000 resources.
+Returns a collection of all assignments, ordered by ascending `created_at`, 1000 at a time.
 
 ### HTTP Request
 
@@ -107,21 +104,21 @@ This endpoint retrieves all assignments in the following states:
 
 ### Query Parameters
 
-If any of the parameters are included in the query, the `data` collection will return `assignments` based on the conditions assigned.
+The collection of assignments will be filtered on the parameters provided.
 
-Name | Permitted values | Description
+Name | Data Type | Description
 ---- | ---------------- | -----------
-`available_after` | Date | Returns `data.available_at` > `available_after`.
-`available_before` | Date | Returns `data.available_at` < `available_before`.
-`burned` | Boolean | Returns `data.burned_at` present if `true`. <br><br>Returns `data.burned_at` with `null` if `false`.
-`ids` | Comma-delimited integers | Returns `data.id` included in values.
-`levels` | Comma-delimited integers, where integer between and including `1` and `60` | Return `data.level` included in values.
-`passed` | Boolean | Return `data.passed` equal to value.
-`resurrected` | Return `data.resurrected` equal to value.
-`srs_stages` | Comma-delimited integers, where integer between and including `0` and `9` | Returns `data.srs_stage` included in values.
-`subject_ids` | Comma-delimited integers | Returns `data.subject_id` included in values.
-`subject_types` | Comma-delimited strings, where string is `radical`, `kanji`, or `vocabulary` | Returns `data.subject_type` included in values.
-`updated_after` | Date | Returns `data_updated_at` > `updated_after`.
+`available_after` | Date | Only assignments available at or after this time are returned.
+`available_before` | Date | Only assignments available at or before this time are returned.
+`burned` | Boolean | When set to `true`, returns assignments that have a value in `data.burned_at`. Returns assignments with a `null` `data.burned_at` if `false`.
+`ids` | Array of integers | Only assignments where `data.id` matches one of the array values are returned.
+`levels` | Array of integers | Only assignments where `data.level` matches one of the array values are returned. Valid values range from `1` to `60`.
+`passed` | Boolean | Returns assignments where `data.passed` equals `passed`.
+`resurrected` | Boolean | Returns assignments where `data.resurrected` equals `resurrected`.
+`srs_stages` | Array of integers | Only assignments where `data.srs_stage` matches one of the array values are returned. Valid values range from `0` to `9`
+`subject_ids` | Array of integers | Only assignments where `data.subject_id` matches one of the array values are returned.
+`subject_types` | Array of strings | Only assignments where `data.subject_type` matches one of the array values are returned. Valid values are: `radical`, `kanji`, or `vocabulary`.
+`updated_after` | Date | Only assignments updated at or after this time are returned.
 
 ### Query Parameter Examples
 
@@ -143,13 +140,13 @@ If the date time now is November 11, 2017 8:42:00 AM UTC:
 
 ## Get a Specific Assignment
 
-> To `GET` a specific assignment use the code below:
+> Example Request
 
 <%= partial('examples/GET_shell', locals: { api_endpoint: 'assignments/80463006' }) %>
 
 <%= partial('examples/GET_javascript', locals: { api_endpoint: 'assignments/80463006' }) %>
 
-> The above command returns JSON structured like this:
+> Example Response
 
 ```json
 {
@@ -176,12 +173,18 @@ If the date time now is November 11, 2017 8:42:00 AM UTC:
 }
 ```
 
-This endpoint retrieves a specific assignment by its `id`.
+Retrieves a specific assignment by its `id`.
 
-<aside class="warning">
-Make sure to replace the <code>80463006</code> in the example with the specific assignment's id.
-</aside>
+### HTTP Request
 
-### Timestamps
+`GET <%= current_page.data.api_root_url %>/assignments/<id>`
 
-`unlocked_at`, `started_at`, `passed_at`, `burned_at` timestamps are in sequential order as listed.
+### Parameters
+
+Name | Data Type | Description
+---- | ---------------- | -----------
+`id` | Integer | Unique identifier of the assignment.
+
+### Notes
+
+`unlocked_at`, `started_at`, `passed_at`, `burned_at` timestamps are always in sequential order — assignments can't be started before they're unlocked, passed before they're started, etc.
