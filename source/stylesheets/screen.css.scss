@@ -381,7 +381,7 @@ html, body {
     @extend %full-content-width;
     @extend %indented-content;
 
-    font-size: 25px;
+    font-size: 28px;
     padding-top: 0.5em;
     padding-bottom: 0.5em;
     margin-bottom: $h1-margin-bottom;
@@ -402,7 +402,7 @@ html, body {
     @extend %full-content-width;
     @extend %indented-content;
 
-    font-size: 19px;
+    font-size: 24px;
     margin-top: 4em;
     margin-bottom: 0;
     border-top: 1px solid #ccc;
@@ -420,12 +420,16 @@ html, body {
 
   h3, h4, h5, h6 {
     @extend %header-font;
-    font-size: 15px;
+    font-size: 18px;
     margin-top: 2.5em;
     margin-bottom: 0.8em;
   }
 
-  h4, h5, h6 {
+  h4 {
+    font-size: 14px;
+  }
+
+  h5, h6 {
     font-size: 10px;
   }
 
