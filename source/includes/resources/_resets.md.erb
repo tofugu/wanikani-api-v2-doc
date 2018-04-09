@@ -1,38 +1,45 @@
 # Resets
 
-Reset resources contain information regarding the User initiated event of changing their `level` to a level below or equal to `level`.
+Users can reset their progress back to any level at or below their current level. When they reset to a particular level, all of the `assignments` and `review statistics` at that level or higher are set back to their default state.
 
-Resets resets the attributes for `assignments` and `review_statisitics` which belong to `subjects` with `levels` greater than or equal to the `target_level`.
+Resets contain information about when those resets happen, the starting level, and the target level.
 
-## Reset `data` Structure
+## Reset Data Structure
 
-> Below is the structure of a `reset` `data` object
+> Example Structure
 
 ```
 {
-  "created_at": <date>,
-  "original_level": <integer>,
-  "target_level": <integer>,
-  "confirmed_at": <date>
+  "id": 234,
+  "object": "reset",
+  "url": "<%= current_page.data.api_root_url %>/resets/80463006",
+  "data_updated_at": "2017-12-20T00:24:47.048380Z",
+  "data": {
+    "created_at": "2017-12-20T00:03:56.642838Z",
+    "original_level": 42,
+    "target_level": 8,
+    "confirmed_at": "2017-12-19T23:31:18.077268Z"
+  }
 }
+
 ```
 
-Attribute | Possible Values | Description
+Attribute | Data&nbsp;Type | Description
 --------- | --------------- | -----------
-`created_at` | Date | Timestamp when the resource was created.
-`original_level` | Integer between and including `1` and `60` | The User's `level` before the reset.
-`target_level` | Integer between and including `1` and `60` | The User's `level` after the reset.
-`confirmed_at` | Date | Timestamp when the User confirmed the reset.
+`created_at` | Date | Timestamp when the reset was created.
+`original_level` | Integer | The user's level before the reset, from `1` to `60`
+`target_level` | Integer | The user's level after the reset, from `1` to `60`. It must be less than or equal to `original_level`.
+`confirmed_at` | Date | Timestamp when the user confirmed the reset.
 
 ## Get All Resets
 
-> To `GET` all the assignments use the code below:
+> Example Request
 
 <%= partial('examples/GET_shell', locals: { api_endpoint: 'resets' }) %>
 
 <%= partial('examples/GET_javascript', locals: { api_endpoint: 'resets' }) %>
 
-> The above command returns JSON structured like this:
+> Example Response
 
 ```json
 {
@@ -62,10 +69,7 @@ Attribute | Possible Values | Description
 }
 ```
 
-This endpoint retrieves all assignments in the following states:
-
-* Ordered by ascending `created_at`
-* Paginated by 1000 resources.
+Returns a collection of all resets, ordered by ascending `created_at`, 500 at a time.
 
 ### HTTP Request
 
@@ -73,20 +77,22 @@ This endpoint retrieves all assignments in the following states:
 
 ### Query Parameters
 
-If any of the parameters are included in the query, the `data` collection will return `resets` based on the conditions assigned.
+The collection of resets will be filtered on the parameters provided.
 
 Name | Permitted values | Description
 ---- | ---------------- | -----------
-`ids` | Comma-delimited integers | Returns `data.id` included in values.
-`updated_after` | Date | Returns `data_updated_at` > `updated_after`.
+`ids` | Array of integers | Only resets where `data.id` matches one of the array values are returned.
+`updated_after` | Date | Only resets updated at or after this time are returned.
 
 ## Get a Specific Reset
+
+> Example Request
 
 <%= partial('examples/GET_shell', locals: { api_endpoint: 'resets/234' }) %>
 
 <%= partial('examples/GET_javascript', locals: { api_endpoint: 'resets/234' }) %>
 
-> The above command returns JSON structured like this:
+> Example Response
 
 ```json
 {
@@ -103,8 +109,17 @@ Name | Permitted values | Description
 }
 ```
 
-This endpoint retrieves a specific assignment by its `id`.
+Retrieves a specific reset by its `id`.
 
-<aside class="warning">
-Make sure to replace the <code>234</code> in the example with the specific reset's id.
-</aside>
+### HTTP Request
+
+`GET <%= current_page.data.api_root_url %>/resets/<id>`
+
+### Parameters
+
+Name | Data Type | Description
+---- | ---------------- | -----------
+`id` | Integer | Unique identifier of the reset.
+
+
+
