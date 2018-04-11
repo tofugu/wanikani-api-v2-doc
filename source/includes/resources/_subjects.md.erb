@@ -1,75 +1,263 @@
 # Subjects
 
-**Filters**
+Subjects are the radicals, kanji, and vocabulary that are learned through lessons and reviews. They contain basic dictionary information, such as meanings and/or readings, and information about their relationship to other items with WaniKani, like their level.
 
-| **Name**      | **Type** | **Permitted values**          | **Description**                                            |
-| ------------- | -------- | ----------------------------- | ---------------------------------------------------------- |
-| ids | String | Integers | Return results tied to ids |
-| types          | String   | radical, kanji, vocabulary    | Return subjects of the specified types                      |
-| slugs         | String   | String                        | Return subjects of the specified slug                      |
-| levels        | String   | Integers between 1 and 60     | Return subjects at the specified levels                    |
-| hidden | Boolean | true, false | Return subjects which are or are not hidden from the user-facing application |
-| updated_after | String   | ISO8601 timestamp in the past | Return results which have been updated after the timestamp |
+## Subject Data Structure
 
-## GET `/subjects/:id`
+The exact structure of a subject depends on the subject type. The available subject types are `Radical`, `Kanji`, and `Vocabulary`. Note that any attributes called out for the specific subject type behaves differently than the common attribute of the same name.
 
-The structure depends on the subject type. Subject types are: radical, kanji, or vocabulary.
+### Common Attributes
 
-**Radical**
+Attribute | Data Type | Description
+--------- | --------------- | -----------
+`created_at` | Date | Timestamp when the subject was created.
+`level` | Integer | The level of the subject, from `1` to `60`.
+`slug` | String | The string that is used when generating the document URL for the subject. Radicals use their meaning, downcased. Kanji and vocabulary use their characters.
+`characters` | String | The UTF-8 characters for the subject, including kanji and hiragana.
+`meanings` | Array of objects | The accepted meanings for the subject. Each object in the array has two keys: `meaning`, a string with the meaning of the subject, and `primary`, a boolean indicating that the given meaning is commonly used.
+`document_url` | String | A URL pointing to the page on wanikani.com that provides detailed information about this subject.
+`hidden_at` | Date | Timestamp when the subject was hidden, indicating associated assignments will no longer appear in lessons or reviews and that the subject page is no longer visible on wanikani.com.
 
+---
+
+### Radical Attributes
+
+> Example Structure
+
+```json
+{
+  "id": 1,
+  "object": "radical",
+  "url": "<%= current_page.data.api_root_url %>/subjects/1",
+  "data_updated_at": "2018-03-29T23:13:14.064836Z",
+  "data": {
+    "created_at": "2012-02-27T18:08:16.000000Z",
+    "level": 1,
+    "slug": "ground",
+    "hidden_at": null,
+    "document_url": "https://www.wanikani.com/radicals/ground",
+    "characters": "一",
+    "character_images": [
+      {
+        "url": "https://cdn.wanikani.com/images/legacy/576-subject-1-without-css-original.svg?1520987227",
+        "metadata": {
+          "inline_styles": false
+        },
+        "content_type": "image/svg+xml"
+      }
+    ],
+    "meanings": [
+      {
+        "meaning": "Ground",
+        "primary": true
+      }
+    ]
+  }
+}
+
+```
+
+Attribute | Data Type | Description
+--------- | --------------- | -----------
+`characters` | String or `null` | Unlike kanji and vocabulary, radicals can have a null value for `characters`. Not all radicals have a UTF entry, so the radical must be visually represented with an image instead.
+`character_images` | Array of objects | A collection of images of the radical. Each object in the array has three keys: `url`, the location of the image, `content_type`, indicating the kind of image, and `metadata`, which contains information to that kind of image. We currently offer two kinds of images: PNGs and SVGs. PNGs come in a variety of sizes (64px–1024px), and SVGs are delivered with and without inline styles.
+
+---
+
+### Kanji Attributes
+
+> Example Structure
+
+```json
+{
+  "id": 440,
+  "object": "kanji",
+  "url": "<%= current_page.data.api_root_url %>/subjects/440",
+  "data_updated_at": "2018-03-29T23:14:30.805034Z",
+  "data": {
+    "created_at": "2012-02-27T19:55:19.000000Z",
+    "level": 1,
+    "slug": "一",
+    "hidden_at": null,
+    "document_url": "https://www.wanikani.com/kanji/%E4%B8%80",
+    "characters": "一",
+    "meanings": [
+      {
+        "meaning": "One",
+        "primary": true
+      }
+    ],
+    "readings": [
+      {
+        "type": "onyomi",
+        "primary": true,
+        "reading": "いち"
+      },
+      {
+        "type": "kunyomi",
+        "primary": false,
+        "reading": "ひと"
+      },
+      {
+        "type": "nanori",
+        "primary": false,
+        "reading": "かず"
+      }
+    ],
+    "component_subject_ids": [
+      1
+    ]
+  }
+}
+```
+
+Attribute | Data Type | Description
+--------- | --------------- | -----------
+`readings` | Array of objects |
+`component_subject_ids` | Array of integers |
+
+---
+
+### Vocabulary Attributes
+
+> Example Structure
+
+```json
+{
+  "id": 2467,
+  "object": "vocabulary",
+  "url": "<%= current_page.data.api_root_url %>/subjects/2467",
+  "data_updated_at": "2018-03-29T23:15:07.525893Z",
+  "data": {
+    "created_at": "2012-02-28T08:04:47.000000Z",
+    "level": 1,
+    "slug": "一",
+    "hidden_at": null,
+    "document_url": "https://www.wanikani.com/vocabulary/%E4%B8%80",
+    "characters": "一",
+    "meanings": [
+      {
+        "meaning": "One",
+        "primary": true
+      }
+    ],
+    "readings": [
+      {
+        "primary": true,
+        "reading": "いち"
+      }
+    ],
+    "parts_of_speech": [
+      "numeral"
+    ],
+    "component_subject_ids": [
+      440
+    ]
+  }
+}
+```
+
+Attribute | Data Type | Description
+--------- | --------------- | -----------
+`readings` | Array of objects | Selected readings for the kanji. Each object in the array has three keys: `reading`, a string with the hiragana reading of the kanji, `primary`, a boolean indicating that the given reading is commonly used, and `type`. There are three types of readings: `onyomi`, `kunyomi`, and `nanori`. See [this article](https://www.tofugu.com/japanese/onyomi-kunyomi/) about the different reading types.
+`component_subject_ids` | Array of integers | An array of numeric identifiers for the radicals that make up this kanji. Note that these are the subjects that must be have passed assignments in order to unlock this subject's assignment.
+
+## Get All Subjects
+
+> Example Request
+
+<%= partial('examples/GET_shell', locals: { api_endpoint: 'subjects' }) %>
+
+<%= partial('examples/GET_javascript', locals: { api_endpoint: 'subjects' }) %>
+
+> Example Response
+
+```json
+{
+  "object": "collection",
+  "url": "https://api.wanikani.com/v2/subjects?types=kanji",
+  "pages": {
+    "per_page": 1000,
+    "next_url": "https://api.wanikani.com/v2/subjects?page_after_id=1439\u0026types=kanji",
+    "previous_url": null
+  },
+  "total_count": 2027,
+  "data_updated_at": "2018-04-09T18:08:59.946969Z",
+  "data": [
     {
-      id: :integer,
-      object: :string,
-      url: :string,
-      data_updated_at: :date,
-      data: {
-        level: :integer,
-        created_at: :date,
-        characters: :string_or_null,
-        character_images: :array_of_objects,
-        meanings: :array_of_objects,
-        document_url: :string,
-        hidden_at: :date_or_null
+      "id": 440,
+      "object": "kanji",
+      "url": "https://api.wanikani.com/v2/subjects/440",
+      "data_updated_at": "2018-03-29T23:14:30.805034Z",
+      "data": {
+        "created_at": "2012-02-27T19:55:19.000000Z",
+        "level": 1,
+        "slug": "一",
+        "hidden_at": null,
+        "document_url": "https://www.wanikani.com/kanji/%E4%B8%80",
+        "characters": "一",
+        "meanings": [
+          {
+            "meaning": "One",
+            "primary": true
+          }
+        ],
+        "readings": [
+          {
+            "type": "onyomi",
+            "primary": true,
+            "reading": "いち"
+          },
+          {
+            "type": "kunyomi",
+            "primary": false,
+            "reading": "ひと"
+          },
+          {
+            "type": "nanori",
+            "primary": false,
+            "reading": "かず"
+          }
+        ],
+        "component_subject_ids": [
+          1
+        ]
       }
     }
+  ]
+}
+```
 
-**NOTE:** `character_images` is acting as a placeholder. It’ll output an array of objects consisting of keys `content_type` and `url`. The `image/png`  currently being outputted are broken. We plan on also distributing SVG as a primary rendering for radical characters.
+Returns a collection of all subjects, ordered by ascending `created_at`, 1000 at a time.
 
-**Kanji**
+### HTTP Request
 
-    {
-      id: :integer,
-      object: :string,
-      url: :string,
-      data_updated_at: :date,
-      data: {
-        level: :integer,
-        created_at: :date,
-        characters: :string,
-        meanings: :array_of_objects,
-        readings: :array_of_objects,
-        subject_component_ids: :array_of_integers,
-        document_url: :string,
-        hidden_at: :date_or_null
-      }
-    }
+`GET <%= current_page.data.api_root_url %>/subjects`
 
-**Vocabulary**
+### Query Parameters
 
-    {
-      id: :integer,
-      object: :string,
-      url: :string,
-      data_updated_at: :date,
-      data: {
-        level: :integer,
-        created_at: :date,
-        characters: :string,
-        meanings: :array_of_objects,
-        readings: :array_of_objects,
-        parts_of_speech: :array_of_strings,
-        subject_component_ids: :array_of_integers,
-        document_url: :string,
-        hidden_at: :date_or_null
-      }
-    }
+The collection of subjects will be filtered on the parameters provided.
+
+
+Name | Data Type | Description
+--- | --- | --- | ---
+`ids` | Array of integers | Only subjects where `data.id` matches one of the array values are returned.
+`types` | Array of strings | Return subjects of the specified types
+`slugs` | Array of strings | Return subjects of the specified slug
+`levels` | Array of integers | Return subjects at the specified levels
+`hidden` | Boolean | Return subjects which are or are not hidden from the user-facing application
+`updated_after` | Date | Only subjects updated after this time are returned.
+
+## Get a Specific Subject
+
+Retrieves a specific subject by its `id`. The structure of the response depends on the subject type. See [the section on subject data structure](#subject-data-structure) for details.
+
+### HTTP Request
+
+`GET <%= current_page.data.api_root_url %>/subjects/<id>`
+
+### Parameters
+
+Name | Data Type | Description
+---- | ---------------- | -----------
+`id` | Integer | Unique identifier of the subject.
