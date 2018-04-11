@@ -1,13 +1,97 @@
 # Summary
 
+The summary report contains currently available lessons and reviews and the reviews that will become available in the next 24 hours, grouped by the hour.
+
+## Summary Data Structure
+
+> Example Structure
+
+```json
 {
-  object: :string,
-  url: :string,
-  data_updated_at: :date,
-  data: {
-    reviews: :array_of_objects,
-    lessons: :array_of_objects
+  "object": "report",
+  "url": "https://api.wanikani.com/v2/summary",
+  "data_updated_at": "2018-04-11T21:00:00.000000Z",
+  "data": {
+    "lessons": [
+      {
+        "available_at": "2018-04-11T21:00:00.000000Z",
+        "subject_ids": [
+          25,
+          26
+        ]
+      }
+    ],
+    "reviews": [
+      {
+        "available_at": "2018-04-11T21:00:00.000000Z",
+        "subject_ids": [
+          21,
+          23,
+          24
+        ]
+      },
+      {
+        "available_at": "2018-04-11T22:00:00.000000Z",
+        "subject_ids": []
+      },
+      ...
+    ]
   }
 }
+```
 
-reviews and lessons contain a collection of objects with keys available_at and subject_ids. subject_ids are the subjects appearing on available_at. We return for each hour up to 24 hours for reviews. lessons only contains one object.
+Attribute | Data Type | Description
+--------- | --------------- | -----------
+`lessons` | Array of objects | Lessons contains one object with two keys: `available_at`, which should always be the beginning of the current hour, and `subject_ids`, which is an array of unique identifiers for [subjects](#subjects)
+`reviews` | Array of objects | Reviews contains 25 objects with the same keys as lessons. The first object has an `available_at` at the beginning of the current hour. The subsequent objects have `available_at` values for each hour for the next 24 hours. Like lessons, the `subject_ids` array contains unique identifiers for the subjects that will appear in the review queue at that time.
+
+## Get a Summary
+
+> Example Request
+
+<%= partial('examples/GET_shell', locals: { api_endpoint: 'summary' }) %>
+
+<%= partial('examples/GET_javascript', locals: { api_endpoint: 'summary' }) %>
+
+> Example Response
+
+```json
+{
+  "object": "report",
+  "url": "https://api.wanikani.com/v2/summary",
+  "data_updated_at": "2018-04-11T21:00:00.000000Z",
+  "data": {
+    "lessons": [
+      {
+        "available_at": "2018-04-11T21:00:00.000000Z",
+        "subject_ids": [
+          25,
+          26
+        ]
+      }
+    ],
+    "reviews": [
+      {
+        "available_at": "2018-04-11T21:00:00.000000Z",
+        "subject_ids": [
+          21,
+          23,
+          24
+        ]
+      },
+      {
+        "available_at": "2018-04-11T22:00:00.000000Z",
+        "subject_ids": []
+      },
+      ...
+    ]
+  }
+}
+```
+
+Retrieves a summary report.
+
+### HTTP Request
+
+`GET <%= current_page.data.api_root_url %>/summary`
+
