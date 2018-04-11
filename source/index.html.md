@@ -39,11 +39,11 @@ includes:
   - resources/assignments
   - resources/level_progressions
   - resources/resets
-  - resources/review_statistics
   - resources/reviews
+  - resources/review_statistics
   - resources/study_materials
-  - resources/summary
   - resources/subjects
+  - resources/summary
   - resources/user
 
 search: true
