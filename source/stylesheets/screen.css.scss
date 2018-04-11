@@ -432,9 +432,11 @@ html, body {
   }
 
   hr {
+    border: none;
+    border-top: 1px solid #ccc;
+    clear: both;
+    height: 0;
     margin: 2em 0;
-    border-top: 2px solid $examples-bg;
-    border-bottom: 2px solid $main-bg;
   }
 
   table {
