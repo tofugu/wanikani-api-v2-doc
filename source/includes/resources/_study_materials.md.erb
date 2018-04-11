@@ -1,48 +1,46 @@
 # Study Materials
 
-Study material resources contain user inputted study aids for the associated subject.
+Study materials store user-specific notes and synonyms for a given subject. The records are created as soon as the user enters any study information.
 
-A study material is created when the User has added study aid information.
+## Study Material Data Structure
 
-## Study Material `data` Structure
-
-> Below is the structure of an `study_material` `data` object
+> Example Structure
 
 ```
 {
-  "id": <integer>,
-  "object": <string>,
-  "url": <string>,
-  "data_updated_at": <date>,
+  "id": 65231,
+  "object": "study_material",
+  "url": "<%= current_page.data.api_root_url %>/study_materials/65231",
+  "data_updated_at": "2017-09-30T01:42:13.453291Z",
   "data": {
-    "created_at": <date>,
-    "subject_id": <integer>,
-    "subject_type": <string>,
-    "meaning_note": <string_or_null>,
-    "reading_note": <string_or_null>,
-    "meaning_synonyms": <array_of_strings>
+    "created_at": "2017-09-30T01:42:13.453291Z",
+    "subject_id": 241,
+    "subject_type": "radical",
+    "meaning_note": "I like turtles",
+    "reading_note": "I like たrtles",
+    "meaning_synonyms": ["burn", "sizzle"]
   }
 }
 ```
 
-Attribute | Possible Values | Description
+Attribute | Data&nbsp;Type | Description
 --------- | --------------- | -----------
-`created_at` | Date | Timestamp when the resource was created.
-`subject_id` | Integer | Unique identification related to one `subject` resource. See [Subjects](#subjects).
-`subject_type` | `Kanji`, `Radical`, or `Vocabulary` | The subject type the `study_material` is related to. See [Subjects](#subjects).
-`meaning_note` | String | Subject meaning related note the user inputted
-`reading_note` | String | Subject reading related note the user inputted
-`meaning_synonyms` | String | Meaning answer synonyms the user inputted. These are used as correct answers, along with WaniKani defaults for reviews.
+`created_at` | Date | Timestamp when the study material was created.
+`subject_id` | Integer | Unique identifier of the associated [subject](#subjects).
+`subject_type` | String | The type of the associated [subject](#subjects), one of: `Kanji`, `Radical`, or `Vocabulary`.
+`meaning_note` | String | Free form note related to the meaning(s) of the associated subject.
+`reading_note` | String | Free form note related to the reading(s) of the associated subject.
+`meaning_synonyms` | String | Synonyms for the meaning of the subject. These are used as additional correct answers during reviews.
 
 ## Get All Study Materials
 
-> To `GET` all the assignments use the code below:
+> Example Request
 
 <%= partial('examples/GET_shell', locals: { api_endpoint: 'study_materials' }) %>
 
 <%= partial('examples/GET_javascript', locals: { api_endpoint: 'study_materials' }) %>
 
-> The above command returns JSON structured like this:
+> Example Response
 
 ```json
 {
@@ -74,65 +72,69 @@ Attribute | Possible Values | Description
 }
 ```
 
-This endpoint retrieves all study_materials in the following states:
+Returns a collection of all study material, ordered by ascending `created_at`, 500 at a time.
 
- * Ordered by ascending `created_at`
- * Paginated by 500 resources.
+### HTTP Request
 
- ### HTTP Request
+`GET <%= current_page.data.api_root_url %>/study_materials`
 
- `GET <%= current_page.data.api_root_url %>/study_materials`
+### Query Parameters
 
- ### Query Parameters
+The collection of study material records will be filtered on the parameters provided.
 
- If any of the parameters are included in the query, the `data` collection will return `study_materials` based on the conditions assigned.
+Name | Data Type | Description
+---- | ---------------- | -----------
+`ids` | Array of integers | Only study material records where `data.id` matches one of the array values are returned.
+`subject_ids` | Array of integers | Only study material records where `data.subject_id` matches one of the array values are returned.
+`subject_types` | Array of strings | Only study material records where `data.subject_type` matches one of the array values are returned. Valid values are: `radical`, `kanji`, or `vocabulary`.
+`updated_after` | Date | Only study material records updated at or after this time are returned.
 
- Name | Permitted values | Description
- ---- | ---------------- | -----------
- `ids` | Comma-delimited integers | Returns `data.id` included in values.
- `subject_ids` | Comma-delimited integers | Returns `data.subject_id` included in values.
- `subject_types` | Comma-delimited strings, where string is `radical`, `kanji`, or `vocabulary` | Returns `data.subject_type` included in values.
- `updated_after` | Date | Returns `data_updated_at` > `updated_after`.
+### Examples
 
- ### Query Parameter Examples
+#### Study Materials Updated Since Yesterday
 
- #### Study Materials Updated Since Yesterday
+Assumptions:
 
- Assumptions:
+* Date time now is November 11, 2017 8:42:00 AM UTC:
 
- * Date time now is November 11, 2017 8:42:00 AM UTC:
+`<%= current_page.data.api_root_url %>/study_materials?updated_after=2017-10-11T10:42:00Z`
 
- `<%= current_page.data.api_root_url %>/study_materials?updated_after=2017-10-11T10:42:00Z`
+## Get a Specific Review
 
- ## Get a Specific Review
+> Example Request
 
- > To `GET` a specific review use the code below:
+<%= partial('examples/GET_shell', locals: { api_endpoint: 'study_materials/65231' }) %>
 
- <%= partial('examples/GET_shell', locals: { api_endpoint: 'study_materials/65231' }) %>
+<%= partial('examples/GET_javascript', locals: { api_endpoint: 'study_materials/65231' }) %>
 
- <%= partial('examples/GET_javascript', locals: { api_endpoint: 'study_materials/65231' }) %>
+> Example Response
 
- > The above command returns JSON structured like this:
-
- ```json
- {
-   "id": 65231,
-   "object": "study_material",
-   "url": "<%= current_page.data.api_root_url %>/study_materials/65231",
-   "data_updated_at": "2017-09-30T01:42:13.453291Z",
-   "data": {
-     "created_at": "2017-09-30T01:42:13.453291Z",
-     "subject_id": 241,
-     "subject_type": "radical",
-     "meaning_note": "I like turtles",
-     "reading_note": "I like たrtles",
-     "meaning_synonyms": ["burn", "sizzle"]
-   }
+```json
+{
+ "id": 65231,
+ "object": "study_material",
+ "url": "<%= current_page.data.api_root_url %>/study_materials/65231",
+ "data_updated_at": "2017-09-30T01:42:13.453291Z",
+ "data": {
+   "created_at": "2017-09-30T01:42:13.453291Z",
+   "subject_id": 241,
+   "subject_type": "radical",
+   "meaning_note": "I like turtles",
+   "reading_note": "I like たrtles",
+   "meaning_synonyms": ["burn", "sizzle"]
  }
- ```
+}
+```
 
- This endpoint retrieves a specific review by its `id`.
+Retrieves a specific study material by its `id`.
 
- <aside class="warning">
- Make sure to replace the <code>65231</code> in the example with the specific review's id.
- </aside>
+### HTTP Request
+
+`GET <%= current_page.data.api_root_url %>/study_materials/<id>`
+
+### Parameters
+
+Name | Data Type | Description
+---- | ---------------- | -----------
+`id` | Integer | Unique identifier of the study material.
+
