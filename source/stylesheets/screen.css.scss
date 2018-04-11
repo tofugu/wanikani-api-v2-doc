@@ -77,9 +77,7 @@ html, body {
     }
 
     @media (min-width: $phone-width) {
-      .toc-wrapper .lang-selector {
-        display: none;
-      }
+      display: none;
     }
   }
 
