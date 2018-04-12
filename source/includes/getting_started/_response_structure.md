@@ -35,10 +35,11 @@ There's a third type of structure that's less common: a report. Reports summariz
 }
 ```
 
-All of the responses have a few shared, high-level attributes: `url`, `data_updated_at`, and `data`.
+All of the responses have a few shared, high-level attributes: `object`, `url`, `data_updated_at`, and `data`.
 
 Attribute | Description
 --------- | -----------
+`object` | The kind of object returned. See the [object types section](#object-types) below for all the kinds.
 `url` | The URL of the request. For collections, that will contain all the filters and options you've passed to the API. Resources have a single URL and don't need to be filtered, so the URL will be the same in both resource and collection responses.
 `data_updated_at` | For collections, this is the timestamp of the most recently updated resource in the [specified scope](#filters) and is not limited by pagination. For a resource, then this is the last time that particular resource was updated.
 `data` | For collections, this is going to be the resources returned by the specified scope. For resources, these are the attributes that are specific to that particular instance and kind of resource.
@@ -61,16 +62,12 @@ The following are singular resources:
 * `study_material`
 * `user`
 
-We have a single 'subjects' endpoint that returns the three possible types of subjects:
+We have a single [subjects](#subjects) endpoint that returns the three possible types of subjects:
 
 * `kanji`
 * `radical`
 * `vocabulary`
 
-### Resource Ordering in Collections
+### Data Types
 
-Resources in a collection are ordered by `id` in ascending order.
-
-### Timestamps
-
-All timestamps are rendered in [ISO8601](https://xkcd.com/1179/) to the microsecond.
+We stick to the common JSON data types in our responses: strings, integers, booleans, arrays, and objects. We follow the Javascript standard for date formatting, returning them in [ISO 8601](https://xkcd.com/1179/) format, specified to the microsecond.

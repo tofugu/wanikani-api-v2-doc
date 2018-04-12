@@ -6,14 +6,15 @@
 
 <%= partial('examples/GET_javascript') %>
 
-Revisions to v2 of the WaniKani API are designated by timestamps in the format `YYYYMMDD`.
+Any time we make ‘breaking changes’ to the API, we release a new, timestamped revision of the API. Non-breaking changes don't trigger a new revision, and those changes are available in all versions of the API.
 
-Breaking changes introduced to the API will be given a new revision timestamp. An example would be the renaming of a field in a resource. Changes which do not change the existing request/response structure will be introduced into all the existing revisions. Examples of non-breaking changes would be the inclusion of a new field in a resource or the addition of new endpoints.
+* A breaking change is anything that changes the existing structure of a response, e.g. the renaming of a field in a resource.
+* Non-breaking changes are things like exposing new resource attributes or adding whole new endpoints.
 
-We expect the revision to be included in all API requests to the server in a header that looks like the following: `Wanikani-Revision: <%= current_page.data.api_revision %>`.
+Revisions are designated by timestamps in the format `YYYYMMDD`. We expect the revision to be included in all API requests to the server in a header that looks like the following: `Wanikani-Revision: <%= current_page.data.api_revision %>`.
 
 See the [list of revisions and changelogs](<%= current_page.data.documentation_root_path %>) for more details.
 
 <aside class="notice">
-If no revision is specified, the API will default to <a href="<%= current_page.data.documentation_root_path %>/<%= current_page.data.base_revision %>" title="View API revision 20170710 documentation">revision <%= current_page.data.base_revision %></a>.
+If you don't specify a revision, the API will default to the first revision: <a href="<%= current_page.data.documentation_root_path %>/<%= current_page.data.base_revision %>" title="View API revision 20170710 documentation"><%= current_page.data.base_revision %></a>.
 </aside>

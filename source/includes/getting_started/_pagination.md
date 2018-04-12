@@ -2,24 +2,24 @@
 
 ### Collection Size
 
-By default the number of resources returned for all collection endpoints is set to a maximum of 500. Some endpoints may return a different size. `reviews` and `subjects` return a maximum collection size of 1,000. The value can be found on `pages.per_page`.
+By default, the maximum number of resources returned for collection endpoints is 500. Some endpoints may return a different size — `reviews` and `subjects` have a maximum size of 1,000.
 
-The `total_count` attribute is a count of all resources available within the [specified scope](#filters), not limited to pagination.
+Any collection response has the per-page count in the `pages.per_page` attribute. Those same responses have a `total_count` attribute, too. That is a count of all resources available within the [specified scope](#filters), **not** limited to pagination.
 
-### Pagination
+### Pagination in Action
 
-When there are more resources to return than the per-page limit, we use a [cursor-based pagination](https://www.sitepoint.com/paginating-real-time-data-cursor-based-pagination/) scheme to move through the subsequent results. We use the `id` of a resource as the cursor.
+When there are more resources to return than the per-page limit, we use a [cursor-based pagination](https://www.sitepoint.com/paginating-real-time-data-cursor-based-pagination/) scheme to move through the pages of results. We use the `id` of a resource as the cursor.
 
 To make it super simple, collections have the following nested within a `pages` attribute:
 
-Attribute | Description
---------- | -----------
-`next_url` | A URL if the next page exists. Else the value is `null`.
-`previous_url` | A URL if the previous page exists. Else the value is `null`.
-`per_page` | Maximum number of resources delivered for this collection.
+Attribute | Data Type | Description
+--------- | --- | -----------
+`next_url` | String | The URL of the next page of results. If there are no (more) results, the value is `null`.
+`previous_url` | String | The URL of the previous page of results. If there are no results at all or no previous page to go to, the value is `null`.
+`per_page` | Integer | Maximum number of resources delivered for this collection.
 
 <aside class="notice">
-Protip: the first page has no previous page, and the last page has no next page.
+Pro tip: the first page has no previous page, and the last page has no next page.
 </aside>
 
 The previous page of results can be requested by passing in the `page_before_id` parameter, with the value being the `id` you want to look before. Similar logic applies for the next page. Pass in the `page_after_id` parameter with with the `id` you want to look after.
