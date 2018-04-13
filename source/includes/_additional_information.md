@@ -1,12 +1,31 @@
 # Additional Information
 
-## SRS Stage Intervals
+## SRS Stages
 
+There are 10 stages in our spaced-repetition system. We start at `0`, which indicates that the subject hasn't been learned through lessons yet. When an assignment for a subject has obtained stage `5` once, we mark that assignment as passed, where it contributes towards level progress and can unlock additional assignments. Getting an assignment to stage `9` removes the assignment from the review queue — we think it's been firmly burned into memory at that point.
+
+We use the SRS stages to calculate the time until the next review (the 'space' in the 'spaced-repetition').
+
+* If the review goes well and there are no wrong answers, we move the assignment up to the next SRS stage. We make the assignment available 'interval' hours from now, at the top of the hour. For example: given an assignment at stage `1`, when we submit a correct answer at 3:30pm, the assignment would move to SRS stage `2` and become available for another review at 11:00pm.
+* If there are wrong answers, we decrease the SRS stage based on the number of times it was wrong, and then again make it available according to the interval for that SRS stage.
+
+The accelerated interval is used for the first two levels of assignments, and only for SRS stages 1 through 4. There are fewer items in the queue and the content should be a little easier for most people at that point.
+
+Stage | Name | Interval | Accelerated Interval
+-- | -- | -- | --
+0 | Initiate | 0 | 0
+1 | Apprentice I | 4 | 2
+2 | Apprentice II | 8 | 4
+3 | Apprentice III | 23 | 8
+4 | Apprentice IV | 47 | 23
+5 | Guru I | 167 | n/a
+6 | Guru II | 335 | n/a
+7 | Master | 719 | n/a
+8 | Enlightened | 2,879 | n/a
+9 | Burned | n/a | n/a
 
 ## User Resets
 
-A user has the option to reset their account to a target level below their current level.
+Users have the option to reset their account to a target level at or below their current level.
 
-When the user resets all subjectable resources (`assignment`, `review_statistic`, and `study_material`) at or above the user’s target level will have their fields set to the defaults and the `updated_at` timestamp will be touched.
-
-User resets can be inferred from the [Level Progressions](#level-progressions) endpoint. The latest resource with a timestamp on the `abandoned_at` field means the user has reset. The next `level_progression` object in the sequence is the user's new level.
+Resets will show up in a variety of places. Explicit records will show up under [`resets`](#resets). They'll get a fresh [level progression](#level-progressions) for the target level of the reset, and the level progression for the level they abandoned gets an `abandoned_at` timestamp. Finally, the `assignments` and `review_statistics` for the affected levels will get set back to their default state, waiting to be unlocked or started, depending on the levels.

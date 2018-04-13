@@ -1,8 +1,8 @@
 ## Conditional Requests
 
-WaniKani API optionally accepts request headers `If-None-Match` and `If-Modified-Since`. Every API endpoint response header includes an `ETag` and `Last-Modified`. These values can be utilized in future requests at the matching endpoint.
+We accept the `If-None-Match` and `If-Modified-Since` headers for every endpoint. If the response body hasn't changed since the last request, then a HTTP status code `304` (Not Modified) and an empty response body is returned. The advantage to using these headers is a faster response time since we don't have to generate a full response; we assume you still have the unmodified data cached.
 
-If the response body has not been modified since the last request then a HTTP status code `304` (Not Modified) and an empty response body is returned. The advantage to using these headers is a faster response time since the body is not generated; it is assumed the consumer has the unmodified data cached.
+Each response includes the `ETag` and `Last-Modified` headers that are used to populate `If-None-Match` and `If-Modified-Since`, respectively. These values can be used in future requests at the matching endpoint.
 
 If both `If-None-Match` and `If-Modified-Since` are passed in, then `If-None-Match` takes precedence.
 
@@ -32,7 +32,7 @@ fetch(endpoint)
 
 > Make sure to replace `<last_modified_date_here>` with the `Last-Modified` value extracted from a previous response header or any datetime.
 
-The `If-Modified-Since` request header takes in an `Last-Modified` value from the last request's response header or any datetime in the following format:
+The `If-Modified-Since` request header takes in a `Last-Modified` value from the last request — or any datetime — in the following format:
 
 `If-Modified-Since: <day-name>, <day> <month> <year> <hour>:<minute>:<second> GMT`
 
@@ -49,7 +49,7 @@ Where:
 
 Example: `If-Modified-Since: Fri, 11 Nov 2011 11:11:11 GMT`
 
-More information on `If-Modified-Since` can be found at the [MDN web docs](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/If-Modified-Since).
+The generally-excellent [MDN web docs](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/If-Modified-Since) have more information on the `If-Modified-Since` header.
 
 ### If-None-Match
 
@@ -81,4 +81,4 @@ The `If-None-Match` request header takes in an `ETag` value from the last reques
 
 `If-None-Match: <etag_here>`
 
-More information on `If-None-Match` can be found at the [MDN web docs](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/If-None-Match).
+The [MDN web docs](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/If-None-Match) have more information on the `If-None-Match` header, too.
