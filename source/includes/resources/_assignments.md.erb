@@ -52,9 +52,9 @@ Attribute | Data Type | Description
 
 > Example Request
 
-<%= partial('examples/GET_shell', locals: { api_endpoint: 'subjects' }) %>
+<%= partial('examples/GET_shell', locals: { api_endpoint: 'assignments' }) %>
 
-<%= partial('examples/GET_javascript', locals: { api_endpoint: 'subjects' }) %>
+<%= partial('examples/GET_javascript', locals: { api_endpoint: 'assignments' }) %>
 
 > Example Response
 
@@ -118,7 +118,7 @@ Name | Data Type | Description
 `srs_stages` | Array of integers | Only assignments where `data.srs_stage` matches one of the array values are returned. Valid values range from `0` to `9`
 `subject_ids` | Array of integers | Only assignments where `data.subject_id` matches one of the array values are returned.
 `subject_types` | Array of strings | Only assignments where `data.subject_type` matches one of the array values are returned. Valid values are: `radical`, `kanji`, or `vocabulary`.
-`updated_after` | Date | Only assignments updated at or after this time are returned.
+`updated_after` | Date | Only assignments updated after this time are returned.
 
 ### Query Parameter Examples
 
