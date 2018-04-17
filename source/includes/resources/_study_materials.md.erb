@@ -31,6 +31,7 @@ Attribute | Data&nbsp;Type | Description
 `meaning_note` | String | Free form note related to the meaning(s) of the associated subject.
 `reading_note` | String | Free form note related to the reading(s) of the associated subject.
 `meaning_synonyms` | String | Synonyms for the meaning of the subject. These are used as additional correct answers during reviews.
+`hidden` | Boolean | Indicates if the associated subject has been hidden, preventing it from appearing in lessons or reviews.
 
 ## Get All Study Materials
 
@@ -87,6 +88,7 @@ Name | Data Type | Description
 `ids` | Array of integers | Only study material records where `data.id` matches one of the array values are returned.
 `subject_ids` | Array of integers | Only study material records where `data.subject_id` matches one of the array values are returned.
 `subject_types` | Array of strings | Only study material records where `data.subject_type` matches one of the array values are returned. Valid values are: `radical`, `kanji`, or `vocabulary`.
+`hidden` | Boolean | Return study materials with a matching value in the `hidden` attribute
 `updated_after` | Date | Only study material records updated after this time are returned.
 
 ### Examples

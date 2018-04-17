@@ -47,6 +47,7 @@ Attribute | Data Type | Description
 `resurrected_at` | `null` or Date | Timestamp when the subject is resurrected and placed back in the user's review queue.
 `passed` | Boolean | The boolean equivalent of `passed_at`
 `resurrected` | Boolean | A convenience field indicating that the subject has been burned, resurrected, and is still in the user's review queue.
+`hidden` | Boolean | Indicates if the associated subject has been hidden, preventing it from appearing in lessons or reviews.
 
 ## Get All Assignments
 
@@ -110,14 +111,17 @@ Name | Data Type | Description
 ---- | ---------------- | -----------
 `available_after` | Date | Only assignments available at or after this time are returned.
 `available_before` | Date | Only assignments available at or before this time are returned.
-`burned` | Boolean | When set to `true`, returns assignments that have a value in `data.burned_at`. Returns assignments with a `null` `data.burned_at` if `false`.
 `ids` | Array of integers | Only assignments where `data.id` matches one of the array values are returned.
 `levels` | Array of integers | Only assignments where `data.level` matches one of the array values are returned. Valid values range from `1` to `60`.
-`passed` | Boolean | Returns assignments where `data.passed` equals `passed`.
-`resurrected` | Boolean | Returns assignments where `data.resurrected` equals `resurrected`.
 `srs_stages` | Array of integers | Only assignments where `data.srs_stage` matches one of the array values are returned. Valid values range from `0` to `9`
 `subject_ids` | Array of integers | Only assignments where `data.subject_id` matches one of the array values are returned.
 `subject_types` | Array of strings | Only assignments where `data.subject_type` matches one of the array values are returned. Valid values are: `radical`, `kanji`, or `vocabulary`.
+`unlocked` | Boolean | When set to `true`, returns assignments that have a value in `data.unlocked_at`. Returns assignments with a `null` `data.unlocked_at` if `false`.
+`started` | Boolean | When set to `true`, returns assignments that have a value in `data.started_at`. Returns assignments with a `null` `data.started_at` if `false`.
+`passed` | Boolean | Returns assignments where `data.passed` equals `passed`.
+`burned` | Boolean | When set to `true`, returns assignments that have a value in `data.burned_at`. Returns assignments with a `null` `data.burned_at` if `false`.
+`resurrected` | Boolean | Returns assignments where `data.resurrected` equals `resurrected`.
+`hidden` | Boolean | Return assignments with a matching value in the `hidden` attribute
 `updated_after` | Date | Only assignments updated after this time are returned.
 
 ### Query Parameter Examples

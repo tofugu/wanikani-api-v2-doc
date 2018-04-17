@@ -11,7 +11,7 @@ We use the SRS stages to calculate the time until the next review (the 'space' i
 
 The accelerated interval is used for the first two levels of assignments, and only for SRS stages 1 through 4. There are fewer items in the queue and the content should be a little easier for most people at that point.
 
-Stage | Name | Interval | Accelerated Interval
+Stage | Name | Interval (hours) | Accelerated Interval (hours)
 -- | -- | -- | --
 0 | Initiate | 0 | 0
 1 | Apprentice I | 4 | 2
@@ -28,4 +28,4 @@ Stage | Name | Interval | Accelerated Interval
 
 Users have the option to reset their account to a target level at or below their current level.
 
-Resets will show up in a variety of places. Explicit records will show up under [`resets`](#resets). They'll get a fresh [level progression](#level-progressions) for the target level of the reset, and the level progression for the level they abandoned gets an `abandoned_at` timestamp. Finally, the `assignments` and `review_statistics` for the affected levels will get set back to their default state, waiting to be unlocked or started, depending on the levels.
+Resets will show up in a variety of places. Explicit records will show up under [resets](#resets). They'll get a fresh [level progression](#level-progressions) for the target level of the reset, and the level progression for the level they abandoned gets an `abandoned_at` timestamp. Finally, the `assignments` and `review_statistics` for the affected levels will get set back to their default state, waiting to be unlocked or started, depending on the levels.
