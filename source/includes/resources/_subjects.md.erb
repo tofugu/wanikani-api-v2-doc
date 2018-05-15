@@ -51,6 +51,11 @@ Attribute | Data Type | Description
         "meaning": "Ground",
         "primary": true
       }
+    ],
+    "amalgamation_subject_ids": [
+      5,
+      4,
+      98
     ]
   }
 }
@@ -59,6 +64,7 @@ Attribute | Data Type | Description
 
 Attribute | Data Type | Description
 --------- | --------------- | -----------
+`amalgamation_subject_ids` | Array of integers | An array of numeric identifiers for the kanji that have the radical as a component.
 `characters` | String or `null` | Unlike kanji and vocabulary, radicals can have a null value for `characters`. Not all radicals have a UTF entry, so the radical must be visually represented with an image instead.
 `character_images` | Array of objects | A collection of images of the radical. Each object in the array has three keys: `url`, the location of the image, `content_type`, indicating the kind of image, and `metadata`, which contains information to that kind of image. We currently offer two kinds of images: PNGs and SVGs. PNGs come in a variety of sizes (64px–1024px), and SVGs are delivered with and without inline styles.
 
@@ -106,6 +112,11 @@ Attribute | Data Type | Description
     ],
     "component_subject_ids": [
       1
+    ],
+    "amalgamation_subject_ids": [
+      56,
+      88,
+      91
     ]
   }
 }
@@ -113,8 +124,9 @@ Attribute | Data Type | Description
 
 Attribute | Data Type | Description
 --------- | --------------- | -----------
-`readings` | Array of objects | Selected readings for the kanji. Each object in the array has three keys: `reading`, a string with the hiragana reading of the kanji, `primary`, a boolean indicating that the given reading is commonly used, and `type`. There are three types of readings: `onyomi`, `kunyomi`, and `nanori`. See [this article](https://www.tofugu.com/japanese/onyomi-kunyomi/) about the different reading types.
+`amalgamation_subject_ids` | Array of integers | An array of numeric identifiers for the vocabulary that have the kanji as a component.
 `component_subject_ids` | Array of integers | An array of numeric identifiers for the radicals that make up this kanji. Note that these are the subjects that must be have passed assignments in order to unlock this subject's assignment.
+`readings` | Array of objects | Selected readings for the kanji. Each object in the array has three keys: `reading`, a string with the hiragana reading of the kanji, `primary`, a boolean indicating that the given reading is commonly used, and `type`. There are three types of readings: `onyomi`, `kunyomi`, and `nanori`. See [this article](https://www.tofugu.com/japanese/onyomi-kunyomi/) about the different reading types.
 
 ---
 
@@ -159,8 +171,8 @@ Attribute | Data Type | Description
 
 Attribute | Data Type | Description
 --------- | --------------- | -----------
-`readings` | Array of objects | Selected readings for the vocabulary. Each object in the array has two keys: `reading`, a string with the hiragana reading of the vocabulary, and `primary`, a boolean indicating that the given reading is commonly used.
 `component_subject_ids` | Array of integers | An array of numeric identifiers for the kanji that make up this vocabulary. Note that these are the subjects that must be have passed assignments in order to unlock this subject's assignment.
+`readings` | Array of objects | Selected readings for the vocabulary. Each object in the array has two keys: `reading`, a string with the hiragana reading of the vocabulary, and `primary`, a boolean indicating that the given reading is commonly used.
 
 ## Get All Subjects
 
