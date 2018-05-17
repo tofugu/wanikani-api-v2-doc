@@ -14,7 +14,7 @@ Attribute | Data Type | Description
 `level` | Integer | The level of the subject, from `1` to `60`.
 `slug` | String | The string that is used when generating the document URL for the subject. Radicals use their meaning, downcased. Kanji and vocabulary use their characters.
 `characters` | String | The UTF-8 characters for the subject, including kanji and hiragana.
-`meanings` | Array of objects | The accepted meanings for the subject. Each object in the array has two keys: `meaning`, a string with the meaning of the subject, and `primary`, a boolean indicating that the given meaning is commonly used.
+`meanings` | Array of objects | The accepted meanings for the subject. Each object in the array has three keys: `meaning`, a string with the meaning of the subject. `primary`, a boolean indicating that the given meaning is commonly used. `answerable`, a boolean indicating if the meaning is used to evaluate against user input in WaniKani lesson and reviews.
 `document_url` | String | A URL pointing to the page on wanikani.com that provides detailed information about this subject.
 `hidden_at` | Date | Timestamp when the subject was hidden, indicating associated assignments will no longer appear in lessons or reviews and that the subject page is no longer visible on wanikani.com.
 
@@ -49,7 +49,8 @@ Attribute | Data Type | Description
     "meanings": [
       {
         "meaning": "Ground",
-        "primary": true
+        "primary": true,
+        "answerable": true
       }
     ],
     "amalgamation_subject_ids": [
@@ -90,23 +91,27 @@ Attribute | Data Type | Description
     "meanings": [
       {
         "meaning": "One",
-        "primary": true
+        "primary": true,
+        "answerable": true
       }
     ],
     "readings": [
       {
         "type": "onyomi",
         "primary": true,
+        "answerable": true,
         "reading": "いち"
       },
       {
         "type": "kunyomi",
         "primary": false,
+        "answerable": false,
         "reading": "ひと"
       },
       {
         "type": "nanori",
         "primary": false,
+        "answerable": false,
         "reading": "かず"
       }
     ],
@@ -126,7 +131,7 @@ Attribute | Data Type | Description
 --------- | --------------- | -----------
 `amalgamation_subject_ids` | Array of integers | An array of numeric identifiers for the vocabulary that have the kanji as a component.
 `component_subject_ids` | Array of integers | An array of numeric identifiers for the radicals that make up this kanji. Note that these are the subjects that must be have passed assignments in order to unlock this subject's assignment.
-`readings` | Array of objects | Selected readings for the kanji. Each object in the array has three keys: `reading`, a string with the hiragana reading of the kanji, `primary`, a boolean indicating that the given reading is commonly used, and `type`. There are three types of readings: `onyomi`, `kunyomi`, and `nanori`. See [this article](https://www.tofugu.com/japanese/onyomi-kunyomi/) about the different reading types.
+`readings` | Array of objects | Selected readings for the kanji. Each object in the array has four keys: `reading`, a string with the hiragana reading of the kanji. `primary`: a boolean indicating that the given reading is commonly used. `answerable`: a boolean indicating if the reading is used to evaluate against user input in WaniKani lesson and reviews. `type`, there are three types of readings: `onyomi`, `kunyomi`, and `nanori`. See [this article](https://www.tofugu.com/japanese/onyomi-kunyomi/) about the different reading types.
 
 ---
 
@@ -150,13 +155,15 @@ Attribute | Data Type | Description
     "meanings": [
       {
         "meaning": "One",
-        "primary": true
+        "primary": true,
+        "answerable": true
       }
     ],
     "readings": [
       {
         "primary": true,
-        "reading": "いち"
+        "reading": "いち",
+        "answerable": true
       }
     ],
     "parts_of_speech": [
@@ -172,7 +179,7 @@ Attribute | Data Type | Description
 Attribute | Data Type | Description
 --------- | --------------- | -----------
 `component_subject_ids` | Array of integers | An array of numeric identifiers for the kanji that make up this vocabulary. Note that these are the subjects that must be have passed assignments in order to unlock this subject's assignment.
-`readings` | Array of objects | Selected readings for the vocabulary. Each object in the array has two keys: `reading`, a string with the hiragana reading of the vocabulary, and `primary`, a boolean indicating that the given reading is commonly used.
+`readings` | Array of objects | Selected readings for the vocabulary. Each object in the array has three keys: `reading`, a string with the hiragana reading of the vocabulary. `primary`: a boolean indicating that the given reading is commonly used. `answerable`: a boolean indicating if the reading is used to evaluate against user input in WaniKani lesson and reviews.
 
 ## Get All Subjects
 
@@ -211,23 +218,27 @@ Attribute | Data Type | Description
         "meanings": [
           {
             "meaning": "One",
-            "primary": true
+            "primary": true,
+            "answerable": true
           }
         ],
         "readings": [
           {
             "type": "onyomi",
             "primary": true,
+            "answerable": true,
             "reading": "いち"
           },
           {
             "type": "kunyomi",
             "primary": false,
+            "answerable": false,
             "reading": "ひと"
           },
           {
             "type": "nanori",
             "primary": false,
+            "answerable": false,
             "reading": "かず"
           }
         ],
