@@ -21,6 +21,7 @@ The summary report contains currently available lessons and reviews and the revi
         ]
       }
     ],
+    "next_reviews_at:" "2018-04-11T21:00:00.000000Z",
     "reviews": [
       {
         "available_at": "2018-04-11T21:00:00.000000Z",
@@ -43,6 +44,7 @@ The summary report contains currently available lessons and reviews and the revi
 Attribute | Data Type | Description
 --------- | --------------- | -----------
 `lessons` | Array of objects | Lessons contains one object with two keys: `available_at`, which should always be the beginning of the current hour, and `subject_ids`, which is an array of unique identifiers for [subjects](#subjects)
+`next_reviews_at` | Date or null | Earliest date when the reviews are available. Is `null` when the user has no reviews scheduled.
 `reviews` | Array of objects | Reviews contains 25 objects with the same keys as lessons. The first object has an `available_at` at the beginning of the current hour. The subsequent objects have `available_at` values for each hour for the next 24 hours. Like lessons, the `subject_ids` array contains unique identifiers for the subjects that will appear in the review queue at that time.
 
 ## Get a Summary
@@ -70,6 +72,7 @@ Attribute | Data Type | Description
         ]
       }
     ],
+    "next_reviews_at": "2018-04-11T21:00:00.000000Z",
     "reviews": [
       {
         "available_at": "2018-04-11T21:00:00.000000Z",
@@ -94,4 +97,3 @@ Retrieves a summary report.
 ### HTTP Request
 
 `GET <%= current_page.data.api_root_url %>/summary`
-
