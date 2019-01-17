@@ -1,6 +1,6 @@
 # Resets
 
-Users can reset their progress back to any level at or below their current level. When they reset to a particular level, all of the `assignments` and `review statistics` at that level or higher are set back to their default state.
+Users can reset their progress back to any level at or below their current level. When they reset to a particular level, all of the `assignments` and `review_statistics` at that level or higher are set back to their default state.
 
 Resets contain information about when those resets happen, the starting level, and the target level.
 
@@ -29,7 +29,7 @@ Attribute | Data&nbsp;Type | Description
 `created_at` | Date | Timestamp when the reset was created.
 `original_level` | Integer | The user's level before the reset, from `1` to `60`
 `target_level` | Integer | The user's level after the reset, from `1` to `60`. It must be less than or equal to `original_level`.
-`confirmed_at` | Date | Timestamp when the user confirmed the reset.
+`confirmed_at` | `null` or Date | Timestamp when the user confirmed the reset.
 
 ## Get All Resets
 
@@ -46,7 +46,7 @@ Attribute | Data&nbsp;Type | Description
   "object": "collection",
   "url": "<%= current_page.data.api_root_url %>/resets",
   "pages": {
-    "per_page": 1000,
+    "per_page": 500,
     "next_url": null,
     "previous_url": null
   },
@@ -120,6 +120,3 @@ Retrieves a specific reset by its `id`.
 Name | Data Type | Description
 ---- | ---------------- | -----------
 `id` | Integer | Unique identifier of the reset.
-
-
-

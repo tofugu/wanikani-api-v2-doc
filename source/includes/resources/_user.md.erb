@@ -12,6 +12,7 @@ The user summary returns basic information for the user making the API request, 
   "url": "<%= current_page.data.api_root_url %>/user",
   "data_updated_at": "2018-04-06T14:26:53.022245Z",
   "data": {
+    "id": "5a6a5234-a392-4a87-8f3f-33342afe8a42",
     "username": "example_user",
     "level": 5,
     "max_level_granted_by_subscription": 60,
@@ -28,10 +29,10 @@ Attribute | Data Type | Description
 `username` | String | The user's username.
 `level` | Integer | The current level of the user. This ignores subscription status.
 `max_level_granted_by_subscription` | Integer | The maximum level of content accessible to the user for lessons, reviews, and content review. For unsubscribed/free users, the maximum level is `3`. For subscribed users, this is `60`. **Any application that uses data from the WaniKani API must respect these access limits.**
-`profile_url` | String | The address of the user's public facing profile page.
+`profile_url` | String | The URL to the user's public facing profile page.
 `started_at` | Date | The signup date for the user.
 `subscribed` | Boolean | Whether or not the user currently has a paid subscription.
-`current_vacation_started_at` | Date or `null` | If the user is on vacation, this will be the timestamp of when that vacation started. If the user is not on vacation, this is `null`.
+`current_vacation_started_at` | `null` or Date | If the user is on vacation, this will be the timestamp of when that vacation started. If the user is not on vacation, this is `null`.
 
 ## Get User Information
 
@@ -65,5 +66,3 @@ Returns a summary of user information.
 ### HTTP Request
 
 `GET <%= current_page.data.api_root_url %>/user`
-
-

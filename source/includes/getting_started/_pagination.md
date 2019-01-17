@@ -10,11 +10,11 @@ Any collection response has the per-page count in the `pages.per_page` attribute
 
 When there are more resources to return than the per-page limit, we use a [cursor-based pagination](https://www.sitepoint.com/paginating-real-time-data-cursor-based-pagination/) scheme to move through the pages of results. We use the `id` of a resource as the cursor.
 
-To make it super simple, collections have the following nested within a `pages` attribute:
+Collections have the following nested within a `pages` attribute:
 
 Attribute | Data Type | Description
 --------- | --- | -----------
-`next_url` | String | The URL of the next page of results. If there are no (more) results, the value is `null`.
+`next_url` | String | The URL of the next page of results. If there are no more results, the value is `null`.
 `previous_url` | String | The URL of the previous page of results. If there are no results at all or no previous page to go to, the value is `null`.
 `per_page` | Integer | Maximum number of resources delivered for this collection.
 

@@ -14,9 +14,43 @@ Attribute | Data Type | Description
 `level` | Integer | The level of the subject, from `1` to `60`.
 `slug` | String | The string that is used when generating the document URL for the subject. Radicals use their meaning, downcased. Kanji and vocabulary use their characters.
 `characters` | String | The UTF-8 characters for the subject, including kanji and hiragana.
-`meanings` | Array of objects | The accepted meanings for the subject. Each object in the array has three keys: `meaning`, a string with the meaning of the subject. `primary`, a boolean indicating that the given meaning is commonly used. `accepted_answer`, a boolean indicating if the meaning is used to evaluate against user input in WaniKani lesson and reviews.
+`meanings` | Array of objects | The subject meanings. See table below for the object structure.
+`meaning_mnemonic` | String | The subject's meaning mnemonic.
+`auxiliary_meanings` | Array of objects | Collection of auxiliary meanings. See table below for the object structure.
 `document_url` | String | A URL pointing to the page on wanikani.com that provides detailed information about this subject.
 `hidden_at` | Date | Timestamp when the subject was hidden, indicating associated assignments will no longer appear in lessons or reviews and that the subject page is no longer visible on wanikani.com.
+
+#### Meaning Object Attributes
+
+Attribute | Data Type | Description
+--------- | --------------- | -----------
+`meaning` | String | A singular subject meaning.
+`primary` | Boolean | Indicates priority in the WaniKani system.
+`accepted_answer` | Boolean | Indicates if the meaning is used to evaluate user input for correctness.
+
+#### Auxiliary Meaning Object Attributes
+
+Attribute | Data Type | Description
+--------- | --------------- | -----------
+`meaning` | String | A singular subject meaning.
+`type` | String | Either `whitelist` or `blacklist`. When evaluating user input, whitelisted meanings are used to match for correctness. Blacklisted meanings are used to match for incorrectness.
+
+### Markup highlighting
+
+One or many of these attributes can be present in `radical`, `kanji`, and `vocabulary`:
+
+* `meaning_mnemonic`
+* `reading_mnemonic`
+* `meaning_hint`
+* `reading_hint`
+
+The strings can include a WaniKani specific markup syntax. The following is a list of markup used:
+
+* `<radical></radical>`
+* `<kanji></kanji>`
+* `<vocabulary></vocabulary>`
+* `<meaning></meaning>`
+* `<reading></reading>`
 
 ---
 
@@ -53,6 +87,13 @@ Attribute | Data Type | Description
         "accepted_answer": true
       }
     ],
+    "meaning_mnemonic": "This radical consists of a single, horizontal stroke. What's the biggest, single, horizontal stroke? That's the ground. Look at the <radical>ground</radical>, look at this radical, now look at the ground again. Kind of the same, right?",
+    "auxiliary_meanings": [
+      {
+        "meaning": "one", "type": "blacklist",
+        "meaning": "flat", "type": "whitelist"
+      }
+    ]
     "amalgamation_subject_ids": [
       5,
       4,
@@ -60,14 +101,21 @@ Attribute | Data Type | Description
     ]
   }
 }
-
 ```
 
 Attribute | Data Type | Description
 --------- | --------------- | -----------
 `amalgamation_subject_ids` | Array of integers | An array of numeric identifiers for the kanji that have the radical as a component.
 `characters` | String or `null` | Unlike kanji and vocabulary, radicals can have a null value for `characters`. Not all radicals have a UTF entry, so the radical must be visually represented with an image instead.
-`character_images` | Array of objects | A collection of images of the radical. Each object in the array has three keys: `url`, the location of the image, `content_type`, indicating the kind of image, and `metadata`, which contains information to that kind of image. We currently offer two kinds of images: PNGs and SVGs. PNGs come in a variety of sizes (64px–1024px), and SVGs are delivered with and without inline styles.
+`character_images` | Array of objects | A collection of images of the radical. See table below for the object structure.
+
+#### Character Image Object Attributes
+
+Attribute | Data Type | Description
+--------- | --------------- | -----------
+`url` | String | The location of the image.
+`content_type` | String | The content type of the image. Currently the API delivers `image/png` and `image/svg+xml`.
+`metadata` | Object | Details about the image. Each `content_type` returns a uniquely structured object.
 
 ---
 
@@ -122,7 +170,12 @@ Attribute | Data Type | Description
       56,
       88,
       91
-    ]
+    ],
+    "visually_similar_subject_ids": [],
+    "meaning_mnemonic": "Lying on the <radical>ground</radical> is something that looks just like the ground, the number <kanji>One</kanji>. Why is this One lying down? It's been shot by the number two. It's lying there, bleeding out and dying. The number One doesn't have long to live.",
+    "meaning_hint": "To remember the meaning of <kanji>One</kanji>, imagine yourself there at the scene of the crime. You grab <kanji>One</kanji> in your arms, trying to prop it up, trying to hear its last words. Instead, it just splatters some blood on your face. "Who did this to you?" you ask. The number One points weakly, and you see number Two running off into an alleyway. He's always been jealous of number One and knows he can be number one now that he's taken the real number one out.",
+    "reading_mnemonic": "As you're sitting there next to <kanji>One</kanji>, holding him up, you start feeling a weird sensation all over your skin. From the wound comes a fine powder (obviously coming from the special bullet used to kill One) that causes the person it touches to get extremely <reading>itchy</reading> (いち)",
+    "reading_hint": "Make sure you feel the ridiculously <reading>itchy</reading> sensation covering your body. It climbs from your hands, where you're holding the number <kanji>One</kanji> up, and then goes through your arms, crawls up your neck, goes down your body, and then covers everything. It becomes uncontrollable, and you're scratching everywhere, writhing on the ground. It's so itchy that it's the most painful thing you've ever experienced (you should imagine this vividly, so you remember the reading of this kanji)."
   }
 }
 ```
@@ -131,7 +184,16 @@ Attribute | Data Type | Description
 --------- | --------------- | -----------
 `amalgamation_subject_ids` | Array of integers | An array of numeric identifiers for the vocabulary that have the kanji as a component.
 `component_subject_ids` | Array of integers | An array of numeric identifiers for the radicals that make up this kanji. Note that these are the subjects that must be have passed assignments in order to unlock this subject's assignment.
-`readings` | Array of objects | Selected readings for the kanji. Each object in the array has four keys: `reading`, a string with the hiragana reading of the kanji. `primary`: a boolean indicating that the given reading is commonly used. `accepted_answer`: a boolean indicating if the reading is used to evaluate against user input in WaniKani lesson and reviews. `type`, there are three types of readings: `onyomi`, `kunyomi`, and `nanori`. See [this article](https://www.tofugu.com/japanese/onyomi-kunyomi/) about the different reading types.
+`readings` | Array of objects | Selected readings for the kanji. See table below for the object structure.
+
+#### Reading Object Attributes
+
+Attribute | Data Type | Description
+--------- | --------------- | -----------
+`reading` | String | A singular subject reading.
+`primary` | Boolean | Indicates priority in the WaniKani system.
+`accepted_answer` | Boolean | Indicates if the reading is used to evaluate user input for correctness.
+`type` | String | The kanji reading's classfication: `kunyomi`, `nanori`, or `onyomi`.
 
 ---
 
@@ -144,7 +206,7 @@ Attribute | Data Type | Description
   "id": 2467,
   "object": "vocabulary",
   "url": "<%= current_page.data.api_root_url %>/subjects/2467",
-  "data_updated_at": "2018-03-29T23:15:07.525893Z",
+  "data_updated_at": "2018-12-12T23:09:52.234049Z",
   "data": {
     "created_at": "2012-02-28T08:04:47.000000Z",
     "level": 1,
@@ -159,6 +221,12 @@ Attribute | Data Type | Description
         "accepted_answer": true
       }
     ],
+    "auxiliary_meanings": [
+      {
+        "type": "whitelist",
+        "meaning": "1"
+      }
+    ],
     "readings": [
       {
         "primary": true,
@@ -171,6 +239,34 @@ Attribute | Data Type | Description
     ],
     "component_subject_ids": [
       440
+    ],
+    "pronunciation_audios": [
+      {
+        "url": "https://cdn.wanikani.com/audios/1838-subject-2467.mp3?1536694949",
+        "metadata":
+        {
+          "gender": "male",
+          "source_id": 840,
+          "pronunciation": "いち",
+          "voice_actor_id": 2,
+          "voice_actor_name": "Tarou",
+          "voice_description": "Standard voice"
+        },
+        "content_type": "audio/mpeg"
+      },
+      {
+        "url": "https://cdn.wanikani.com/audios/1834-subject-2467.ogg?1536694948",
+        "metadata":
+        {
+          "gender": "male",
+          "source_id": 840,
+          "pronunciation": "いち",
+          "voice_actor_id": 2,
+          "voice_actor_name": "Tarou",
+          "voice_description": "Standard voice"
+        },
+        "content_type": "audio/ogg"
+      }
     ]
   }
 }
@@ -179,7 +275,46 @@ Attribute | Data Type | Description
 Attribute | Data Type | Description
 --------- | --------------- | -----------
 `component_subject_ids` | Array of integers | An array of numeric identifiers for the kanji that make up this vocabulary. Note that these are the subjects that must be have passed assignments in order to unlock this subject's assignment.
-`readings` | Array of objects | Selected readings for the vocabulary. Each object in the array has three keys: `reading`, a string with the hiragana reading of the vocabulary. `primary`: a boolean indicating that the given reading is commonly used. `accepted_answer`: a boolean indicating if the reading is used to evaluate against user input in WaniKani lesson and reviews.
+`readings` | Array of objects | Selected readings for the vocabulary. See table below for the object structure.
+`parts_of_speech` | Array of strings | Parts of speech.
+`meaning_mnemonic` | String | The subject's meaning mnemonic.
+`reading_mnemonic` | String | The subject's reading mnemonic.
+`context_sentences` | Array of objects | A collection of context sentences. See table below for the object structure.
+`pronunciation_audios` | Array of objects | A collection of pronunciation audio. See table below for the object structure.
+
+#### Reading Object Attributes
+
+Attribute | Data Type | Description
+--------- | --------------- | -----------
+`reading` | String | A singular subject reading.
+`primary` | Boolean | Indicates priority in the WaniKani system.
+`accepted_answer` | Boolean | Indicates if the reading is used to evaluate user input for correctness.
+
+#### Context Sentence Object Attributes
+
+Attribute | Data Type | Description
+--------- | --------------- | -----------
+`en` | String | English translation of the sentence
+`ja` | String | Japanese context sentence
+
+#### Pronunciation Audio Object Attributes
+
+Attribute | Data Type | Description
+--------- | --------------- | -----------
+`url` | String | The location of the audio.
+`content_type` | String | The content type of the audio. Currently the API delivers `audio/mpeg` and `audio/ogg`.
+`metadata` | Object | Details about the pronunciation audio. See table below for details.
+
+##### Pronunciation Audio Metadata Object Attributes
+
+Attribute | Data Type | Description
+--------- | --------------- | -----------
+`gender` | String | The gender of the voice actor.
+`source_id` | Integer | A unique ID shared between same source pronunciation audio.
+`pronunciation` | String | Vocabulary being pronounced in kana.
+`voice_actor_id` | Integer | A unique ID belonging to the voice actor.
+`voice_actor_name` | String | Humanized name of the voice actor.
+`voice_description` | String | Description of the voice.
 
 ## Get All Subjects
 
@@ -206,7 +341,7 @@ Attribute | Data Type | Description
     {
       "id": 440,
       "object": "kanji",
-      "url": "https://api.wanikani.com/v2/subjects/440",
+      "url": "<%= current_page.data.api_root_url %>/subjects/440",
       "data_updated_at": "2018-03-29T23:14:30.805034Z",
       "data": {
         "created_at": "2012-02-27T19:55:19.000000Z",
@@ -244,7 +379,17 @@ Attribute | Data Type | Description
         ],
         "component_subject_ids": [
           1
-        ]
+        ],
+        "amalgamation_subject_ids": [
+          56,
+          88,
+          91
+        ],
+        "visually_similar_subject_ids": [],
+        "meaning_mnemonic": "Lying on the <radical>ground</radical> is something that looks just like the ground, the number <kanji>One</kanji>. Why is this One lying down? It's been shot by the number two. It's lying there, bleeding out and dying. The number One doesn't have long to live.",
+        "meaning_hint": "To remember the meaning of <kanji>One</kanji>, imagine yourself there at the scene of the crime. You grab <kanji>One</kanji> in your arms, trying to prop it up, trying to hear its last words. Instead, it just splatters some blood on your face. "Who did this to you?" you ask. The number One points weakly, and you see number Two running off into an alleyway. He's always been jealous of number One and knows he can be number one now that he's taken the real number one out.",
+        "reading_mnemonic": "As you're sitting there next to <kanji>One</kanji>, holding him up, you start feeling a weird sensation all over your skin. From the wound comes a fine powder (obviously coming from the special bullet used to kill One) that causes the person it touches to get extremely <reading>itchy</reading> (いち)",
+        "reading_hint": "Make sure you feel the ridiculously <reading>itchy</reading> sensation covering your body. It climbs from your hands, where you're holding the number <kanji>One</kanji> up, and then goes through your arms, crawls up your neck, goes down your body, and then covers everything. It becomes uncontrollable, and you're scratching everywhere, writhing on the ground. It's so itchy that it's the most painful thing you've ever experienced (you should imagine this vividly, so you remember the reading of this kanji)."
       }
     }
   ]
@@ -261,14 +406,13 @@ Returns a collection of all subjects, ordered by ascending `created_at`, 1000 at
 
 The collection of subjects will be filtered on the parameters provided.
 
-
 Name | Data Type | Description
 --- | --- | --- | ---
 `ids` | Array of integers | Only subjects where `data.id` matches one of the array values are returned.
-`types` | Array of strings | Return subjects of the specified types
-`slugs` | Array of strings | Return subjects of the specified slug
-`levels` | Array of integers | Return subjects at the specified levels
-`hidden` | Boolean | Return subjects which are or are not hidden from the user-facing application
+`types` | Array of strings | Return subjects of the specified types.
+`slugs` | Array of strings | Return subjects of the specified slug.
+`levels` | Array of integers | Return subjects at the specified levels.
+`hidden` | Boolean | Return subjects which are or are not hidden from the user-facing application.
 `updated_after` | Date | Only subjects updated after this time are returned.
 
 ## Get a Specific Subject
