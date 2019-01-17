@@ -55,19 +55,17 @@ Every successful API response contains an `object` attribute that tells you whic
 The following are singular resources:
 
 * `assignment`
+* `kanji`
 * `level_progression`
+* `radical`
 * `reset`
 * `review`
 * `review_statistic`
 * `study_material`
 * `user`
-
-We have a single [subjects](#subjects) endpoint that returns the three possible types of subjects:
-
-* `kanji`
-* `radical`
 * `vocabulary`
+
 
 ### Data Types
 
-We stick to the common JSON data types in our responses: strings, integers, booleans, arrays, and objects. We follow the Javascript standard for date formatting, returning them in [ISO 8601](https://xkcd.com/1179/) format, specified to the microsecond.
+We stick to the common JSON data types in our responses: strings, integers, booleans, arrays, and objects. We follow the Javascript standard for date formatting, returning them in [ISO 8601](https://xkcd.com/1179/) format, rounded to the microsecond.

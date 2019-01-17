@@ -43,9 +43,23 @@ The summary report contains currently available lessons and reviews and the revi
 
 Attribute | Data Type | Description
 --------- | --------------- | -----------
-`lessons` | Array of objects | Lessons contains one object with two keys: `available_at`, which should always be the beginning of the current hour, and `subject_ids`, which is an array of unique identifiers for [subjects](#subjects)
-`next_reviews_at` | Date or null | Earliest date when the reviews are available. Is `null` when the user has no reviews scheduled.
-`reviews` | Array of objects | Reviews contains 25 objects with the same keys as lessons. The first object has an `available_at` at the beginning of the current hour. The subsequent objects have `available_at` values for each hour for the next 24 hours. Like lessons, the `subject_ids` array contains unique identifiers for the subjects that will appear in the review queue at that time.
+`lessons` | Array of objects | Details about subjects available for lessons. See table below for object structure.
+`next_reviews_at` | `null` or Date | Earliest date when the reviews are available. Is `null` when the user has no reviews scheduled.
+`reviews` | Array of objects | Details about subjects available for reviews now and in the next 24 hours by the hour (total of 25 objects). See table below for object structure.
+
+### Lesson Object Attributes
+
+Attribute | Data Type | Description
+--------- | --------------- | -----------
+`available_at` | Date | When the paired `subject_ids` are available for lessons. Always beginning of the current hour when the API endpoint is accessed.
+`subject_ids` | Array of integers | Collection of unique identifiers for [subjects](#subjects).
+
+### Review Object Attributes
+
+Attribute | Data Type | Description
+--------- | --------------- | -----------
+`available_at` | Date | When the paired `subject_ids` are available for reviews. All timestamps are the top of an hour.
+`subject_ids` | Array of integers | Collection of unique identifiers for [subjects](#subjects).
 
 ## Get a Summary
 

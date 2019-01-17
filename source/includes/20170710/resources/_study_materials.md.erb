@@ -27,10 +27,10 @@ Attribute | Data&nbsp;Type | Description
 --------- | --------------- | -----------
 `created_at` | Date | Timestamp when the study material was created.
 `subject_id` | Integer | Unique identifier of the associated [subject](#subjects).
-`subject_type` | String | The type of the associated [subject](#subjects), one of: `Kanji`, `Radical`, or `Vocabulary`.
-`meaning_note` | String | Free form note related to the meaning(s) of the associated subject.
-`reading_note` | String | Free form note related to the reading(s) of the associated subject.
-`meaning_synonyms` | String | Synonyms for the meaning of the subject. These are used as additional correct answers during reviews.
+`subject_type` | String | The type of the associated [subject](#subjects), one of: `kanji`, `radical`, or `vocabulary`.
+`meaning_note` | `null` or String | Free form note related to the meaning(s) of the associated subject.
+`reading_note` | `null` or String | Free form note related to the reading(s) of the associated subject.
+`meaning_synonyms` | Array | Synonyms for the meaning of the subject. These are used as additional correct answers during reviews.
 `hidden` | Boolean | Indicates if the associated subject has been hidden, preventing it from appearing in lessons or reviews.
 
 ## Get All Study Materials
@@ -65,7 +65,7 @@ Attribute | Data&nbsp;Type | Description
         "subject_id": 241,
         "subject_type": "radical",
         "meaning_note": "I like turtles",
-        "reading_note": "I like たrtles",
+        "reading_note": "I like durtles",
         "meaning_synonyms": ["burn", "sizzle"]
       }
     }
@@ -122,7 +122,7 @@ Assumptions:
    "subject_id": 241,
    "subject_type": "radical",
    "meaning_note": "I like turtles",
-   "reading_note": "I like たrtles",
+   "reading_note": "I like durtles",
    "meaning_synonyms": ["burn", "sizzle"]
  }
 }
@@ -139,4 +139,3 @@ Retrieves a specific study material by its `id`.
 Name | Data Type | Description
 ---- | ---------------- | -----------
 `id` | Integer | Unique identifier of the study material.
-
