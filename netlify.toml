@@ -1,0 +1,11 @@
+[build]
+  base = "/"
+  publish = "build/"
+  command = "middleman build --verbose && cp netlify_headers build/_headers"
+
+[context.production]
+  command = "middleman build --verbose"
+
+[[redirects]]
+  from = "/"
+  to = "/20170710"
