@@ -1,0 +1,68 @@
+# User
+
+The user summary returns basic information for the user making the API request, identified by their API key.
+
+## User Data Structure
+
+> Example Structure
+
+```json
+{
+  "object": "user",
+  "url": "<%= current_page.data.api_root_url %>/user",
+  "data_updated_at": "2018-04-06T14:26:53.022245Z",
+  "data": {
+    "id": "5a6a5234-a392-4a87-8f3f-33342afe8a42",
+    "username": "example_user",
+    "level": 5,
+    "max_level_granted_by_subscription": 60,
+    "profile_url": "https://www.wanikani.com/users/example_user",
+    "started_at": "2012-05-11T00:52:18.958466Z",
+    "subscribed": true,
+    "current_vacation_started_at": null
+  }
+}
+```
+
+Attribute | Data Type | Description
+--------- | --------------- | -----------
+`username` | String | The user's username.
+`level` | Integer | The current level of the user. This ignores subscription status.
+`max_level_granted_by_subscription` | Integer | The maximum level of content accessible to the user for lessons, reviews, and content review. For unsubscribed/free users, the maximum level is `3`. For subscribed users, this is `60`. **Any application that uses data from the WaniKani API must respect these access limits.**
+`profile_url` | String | The URL to the user's public facing profile page.
+`started_at` | Date | The signup date for the user.
+`subscribed` | Boolean | Whether or not the user currently has a paid subscription.
+`current_vacation_started_at` | `null` or Date | If the user is on vacation, this will be the timestamp of when that vacation started. If the user is not on vacation, this is `null`.
+
+## Get User Information
+
+> Example Request
+
+<%= partial('examples/GET_shell', locals: { api_endpoint: 'user' }) %>
+
+<%= partial('examples/GET_javascript', locals: { api_endpoint: 'user' }) %>
+
+> Example Response
+
+```json
+{
+  "object": "user",
+  "url": "<%= current_page.data.api_root_url %>/user",
+  "data_updated_at": "2018-04-06T14:26:53.022245Z",
+  "data": {
+    "username": "example_user",
+    "level": 5,
+    "max_level_granted_by_subscription": 60,
+    "profile_url": "https://www.wanikani.com/users/example_user",
+    "started_at": "2012-05-11T00:52:18.958466Z",
+    "subscribed": true,
+    "current_vacation_started_at": null
+  }
+}
+```
+
+Returns a summary of user information.
+
+### HTTP Request
+
+`GET <%= current_page.data.api_root_url %>/user`

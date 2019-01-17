@@ -1,0 +1,141 @@
+# Study Materials
+
+Study materials store user-specific notes and synonyms for a given subject. The records are created as soon as the user enters any study information.
+
+## Study Material Data Structure
+
+> Example Structure
+
+```
+{
+  "id": 65231,
+  "object": "study_material",
+  "url": "<%= current_page.data.api_root_url %>/study_materials/65231",
+  "data_updated_at": "2017-09-30T01:42:13.453291Z",
+  "data": {
+    "created_at": "2017-09-30T01:42:13.453291Z",
+    "subject_id": 241,
+    "subject_type": "radical",
+    "meaning_note": "I like turtles",
+    "reading_note": "I like たrtles",
+    "meaning_synonyms": ["burn", "sizzle"]
+  }
+}
+```
+
+Attribute | Data&nbsp;Type | Description
+--------- | --------------- | -----------
+`created_at` | Date | Timestamp when the study material was created.
+`subject_id` | Integer | Unique identifier of the associated [subject](#subjects).
+`subject_type` | String | The type of the associated [subject](#subjects), one of: `kanji`, `radical`, or `vocabulary`.
+`meaning_note` | `null` or String | Free form note related to the meaning(s) of the associated subject.
+`reading_note` | `null` or String | Free form note related to the reading(s) of the associated subject.
+`meaning_synonyms` | Array | Synonyms for the meaning of the subject. These are used as additional correct answers during reviews.
+`hidden` | Boolean | Indicates if the associated subject has been hidden, preventing it from appearing in lessons or reviews.
+
+## Get All Study Materials
+
+> Example Request
+
+<%= partial('examples/GET_shell', locals: { api_endpoint: 'study_materials' }) %>
+
+<%= partial('examples/GET_javascript', locals: { api_endpoint: 'study_materials' }) %>
+
+> Example Response
+
+```json
+{
+  "object": "collection",
+  "url": "<%= current_page.data.api_root_url %>/study_materials",
+  "pages": {
+    "per_page": 500,
+    "next_url": "<%= current_page.data.api_root_url %>/study_materials?page_after_id=52342",
+    "previous_url": null
+  },
+  "total_count": 88,
+  "data_updated_at": "2017-12-21T22:42:11.468155Z",
+  "data": [
+    {
+      "id": 65231,
+      "object": "study_material",
+      "url": "<%= current_page.data.api_root_url %>/study_materials/65231",
+      "data_updated_at": "2017-09-30T01:42:13.453291Z",
+      "data": {
+        "created_at": "2017-09-30T01:42:13.453291Z",
+        "subject_id": 241,
+        "subject_type": "radical",
+        "meaning_note": "I like turtles",
+        "reading_note": "I like durtles",
+        "meaning_synonyms": ["burn", "sizzle"]
+      }
+    }
+  ]
+}
+```
+
+Returns a collection of all study material, ordered by ascending `created_at`, 500 at a time.
+
+### HTTP Request
+
+`GET <%= current_page.data.api_root_url %>/study_materials`
+
+### Query Parameters
+
+The collection of study material records will be filtered on the parameters provided.
+
+Name | Data Type | Description
+---- | ---------------- | -----------
+`ids` | Array of integers | Only study material records where `data.id` matches one of the array values are returned.
+`subject_ids` | Array of integers | Only study material records where `data.subject_id` matches one of the array values are returned.
+`subject_types` | Array of strings | Only study material records where `data.subject_type` matches one of the array values are returned. Valid values are: `radical`, `kanji`, or `vocabulary`.
+`hidden` | Boolean | Return study materials with a matching value in the `hidden` attribute
+`updated_after` | Date | Only study material records updated after this time are returned.
+
+### Examples
+
+#### Study Materials Updated Since Yesterday
+
+Assumptions:
+
+* Date time now is November 11, 2017 8:42:00 AM UTC:
+
+`<%= current_page.data.api_root_url %>/study_materials?updated_after=2017-10-11T10:42:00Z`
+
+## Get a Specific Review
+
+> Example Request
+
+<%= partial('examples/GET_shell', locals: { api_endpoint: 'study_materials/65231' }) %>
+
+<%= partial('examples/GET_javascript', locals: { api_endpoint: 'study_materials/65231' }) %>
+
+> Example Response
+
+```json
+{
+ "id": 65231,
+ "object": "study_material",
+ "url": "<%= current_page.data.api_root_url %>/study_materials/65231",
+ "data_updated_at": "2017-09-30T01:42:13.453291Z",
+ "data": {
+   "created_at": "2017-09-30T01:42:13.453291Z",
+   "subject_id": 241,
+   "subject_type": "radical",
+   "meaning_note": "I like turtles",
+   "reading_note": "I like durtles",
+   "meaning_synonyms": ["burn", "sizzle"]
+ }
+}
+```
+
+Retrieves a specific study material by its `id`.
+
+### HTTP Request
+
+`GET <%= current_page.data.api_root_url %>/study_materials/<id>`
+
+### Parameters
+
+Name | Data Type | Description
+---- | ---------------- | -----------
+`id` | Integer | Unique identifier of the study material.

@@ -1,0 +1,194 @@
+# Assignments
+
+Assignments contain information about a user's progress on a particular subject, including their current state and timestamps for various progress milestones. Assignments are created when a user has passed all the components of the given subject _and_ the assignment is at or below their current level for the first time.
+
+## Assignment Data Structure
+
+> Example Structure
+
+```json
+{
+  "id": 80463006,
+  "object": "assignment",
+  "url": "<%= current_page.data.api_root_url %>/assignments/80463006",
+  "data_updated_at": "2017-10-30T01:51:10.438432Z",
+  "data": {
+    "created_at": "2017-09-05T23:38:10.695133Z",
+    "subject_id": 8761,
+    "subject_type": "radical",
+    "srs_stage": 8,
+    "srs_stage_name": "Enlightened",
+    "unlocked_at": "2017-09-05T23:38:10.695133Z",
+    "started_at": "2017-09-05T23:41:28.980679Z",
+    "passed_at": "2017-09-07T17:14:14.491889Z",
+    "burned_at": null,
+    "available_at": "2018-02-27T00:00:00.000000Z",
+    "resurrected_at": null,
+    "passed": true,
+    "resurrected": false
+  }
+}
+```
+
+Attribute | Data Type | Description
+--------- | --------------- | -----------
+`created_at` | Date | Timestamp when the assignment was created.
+`subject_id` | Integer | Unique identifier of the associated [subject](#subjects).
+`subject_type` | String | The type of the associated [subject](#subjects), one of: `kanji`, `radical`, or `vocabulary`.
+`srs_stage` | Integer | The current [SRS stage interval](#srs-stage-intervals), from `0` to `9`.
+`srs_stage_name` | String | The [stage name](#srs-stage-intervals) associated with the `srs_stage`.
+`unlocked_at` | `null` or Date | <p>The timestamp when the related subject has its prerequisites satisfied and is made available in lessons.</p> <p>Prerequisites are:</p><ul><li>The subject components have reached SRS stage `5` once (they have been “passed”).</li><li>The user's level is equal to or greater than the level of the assignment’s subject.</li></ul>
+`started_at` | `null` or Date | Timestamp when the user completes the lesson for the related subject.
+`passed_at` | `null` or Date | Timestamp when the user reaches SRS stage `5` for the first time.
+`burned_at` | `null` or Date | Timestamp when the user reaches SRS stage `9` the first time.
+`available_at` | `null` or Date | Timestamp when the related subject will be available in the user's review queue.
+`resurrected_at` | `null` or Date | Timestamp when the subject is resurrected and placed back in the user's review queue.
+`passed` | Boolean | The boolean equivalent of `passed_at`
+`resurrected` | Boolean | A convenience field indicating that the subject has been burned, resurrected, and is still in the user's review queue.
+`hidden` | Boolean | Indicates if the associated subject has been hidden, preventing it from appearing in lessons or reviews.
+
+## Get All Assignments
+
+> Example Request
+
+<%= partial('examples/GET_shell', locals: { api_endpoint: 'assignments' }) %>
+
+<%= partial('examples/GET_javascript', locals: { api_endpoint: 'assignments' }) %>
+
+> Example Response
+
+```json
+{
+  "object": "collection",
+  "url": "<%= current_page.data.api_root_url %>/assignments",
+  "pages": {
+    "per_page": 500,
+    "next_url": "<%= current_page.data.api_root_url %>/assignments?page_after_id=80469434",
+    "previous_url": null
+  },
+  "total_count": 1600,
+  "data_updated_at": "2017-11-29T19:37:03.571377Z",
+  "data": [
+    {
+      "id": 80463006,
+      "object": "assignment",
+      "url": "<%= current_page.data.api_root_url %>/assignments/80463006",
+      "data_updated_at": "2017-10-30T01:51:10.438432Z",
+      "data": {
+        "created_at": "2017-09-05T23:38:10.695133Z",
+        "subject_id": 8761,
+        "subject_type": "radical",
+        "srs_stage": 8,
+        "srs_stage_name": "Enlightened",
+        "unlocked_at": "2017-09-05T23:38:10.695133Z",
+        "started_at": "2017-09-05T23:41:28.980679Z",
+        "passed_at": "2017-09-07T17:14:14.491889Z",
+        "burned_at": null,
+        "available_at": "2018-02-27T00:00:00.000000Z",
+        "resurrected_at": null,
+        "passed": true,
+        "resurrected": false
+      }
+    }
+  ]
+}
+```
+
+Returns a collection of all assignments, ordered by ascending `created_at`, 500 at a time.
+
+### HTTP Request
+
+`GET <%= current_page.data.api_root_url %>/assignments`
+
+### Query Parameters
+
+The collection of assignments will be filtered on the parameters provided.
+
+Name | Data Type | Description
+---- | ---------------- | -----------
+`available_after` | Date | Only assignments available at or after this time are returned.
+`available_before` | Date | Only assignments available at or before this time are returned.
+`ids` | Array of integers | Only assignments where `data.id` matches one of the array values are returned.
+`levels` | Array of integers | Only assignments where the associated subject level matches one of the array values are returned. Valid values range from `1` to `60`.
+`srs_stages` | Array of integers | Only assignments where `data.srs_stage` matches one of the array values are returned. Valid values range from `0` to `9`
+`subject_ids` | Array of integers | Only assignments where `data.subject_id` matches one of the array values are returned.
+`subject_types` | Array of strings | Only assignments where `data.subject_type` matches one of the array values are returned. Valid values are: `radical`, `kanji`, or `vocabulary`.
+`unlocked` | Boolean | When set to `true`, returns assignments that have a value in `data.unlocked_at`. Returns assignments with a `null` `data.unlocked_at` if `false`.
+`started` | Boolean | When set to `true`, returns assignments that have a value in `data.started_at`. Returns assignments with a `null` `data.started_at` if `false`.
+`passed` | Boolean | Returns assignments where `data.passed` equals `passed`.
+`burned` | Boolean | When set to `true`, returns assignments that have a value in `data.burned_at`. Returns assignments with a `null` `data.burned_at` if `false`.
+`resurrected` | Boolean | Returns assignments where `data.resurrected` equals `resurrected`.
+`hidden` | Boolean | Return assignments with a matching value in the `hidden` attribute
+`updated_after` | Date | Only assignments updated after this time are returned.
+`in_review` | (not required) | Returns assignments which are in the review state
+`immediately_available_for_review` | (not required) | Returns assignments which are immediately available for review
+`filter_by_immediately_available_for_lessons` | (not required) | Returns assignments which are immediately available for lessons
+
+### Query Parameter Examples
+
+#### Assignments Available for Review in Two Hours
+
+If the date time now is November 11, 2017 8:42:00 AM UTC:
+
+`<%= current_page.data.api_root_url %>/assignments?available_after=2017-11-11T10:42:00Z`
+
+#### Level 8 and 42 Kanji Assignments Which Have Been Burned
+
+`<%= current_page.data.api_root_url %>/assignments?levels=8,42&subject_types=kanji&burned=true`
+
+#### Assignments Updated After One Hour Ago and at SRS Stage Master I
+
+If the date time now is November 11, 2017 8:42:00 AM UTC:
+
+`<%= current_page.data.api_root_url %>/assignments?updated_after=2017-11-11T7:42:00Z&srs_stages=7`
+
+## Get a Specific Assignment
+
+> Example Request
+
+<%= partial('examples/GET_shell', locals: { api_endpoint: 'assignments/80463006' }) %>
+
+<%= partial('examples/GET_javascript', locals: { api_endpoint: 'assignments/80463006' }) %>
+
+> Example Response
+
+```json
+{
+  "id": 80463006,
+  "object": "assignment",
+  "url": "<%= current_page.data.api_root_url %>/assignments/80463006",
+  "data_updated_at": "2017-11-29T19:37:03.571377Z",
+  "data": {
+    "created_at": "2017-09-05T23:38:10.695133Z",
+    "subject_id": 8761,
+    "subject_type": "radical",
+    "level": 1,
+    "srs_stage": 8,
+    "srs_stage_name": "Enlightened",
+    "unlocked_at": "2017-09-05T23:38:10.695133Z",
+    "started_at": "2017-09-05T23:41:28.980679Z",
+    "passed_at": "2017-09-07T17:14:14.491889Z",
+    "burned_at": null,
+    "available_at": "2018-02-27T00:00:00.000000Z",
+    "passed": true,
+    "resurrected_at": null,
+    "resurrected": false
+  }
+}
+```
+
+Retrieves a specific assignment by its `id`.
+
+### HTTP Request
+
+`GET <%= current_page.data.api_root_url %>/assignments/<id>`
+
+### Parameters
+
+Name | Data Type | Description
+---- | ---------------- | -----------
+`id` | Integer | Unique identifier of the assignment.
+
+### Notes
+
+The `unlocked_at`, `started_at`, `passed_at`, and `burned_at` timestamps are always in sequential order — assignments can't be started before they're unlocked, passed before they're started, etc.

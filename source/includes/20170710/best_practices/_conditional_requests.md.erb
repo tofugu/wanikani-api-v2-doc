@@ -1,0 +1,84 @@
+## Conditional Requests
+
+We accept the `If-None-Match` and `If-Modified-Since` headers for every endpoint. If the response body hasn't changed since the last request, then a HTTP status code `304` (Not Modified) and an empty response body is returned. The advantage to using these headers is a faster response time since we don't have to generate a full response; we assume you still have the unmodified data cached.
+
+Each response includes the `ETag` and `Last-Modified` headers that are used to populate `If-None-Match` and `If-Modified-Since`, respectively. These values can be used in future requests at the matching endpoint.
+
+If both `If-None-Match` and `If-Modified-Since` are passed in, then `If-None-Match` takes precedence.
+
+### If-Modified-Since
+
+> To define `If-Modified-Since`, use this code:
+
+```shell
+curl "<api_endpoint_here>"
+  -H "Authorization: Bearer <api_token_here>"
+  -H "Wanikani-Revision: <%= current_page.data.api_revision %>"
+  -H "If-Modified-Since: <last_modified_date_here>"
+```
+
+```javascript
+var requestHeaders = new Headers();
+requestHeaders.append('Authorization', 'Bearer <api_token_here>');
+requestHeaders.append('Wanikani-Revision', '<%= current_page.data.api_revision %>');
+requestHeaders.append('If-Modified-Since', '<last_modified_date_here>');
+var requestInit = { method: 'GET', headers: requestHeaders };
+var endpoint = new Request('<api_endpoint_here>', requestInit);
+
+fetch(endpoint)
+  .then(function(response) { return response.json(); })
+  .then(function(responseBody) { console.log(responseBody); });
+```
+
+> Make sure to replace `<last_modified_date_here>` with the `Last-Modified` value extracted from a previous response header or any datetime.
+
+The `If-Modified-Since` request header takes in a `Last-Modified` value from the last request — or any datetime — in the following format:
+
+`If-Modified-Since: <day-name>, <day> <month> <year> <hour>:<minute>:<second> GMT`
+
+Where:
+
+* `<day-name>` — One of "Mon", "Tue", "Wed", "Thu", "Fri", "Sat", or "Sun" (case-sensitive).
+* `<day>` — 2 digit day number, e.g. "04" or "23".
+* `<month>` — One of "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec" (case sensitive).
+* `<year>` — 4 digit year number, e.g. "1990" or "2016".
+* `<hour>` — 2 digit hour number, e.g. "09" or "23".
+* `<minute>` — 2 digit minute number, e.g. "04" or "59".
+* `<second>` — 2 digit second number, e.g. "04" or "59".
+* `GMT` — Greenwich Mean Time. HTTP dates are always expressed in GMT, never in local time.
+
+Example: `If-Modified-Since: Fri, 11 Nov 2011 11:11:11 GMT`
+
+The generally-excellent [MDN web docs](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/If-Modified-Since) have more information on the `If-Modified-Since` header.
+
+### If-None-Match
+
+> To define `If-None-Match`, use this code:
+
+```shell
+curl "<api_endpoint_here>"
+  -H "Authorization: Bearer <api_token_here>"
+  -H "Wanikani-Revision: <%= current_page.data.api_revision %>"
+  -H "If-None-Match: <etag_here>"
+```
+
+```javascript
+var requestHeaders = new Headers();
+requestHeaders.append('Authorization', 'Bearer <api_token_here>');
+requestHeaders.append('Wanikani-Revision', '<%= current_page.data.api_revision %>');
+requestHeaders.append('If-None-Match', '<etag_here>');
+var requestInit = { method: 'GET', headers: requestHeaders };
+var endpoint = new Request('<api_endpoint_here>', requestInit);
+
+fetch(endpoint)
+  .then(function(response) { return response.json(); })
+  .then(function(responseBody) { console.log(responseBody); });
+```
+
+> Make sure to replace `<etag_here>` with the `ETag` value extracted from a previous response header.
+
+The `If-None-Match` request header takes in an `ETag` value from the last request's response header:
+
+`If-None-Match: <etag_here>`
+
+The [MDN web docs](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/If-None-Match) have more information on the `If-None-Match` header, too.

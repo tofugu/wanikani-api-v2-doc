@@ -1,0 +1,161 @@
+# Reviews
+
+Reviews log all the correct and incorrect answers provided through the 'Reviews' section of WaniKani. Review records are created when a user answers all the parts of a subject correctly once; some subjects have both meaning or reading parts, and some only have one or the other. Note that reviews are *not* created for the quizzes in lessons.
+
+## Review Data Structure
+
+> Example Structure
+
+```json
+{
+  "id": 534342,
+  "object": "review",
+  "url": "<%= current_page.data.api_root_url %>/reviews/534342",
+  "data_updated_at": "2017-12-20T01:00:59.255427Z",
+  "data": {
+    "created_at": "2017-12-20T01:00:59.255427Z",
+    "assignment_id": 32132,
+    "subject_id": 8,
+    "starting_srs_stage": 4,
+    "starting_srs_stage_name": "Apprentice IV",
+    "ending_srs_stage": 2,
+    "ending_srs_stage_name": "Apprentice II",
+    "incorrect_meaning_answers": 1,
+    "incorrect_reading_answers": 0
+  }
+}
+```
+
+Attribute | Date&nbsp;Type | Description
+--------- | --------------- | -----------
+`created_at` | Date | Timestamp when the review was created.
+`assignment_id` | Integer | Unique identifier of the associated [assignment](#assignments).
+`subject_id` | Integer | Unique identifier of the associated [subject](#subjects).
+`starting_srs_stage` | Integer | The starting SRS stage interval, with valid values ranging from `1` to `8`
+`starting_srs_stage_name` | String | The [stage name](#srs-stage-intervals) associated with the `starting_srs_stage`.
+`ending_srs_stage` | Integer | The SRS stage interval calculated from the number of correct and incorrect answers, with valid values ranging from `1` to `9`
+`ending_srs_stage_name` | String | The [stage name](#srs-stage-intervals) associated with the `ending_srs_stage`.
+`incorrect_meaning_answers` | Integer | The number of times the user has answered the meaning incorrectly.
+`incorrect_reading_answers` | Integer | The number of times the user has answered the reading incorrectly.
+
+### Notes
+
+A subject (radical, kanji, and vocabulary) may not require a meaning or reading. Therefore attributes `incorrect_meaning_answers` and `incorrect_reading_answers` will return a value of `0` for subjects which do not have the requirement.
+
+Subject type | Answer types allowed
+------------ | --------------------
+kanji        | Meaning, Reading
+radical      | Meaning
+vocabulary   | Meaning, Reading
+
+
+## Get All Reviews
+
+> Example Request
+
+<%= partial('examples/GET_shell', locals: { api_endpoint: 'reviews' }) %>
+
+<%= partial('examples/GET_javascript', locals: { api_endpoint: 'reviews' }) %>
+
+> Example Response
+
+```json
+{
+  "object": "collection",
+  "url": "<%= current_page.data.api_root_url %>/reviews",
+  "pages": {
+    "per_page": 1000,
+    "next_url": "<%= current_page.data.api_root_url %>/reviews?page_after_id=534345",
+    "previous_url": null
+  },
+  "total_count": 19201,
+  "data_updated_at": "2017-12-20T01:10:17.578705Z",
+  "data": [
+    {
+      "id": 534342,
+      "object": "review",
+      "url": "<%= current_page.data.api_root_url %>/reviews/534342",
+      "data_updated_at": "2017-12-20T01:00:59.255427Z",
+      "data": {
+        "created_at": "2017-12-20T01:00:59.255427Z",
+        "assignment_id": 32132,
+        "subject_id": 8,
+        "starting_srs_stage": 4,
+        "starting_srs_stage_name": "Apprentice IV",
+        "ending_srs_stage": 2,
+        "ending_srs_stage_name": "Apprentice II",
+        "incorrect_meaning_answers": 1,
+        "incorrect_reading_answers": 0
+      }
+    }
+  ]
+}
+```
+
+Returns a collection of all reviews, ordered by ascending `created_at`, 1000 at a time.
+
+### HTTP Request
+
+`GET <%= current_page.data.api_root_url %>/reviews`
+
+### Query Parameters
+
+The collection of reviews will be filtered on the parameters provided.
+
+Name | Data Type | Description
+---- | ---------------- | -----------
+`ids` | Array of integers | Only reviews where `data.id` matches one of the array values are returned.
+`subject_ids` | Array of integers | Only reviews where `data.subject_id` matches one of the array values are returned.
+`assignment_ids` | Array of integers | Only reviews where `data.assignment_id` matches one of the array values are returned.
+`updated_after` | Date | Only reviews updated after this time are returned.
+
+### Examples
+
+#### Reviews Belonging to Kanji 大 Reviewed After Yesterday
+
+Assumptions:
+
+* Subject 大 has an id of 42
+* Date time now is November 11, 2017 8:42:00 AM UTC:
+
+`<%= current_page.data.api_root_url %>/reviews?subject_ids=42&updated_after=2017-10-11T10:42:00Z`
+
+## Get a Specific Review
+
+> Example Request
+
+<%= partial('examples/GET_shell', locals: { api_endpoint: 'reviews/534342' }) %>
+
+<%= partial('examples/GET_javascript', locals: { api_endpoint: 'reviews/534342' }) %>
+
+> Example Response
+
+```json
+{
+  "id": 534342,
+  "object": "review",
+  "url": "<%= current_page.data.api_root_url %>/reviews/80463006",
+  "data_updated_at": "2017-12-20T01:00:59.255427Z",
+  "data": {
+    "created_at": "2017-12-20T01:00:59.255427Z",
+    "assignment_id": 32132,
+    "subject_id": 8,
+    "starting_srs_stage": 4,
+    "starting_srs_stage_name": "Apprentice IV",
+    "incorrect_meaning_answers": 1,
+    "incorrect_reading_answers": 0
+  }
+}
+```
+
+Retrieves a specific review by its `id`.
+
+### HTTP Request
+
+`GET <%= current_page.data.api_root_url %>/reviews/<id>`
+
+### Parameters
+
+Name | Data Type | Description
+---- | ---------------- | -----------
+`id` | Integer | Unique identifier of the review.

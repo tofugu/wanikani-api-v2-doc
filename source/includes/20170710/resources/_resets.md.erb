@@ -1,0 +1,122 @@
+# Resets
+
+Users can reset their progress back to any level at or below their current level. When they reset to a particular level, all of the `assignments` and `review_statistics` at that level or higher are set back to their default state.
+
+Resets contain information about when those resets happen, the starting level, and the target level.
+
+## Reset Data Structure
+
+> Example Structure
+
+```json
+{
+  "id": 234,
+  "object": "reset",
+  "url": "<%= current_page.data.api_root_url %>/resets/80463006",
+  "data_updated_at": "2017-12-20T00:24:47.048380Z",
+  "data": {
+    "created_at": "2017-12-20T00:03:56.642838Z",
+    "original_level": 42,
+    "target_level": 8,
+    "confirmed_at": "2017-12-19T23:31:18.077268Z"
+  }
+}
+
+```
+
+Attribute | Data&nbsp;Type | Description
+--------- | --------------- | -----------
+`created_at` | Date | Timestamp when the reset was created.
+`original_level` | Integer | The user's level before the reset, from `1` to `60`
+`target_level` | Integer | The user's level after the reset, from `1` to `60`. It must be less than or equal to `original_level`.
+`confirmed_at` | `null` or Date | Timestamp when the user confirmed the reset.
+
+## Get All Resets
+
+> Example Request
+
+<%= partial('examples/GET_shell', locals: { api_endpoint: 'resets' }) %>
+
+<%= partial('examples/GET_javascript', locals: { api_endpoint: 'resets' }) %>
+
+> Example Response
+
+```json
+{
+  "object": "collection",
+  "url": "<%= current_page.data.api_root_url %>/resets",
+  "pages": {
+    "per_page": 500,
+    "next_url": null,
+    "previous_url": null
+  },
+  "total_count": 2,
+  "data_updated_at": "2017-11-29T19:37:03.571377Z",
+  "data": [
+    {
+      "id": 234,
+      "object": "reset",
+      "url": "<%= current_page.data.api_root_url %>/resets/80463006",
+      "data_updated_at": "2017-12-20T00:24:47.048380Z",
+      "data": {
+        "created_at": "2017-12-20T00:03:56.642838Z",
+        "original_level": 42,
+        "target_level": 8,
+        "confirmed_at": "2017-12-19T23:31:18.077268Z"
+      }
+    }
+  ]
+}
+```
+
+Returns a collection of all resets, ordered by ascending `created_at`, 500 at a time.
+
+### HTTP Request
+
+`GET <%= current_page.data.api_root_url %>/resets`
+
+### Query Parameters
+
+The collection of resets will be filtered on the parameters provided.
+
+Name | Permitted values | Description
+---- | ---------------- | -----------
+`ids` | Array of integers | Only resets where `data.id` matches one of the array values are returned.
+`updated_after` | Date | Only resets updated after this time are returned.
+
+## Get a Specific Reset
+
+> Example Request
+
+<%= partial('examples/GET_shell', locals: { api_endpoint: 'resets/234' }) %>
+
+<%= partial('examples/GET_javascript', locals: { api_endpoint: 'resets/234' }) %>
+
+> Example Response
+
+```json
+{
+  "id": 234,
+  "object": "reset",
+  "url": "<%= current_page.data.api_root_url %>/resets/234",
+  "data_updated_at": "2017-03-30T11:31:20.438432Z",
+  "data": {
+    "created_at": "2017-12-20T00:03:56.642838Z",
+    "original_level": 42,
+    "target_level": 8,
+    "confirmed_at": "2017-12-19T23:31:18.077268Z"
+  }
+}
+```
+
+Retrieves a specific reset by its `id`.
+
+### HTTP Request
+
+`GET <%= current_page.data.api_root_url %>/resets/<id>`
+
+### Parameters
+
+Name | Data Type | Description
+---- | ---------------- | -----------
+`id` | Integer | Unique identifier of the reset.

@@ -28,8 +28,6 @@ html, body {
   color: $main-text;
   padding: 0;
   margin: 0;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
   @extend %default-font;
   background-color: $main-bg;
   height: 100%;
@@ -55,29 +53,41 @@ html, body {
   position: fixed;
   z-index: 30;
   top: 0;
-  left: 0;
+  left: -$nav-width;
   bottom: 0;
   width: $nav-width;
   background-color: $nav-bg;
   font-size: 13px;
   font-weight: bold;
 
+  &.open {
+    left: 0;
+  }
+
+  @media (min-width: $tablet-width) {
+    left: 0;
+  }
+
   // language selector for mobile devices
   .lang-selector {
-    display: none;
+    display: block;
     a {
       padding-top: 0.5em;
       padding-bottom: 0.5em;
     }
+
+    @media (min-width: $phone-width) {
+      display: none;
+    }
   }
 
   // This is the logo at the top of the ToC
-  &>img {
+  > img {
     display: block;
     max-width: 100%;
   }
 
-  &>.search {
+  > .search {
     position: relative;
 
     input {
@@ -158,6 +168,11 @@ html, body {
   .toc-link.active {
     background-color: $nav-active-bg;
     color: $nav-active-text;
+
+    @media (max-width: $tablet-width) {
+      padding-top: 0.3em;
+      padding-bottom: 0.3em;
+    }
   }
 
   // this is parent links of the currently selected ToC entry
@@ -218,7 +233,7 @@ html, body {
     display: block;
     $side-pad: $main-padding / 2 - 8px;
     padding: $side-pad $side-pad $side-pad;
-    background-color: rgba($main-bg, 0.7);
+    background-color: rgba($content-bg, 0.7);
     transform-origin: 0 0;
     transform: rotate(-90deg) translate(-100%, 0);
     border-radius: 0 0 0 5px;
@@ -243,6 +258,10 @@ html, body {
 
   &:hover { opacity: 1; }
   &.open {left: $nav-width}
+
+  @media (max-width: $tablet-width) {
+    display: block;
+  }
 }
 
 
@@ -251,32 +270,45 @@ html, body {
 ////////////////////////////////////////////////////////////////////////////////
 
 .page-wrapper {
-  margin-left: $nav-width;
   position: relative;
   z-index: 10;
-  background-color: $main-bg;
+  background-color: $content-bg;
   min-height: 100%;
 
   padding-bottom: 1px; // prevent margin overflow
 
-  // The dark box is what gives the code samples their dark background.
-  // It sits essentially under the actual content block, which has a
-  // transparent background.
-  // I know, it's hackish, but it's the simplist way to make the left
-  // half of the content always this background color.
-  .dark-box {
-    width: $examples-width;
-    background-color: $examples-bg;
-    position: absolute;
-    right: 0;
-    top: 0;
-    bottom: 0;
+  .page-wrapper .lang-selector {
+    display: none;
   }
 
   .lang-selector {
+    display: none;
     position: fixed;
+    top: 0;
+    right: 0;
     z-index: 50;
     border-bottom: 5px solid $lang-select-active-bg;
+
+    @media (min-width: $tablet-width) {
+      width: calc((100% - #{$nav-width}) / 2);
+    }
+
+    @media (min-width: $phone-width) and (max-width: $tablet-width) {
+      width: 50%;
+    }
+
+    @media (min-width: $phone-width) {
+      display: block;
+    }
+  }
+
+  @media (min-width: $tablet-width) {
+    margin-left: $nav-width;
+    width: calc((100% - #{$nav-width}) / 2);
+  }
+
+  @media (min-width: $phone-width) and (max-width: $tablet-width) {
+    width: 50%;
   }
 }
 
@@ -320,6 +352,7 @@ html, body {
   // fixes webkit rendering bug for some: see #538
   -webkit-transform: translateZ(0);
   // to place content above the dark box
+  padding: 0 $main-padding;
   position: relative;
   z-index: 30;
 
@@ -329,27 +362,24 @@ html, body {
     clear: both;
   }
 
-  &>h1, &>h2, &>h3, &>h4, &>h5, &>h6, &>p, &>table, &>ul, &>ol, &>aside, &>dl {
-    margin-right: $examples-width;
-    padding: 0 $main-padding;
-    box-sizing: border-box;
-    display: block;
-
-    @extend %left-col;
-  }
-
-  &>ul, &>ol {
+  > ul,
+  > ol {
     padding-left: $main-padding + 15px;
   }
 
   // the div is the tocify hidden div for placeholding stuff
-  &>h1, &>h2, &>div {
-    clear:both;
+  > h1,
+  > h2,
+  > div {
+    clear: both;
   }
 
   h1 {
     @extend %header-font;
-    font-size: 25px;
+    @extend %full-content-width;
+    @extend %indented-content;
+
+    font-size: 28px;
     padding-top: 0.5em;
     padding-bottom: 0.5em;
     margin-bottom: $h1-margin-bottom;
@@ -359,14 +389,18 @@ html, body {
     background-color: #fdfdfd;
   }
 
-  h1:first-child, div:first-child + h1 {
+  h1:first-child,
+  div:first-child + h1 {
     border-top-width: 0;
     margin-top: 0;
   }
 
   h2 {
     @extend %header-font;
-    font-size: 19px;
+    @extend %full-content-width;
+    @extend %indented-content;
+
+    font-size: 24px;
     margin-top: 4em;
     margin-bottom: 0;
     border-top: 1px solid #ccc;
@@ -384,24 +418,33 @@ html, body {
 
   h3, h4, h5, h6 {
     @extend %header-font;
-    font-size: 15px;
+    font-size: 18px;
     margin-top: 2.5em;
     margin-bottom: 0.8em;
   }
 
-  h4, h5, h6 {
+  h4 {
+    font-size: 14px;
+  }
+
+  h5, h6 {
     font-size: 10px;
   }
 
   hr {
+    border: none;
+    border-top: 1px solid #ccc;
+    clear: both;
+    height: 0;
     margin: 2em 0;
-    border-top: 2px solid $examples-bg;
-    border-bottom: 2px solid $main-bg;
   }
 
   table {
+    width: 100%;
+    display: block;
     margin-bottom: 1em;
     overflow: auto;
+
     th,td {
       text-align: left;
       vertical-align: top;
@@ -425,12 +468,12 @@ html, body {
       border-bottom: 1px solid #ccc;
     }
 
-    tr:nth-child(odd)>td {
-      background-color: lighten($main-bg,4.2%);
+    tr:nth-child(odd) > td {
+      background-color: lighten($content-bg,4.2%);
     }
 
-    tr:nth-child(even)>td {
-      background-color: lighten($main-bg,2.4%);
+    tr:nth-child(even) > td {
+      background-color: lighten($content-bg,2.4%);
     }
   }
 
@@ -465,6 +508,9 @@ html, body {
   }
 
   aside {
+    @extend %full-content-width;
+    @extend %indented-content;
+
     padding-top: 1em;
     padding-bottom: 1em;
     margin-top: 1.5em;
@@ -517,23 +563,34 @@ html, body {
   pre, blockquote {
     background-color: $code-bg;
     color: #fff;
-
-    margin: 0;
-    width: $examples-width;
-
-    float:right;
-    clear:right;
-
+    margin: 0 #{-$main-padding};
     box-sizing: border-box;
 
-    @extend %right-col;
+    > p {
+      margin: 0;
+    }
 
-    &>p { margin: 0; }
+    & + * {
+      margin-top: 1em;
+    }
+
+    & + pre,
+    & + blockquote {
+      margin-top: 0;
+    }
 
     a {
       color: #fff;
       text-decoration: none;
       border-bottom: dashed 1px #ccc;
+    }
+
+    @media (min-width: $phone-width) {
+      margin: 0 calc(-100% - 3 * #{$main-padding}) 0 0;
+      width: calc(100% + 2 * #{$main-padding});
+
+      float: right;
+      clear: right;
     }
   }
 
@@ -545,7 +602,7 @@ html, body {
   }
 
   blockquote {
-    &>p {
+    > p {
       background-color: $code-annotation-bg;
       padding: $code-annotation-padding 2em;
       color: #eee;
@@ -554,60 +611,8 @@ html, body {
 }
 
 ////////////////////////////////////////////////////////////////////////////////
-// RESPONSIVE DESIGN
+// CODE HIGHLIGHTS
 ////////////////////////////////////////////////////////////////////////////////
-// These are the styles for phones and tablets
-// There are also a couple styles disperesed
-
-@media (max-width: $tablet-width) {
-  .toc-wrapper {
-    left: -$nav-width;
-
-    &.open {
-      left: 0;
-    }
-  }
-
-  .page-wrapper {
-    margin-left: 0;
-  }
-
-  #nav-button {
-    display: block;
-  }
-
-  .toc-link {
-    padding-top: 0.3em;
-    padding-bottom: 0.3em;
-  }
-}
-
-@media (max-width: $phone-width) {
-  .dark-box {
-    display: none;
-  }
-
-  %left-col {
-    margin-right: 0;
-  }
-
-  .toc-wrapper .lang-selector {
-    display: block;
-  }
-
-  .page-wrapper .lang-selector {
-    display: none;
-  }
-
-  %right-col {
-    width: auto;
-    float: none;
-  }
-
-  %right-col + %left-col {
-    margin-top: $main-padding;
-  }
-}
 
 .highlight .c, .highlight .cm, .highlight .c1, .highlight .cs {
   color: #909090;
@@ -616,3 +621,5 @@ html, body {
 .highlight, .highlight .w {
   background-color: $code-bg;
 }
+
+@import 'overrides';

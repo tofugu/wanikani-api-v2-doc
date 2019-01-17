@@ -1,0 +1,28 @@
+.toc-header {
+  @extend .toc-link;
+  a {
+    color: #fff;
+    text-decoration: none;
+  }
+  small {
+    display: block;
+    opacity: 0.5;
+  }
+}
+
+#toc a[href='#resources'] {
+  margin-top: 1em;
+  color: #999;
+  border-bottom: 1px solid #666;
+}
+
+#resources {
+  background: none;
+  border-bottom: none;
+  font-size: 2.25rem;
+  margin-top: 4em;
+}
+
+.content table td:nth-child(2) {
+  white-space: nowrap;
+}

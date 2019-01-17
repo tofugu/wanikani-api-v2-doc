@@ -1,0 +1,113 @@
+# Summary
+
+The summary report contains currently available lessons and reviews and the reviews that will become available in the next 24 hours, grouped by the hour.
+
+## Summary Data Structure
+
+> Example Structure
+
+```json
+{
+  "object": "report",
+  "url": "https://api.wanikani.com/v2/summary",
+  "data_updated_at": "2018-04-11T21:00:00.000000Z",
+  "data": {
+    "lessons": [
+      {
+        "available_at": "2018-04-11T21:00:00.000000Z",
+        "subject_ids": [
+          25,
+          26
+        ]
+      }
+    ],
+    "next_reviews_at:" "2018-04-11T21:00:00.000000Z",
+    "reviews": [
+      {
+        "available_at": "2018-04-11T21:00:00.000000Z",
+        "subject_ids": [
+          21,
+          23,
+          24
+        ]
+      },
+      {
+        "available_at": "2018-04-11T22:00:00.000000Z",
+        "subject_ids": []
+      },
+      ...
+    ]
+  }
+}
+```
+
+Attribute | Data Type | Description
+--------- | --------------- | -----------
+`lessons` | Array of objects | Details about subjects available for lessons. See table below for object structure.
+`next_reviews_at` | `null` or Date | Earliest date when the reviews are available. Is `null` when the user has no reviews scheduled.
+`reviews` | Array of objects | Details about subjects available for reviews now and in the next 24 hours by the hour (total of 25 objects). See table below for object structure.
+
+### Lesson Object Attributes
+
+Attribute | Data Type | Description
+--------- | --------------- | -----------
+`available_at` | Date | When the paired `subject_ids` are available for lessons. Always beginning of the current hour when the API endpoint is accessed.
+`subject_ids` | Array of integers | Collection of unique identifiers for [subjects](#subjects).
+
+### Review Object Attributes
+
+Attribute | Data Type | Description
+--------- | --------------- | -----------
+`available_at` | Date | When the paired `subject_ids` are available for reviews. All timestamps are the top of an hour.
+`subject_ids` | Array of integers | Collection of unique identifiers for [subjects](#subjects).
+
+## Get a Summary
+
+> Example Request
+
+<%= partial('examples/GET_shell', locals: { api_endpoint: 'summary' }) %>
+
+<%= partial('examples/GET_javascript', locals: { api_endpoint: 'summary' }) %>
+
+> Example Response
+
+```json
+{
+  "object": "report",
+  "url": "https://api.wanikani.com/v2/summary",
+  "data_updated_at": "2018-04-11T21:00:00.000000Z",
+  "data": {
+    "lessons": [
+      {
+        "available_at": "2018-04-11T21:00:00.000000Z",
+        "subject_ids": [
+          25,
+          26
+        ]
+      }
+    ],
+    "next_reviews_at": "2018-04-11T21:00:00.000000Z",
+    "reviews": [
+      {
+        "available_at": "2018-04-11T21:00:00.000000Z",
+        "subject_ids": [
+          21,
+          23,
+          24
+        ]
+      },
+      {
+        "available_at": "2018-04-11T22:00:00.000000Z",
+        "subject_ids": []
+      },
+      ...
+    ]
+  }
+}
+```
+
+Retrieves a summary report.
+
+### HTTP Request
+
+`GET <%= current_page.data.api_root_url %>/summary`

@@ -1,0 +1,19 @@
+## Authentication
+
+> To authorize, use this code:
+
+<%= partial('examples/GET_shell', locals: { without_revision: true }) %>
+
+<%= partial('examples/GET_javascript', locals: { without_revision: true }) %>
+
+> Make sure to replace `<%= current_page.data.api_token_placeholder %>` with the API key.
+
+WaniKani uses your secret API token to authenticate requests to the API. You can obtain and manage your v2 token in [Settings / Account](https://www.wanikani.com/settings/account#public-api-key) on WaniKani. The token __has__ to be included with every request, and should be delivered in a HTTP header that looks like:
+
+`Authorization: Bearer <%= current_page.data.api_token_placeholder %>`
+
+Also note that all requests must be made over HTTPS. Any requests made over HTTP or without authentication headers will fail.
+
+<aside class="warning">
+You must replace <code><%= escape_html(current_page.data.api_token_placeholder) %></code> with the your API key.
+</aside>
