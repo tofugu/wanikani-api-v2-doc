@@ -13,7 +13,7 @@ language_tabs: # must be one of https://git.io/vQNgJ
   - javascript
 
 toc_footers:
-  - <a href="https://docs.api.wanikani.com/'>WaniKani API Mailing List</a>
+  - <a href='https://docs.api.wanikani.com/'>WaniKani API Mailing List</a>
   - <a href='https://www.wanikani.com'>Visit WaniKani</a>
   - <a href='mailto:hello@wanikani.com'>Contact Us</a>
   - <a href='https://github.com/lord/slate'>Documentation Powered by Slate</a>
