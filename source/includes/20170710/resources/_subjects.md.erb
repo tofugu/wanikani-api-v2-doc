@@ -10,15 +10,16 @@ The exact structure of a subject depends on the subject type. The available subj
 
 Attribute | Data Type | Description
 --------- | --------------- | -----------
-`created_at` | Date | Timestamp when the subject was created.
-`level` | Integer | The level of the subject, from `1` to `60`.
-`slug` | String | The string that is used when generating the document URL for the subject. Radicals use their meaning, downcased. Kanji and vocabulary use their characters.
-`characters` | String | The UTF-8 characters for the subject, including kanji and hiragana.
-`meanings` | Array of objects | The subject meanings. See table below for the object structure.
-`meaning_mnemonic` | String | The subject's meaning mnemonic.
 `auxiliary_meanings` | Array of objects | Collection of auxiliary meanings. See table below for the object structure.
+`characters` | String | The UTF-8 characters for the subject, including kanji and hiragana.
+`created_at` | Date | Timestamp when the subject was created.
 `document_url` | String | A URL pointing to the page on wanikani.com that provides detailed information about this subject.
 `hidden_at` | Date | Timestamp when the subject was hidden, indicating associated assignments will no longer appear in lessons or reviews and that the subject page is no longer visible on wanikani.com.
+`level` | Integer | The level of the subject, from `1` to `60`.
+`lesson_position` | Integer | Default order in which the subject is presented in the WaniKani lesson feature, scoped by ascending subject `level`.
+`meaning_mnemonic` | String | The subject's meaning mnemonic.
+`meanings` | Array of objects | The subject meanings. See table below for the object structure.
+`slug` | String | The string that is used when generating the document URL for the subject. Radicals use their meaning, downcased. Kanji and vocabulary use their characters.
 
 #### Meaning Object Attributes
 
