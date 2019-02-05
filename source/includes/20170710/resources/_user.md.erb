@@ -32,23 +32,23 @@ The user summary returns basic information for the user making the API request, 
 
 Attribute | Data Type | Description
 --------- | --------------- | -----------
-`username` | String | The user's username.
+`current_vacation_started_at` | `null` or Date | If the user is on vacation, this will be the timestamp of when that vacation started. If the user is not on vacation, this is `null`.
 `level` | Integer | The current level of the user. This ignores subscription status.
 `max_level_granted_by_subscription` | Integer | **NOTE: This will be dropped. Please use `subscription` instead.** The maximum level of content accessible to the user for lessons, reviews, and content review. For unsubscribed/free users, the maximum level is `3`. For subscribed users, this is `60`. **Any application that uses data from the WaniKani API must respect these access limits.**
 `profile_url` | String | The URL to the user's public facing profile page.
 `started_at` | Date | The signup date for the user.
 `subscribed` | Boolean | **NOTE: This will be dropped. Please use `subscription` instead.** Whether or not the user currently has a paid subscription.
-`current_vacation_started_at` | `null` or Date | If the user is on vacation, this will be the timestamp of when that vacation started. If the user is not on vacation, this is `null`.
 `subscription` | Object | Details about the user's subscription state. See table below for the object structure.
+`username` | String | The user's username.
 
 ### Subscription Object Attributes
 
 Attribute | Data Type | Description
 --------- | --------------- | -----------
 `active` | Boolean | Whether or not the user currently has a paid subscription.
-`type` | String | The type of subscription the user has. Options are following: `free`, `recurring`, and `lifetime`.
 `max_level_granted` | Integer | The maximum level of content accessible to the user for lessons, reviews, and content review. For unsubscribed/free users, the maximum level is `3`. For subscribed users, this is `60`. **Any application that uses data from the WaniKani API must respect these access limits.**
 `period_ends_at` | `null` or Date | The date when the user's subscription period ends. If the user has subscription type `lifetime` or `free` then the value is `null`.
+`type` | String | The type of subscription the user has. Options are following: `free`, `recurring`, and `lifetime`.
 
 ## Get User Information
 
