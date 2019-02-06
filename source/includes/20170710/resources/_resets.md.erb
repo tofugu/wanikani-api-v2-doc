@@ -26,10 +26,10 @@ Resets contain information about when those resets happen, the starting level, a
 
 Attribute | Data&nbsp;Type | Description
 --------- | --------------- | -----------
+`confirmed_at` | `null` or Date | Timestamp when the user confirmed the reset.
 `created_at` | Date | Timestamp when the reset was created.
 `original_level` | Integer | The user's level before the reset, from `1` to `60`
 `target_level` | Integer | The user's level after the reset, from `1` to `60`. It must be less than or equal to `original_level`.
-`confirmed_at` | `null` or Date | Timestamp when the user confirmed the reset.
 
 ## Get All Resets
 

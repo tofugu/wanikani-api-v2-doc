@@ -35,18 +35,18 @@ A review statistic is created when the user has done their first review on the r
 Attribute | Data&nbsp;Type | Description
 --------- | --------------- | -----------
 `created_at` | Date | Timestamp when the review statistic was created.
-`subject_id` | Integer | Unique identifier of the associated [subject](#subjects).
-`subject_type` | String | The type of the associated [subject](#subjects), one of: `kanji`, `radical`, or `vocabulary`.
+`hidden` | Boolean | Indicates if the associated subject has been hidden, preventing it from appearing in lessons or reviews.
 `meaning_correct` | Integer | Total number of correct answers submitted for the meaning of the associated subject.
+`meaning_current_streak` | Integer | The current, uninterrupted series of correct answers given for the meaning of the associated subject.
 `meaning_incorrect` | Integer | Total number of incorrect answers submitted for the meaning of the associated subject.
 `meaning_max_streak` | Integer | The longest, uninterrupted series of correct answers ever given for the meaning of the associated subject.
-`meaning_current_streak` | Integer | The current, uninterrupted series of correct answers given for the meaning of the associated subject.
+`percentage_correct` | Integer | The overall correct answer rate by the user for the subject, including both meaning and reading.
 `reading_correct` | Integer | Total number of correct answers submitted for the reading of the associated subject.
+`reading_current_streak` | Integer | The current, uninterrupted series of correct answers given for the reading of the associated subject.
 `reading_incorrect` | Integer | Total number of incorrect answers submitted for the reading of the associated subject.
 `reading_max_streak` | Integer | The longest, uninterrupted series of correct answers ever given for the reading of the associated subject.
-`reading_current_streak` | Integer | The current, uninterrupted series of correct answers given for the reading of the associated subject.
-`percentage_correct` | Integer | The overall correct answer rate by the user for the subject, including both meaning and reading.
-`hidden` | Boolean | Indicates if the associated subject has been hidden, preventing it from appearing in lessons or reviews.
+`subject_id` | Integer | Unique identifier of the associated [subject](#subjects).
+`subject_type` | String | The type of the associated [subject](#subjects), one of: `kanji`, `radical`, or `vocabulary`.
 
 ### Notes
 
@@ -111,12 +111,12 @@ The collection of review statistics will be filtered on the parameters provided.
 
 Name | Data&nbsp;Type | Description
 -- | -- | --
+`hidden` | Boolean | Return review statistics with a matching value in the `hidden` attribute
 `ids` | Array of integers | Only review statistics where `data.id` matches one of the array values are returned.
-`subject_ids` | Array of integers | Only review statistics where `data.subject_id` matches one of the array values are returned.
-`subject_types` | Array of strings | Only review statistics where `data.subject_type` matches one of the array values are returned. Valid values are: `radical`, `kanji`, or `vocabulary`.
 `percentages_greater_than` | Integer | Return review statistics where the `percentage_correct` is greater than the value.
 `percentages_less_than` | Integer | Return review statistics where the `percentage_correct` is less than the value.
-`hidden` | Boolean | Return review statistics with a matching value in the `hidden` attribute
+`subject_ids` | Array of integers | Only review statistics where `data.subject_id` matches one of the array values are returned.
+`subject_types` | Array of strings | Only review statistics where `data.subject_type` matches one of the array values are returned. Valid values are: `radical`, `kanji`, or `vocabulary`.
 `updated_after` | Date | Only review statistics updated after this time are returned.
 
 ## Get a Specific Review Statistic
