@@ -31,13 +31,13 @@ A level progression is created when a user has met the prerequisites for levelin
 
 Attribute | Possible Values | Description
 --------- | --------------- | -----------
+`abandoned_at` | `null` or Date | Timestamp when the user abandons the level. This is primary used when the user initiates a [reset](#resets).
+`completed_at` | `null` or Date | Timestamp when the user burns 100% of the assignments belonging to the associated subject's level.
 `created_at` | Date | Timestamp when the level progression is created
 `level` | Integer | The level of the progression, with possible values from `1` to `60`.
-`unlocked_at` | `null` or Date | Timestamp when the user can access lessons and reviews for the `level`.
-`started_at` | `null` or Date | Timestamp when the user starts their first lesson of a subject belonging to the level.
 `passed_at` | `null` or Date | Timestamp when the user passes at least 90% of the assignments with a type of `kanji` belonging to the associated subject's level.
-`completed_at` | `null` or Date | Timestamp when the user burns 100% of the assignments belonging to the associated subject's level.
-`abandoned_at` | `null` or Date | Timestamp when the user abandons the level. This is primary used when the user initiates a [reset](#resets).
+`started_at` | `null` or Date | Timestamp when the user starts their first lesson of a subject belonging to the level.
+`unlocked_at` | `null` or Date | Timestamp when the user can access lessons and reviews for the `level`.
 
 ## Get All Level Progressions
 
