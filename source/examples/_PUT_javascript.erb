@@ -1,0 +1,21 @@
+```javascript
+var apiToken = '<%= locals.fetch(:api_token, current_page.data.api_token_placeholder) %>';
+var apiEndpointPath = '<%= locals.fetch(:api_endpoint, current_page.data.api_endpoint_placeholder) %>';
+var requestHeaders =
+  new Headers({
+    <% unless locals.fetch(:without_revision, false) %>
+    'Wanikani-Revision': '<%= current_page.data.api_revision %>',
+    <% end %>
+    Authorization: 'Bearer ' + apiToken,
+  });
+var apiEndpoint =
+  new Request('<%= current_page.data.api_root_url %>/' + apiEndpointPath, {
+    method: 'PUT',
+    headers: requestHeaders,
+    body: <%= JSON.pretty_generate(locals.fetch(:params, {})) %>
+  });
+
+fetch(apiEndpoint)
+  .then(response => response.json())
+  .then(responseBody => console.log(responseBody));
+```
