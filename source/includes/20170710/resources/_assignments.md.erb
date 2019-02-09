@@ -192,3 +192,65 @@ Name | Data Type | Description
 ### Notes
 
 The `unlocked_at`, `started_at`, `passed_at`, and `burned_at` timestamps are always in sequential order — assignments can't be started before they're unlocked, passed before they're started, etc.
+
+
+## Learned Assignment
+
+Update the assignment's state to "review". Typically used after the user has learned the associated subject in lessons.
+
+Assignment must be in the following valid state:
+
+Attribute | State
+--------- | -----
+`level` | Must be less than or equal to the lower value between [User's](#user-data-structure) `level` and `max_level_granted_by_subscription`
+`srs_stage` | Must be equal to `0`
+`started_at` | Must be equal to `null`
+`unlocked_at` | Must not be `null`
+
+The following attributes are updated:
+
+Attribute | New Value
+--------- | ---------
+`available_at` | ISO8601 String timestamp
+`srs_stage_name` | `Apprentice I`
+`srs_stage` | `1`
+`started_at` | ISO8601 String timestamp
+
+> Example Request
+
+<%= partial('examples/PUT_shell', locals: { api_endpoint: 'assignments/80463006/learned' }) %>
+
+<%= partial('examples/PUT_javascript', locals: { api_endpoint: 'assignments/80463006/learned' }) %>
+
+> Example Response
+
+```json
+{
+  "id": 80463006,
+  "object": "assignment",
+  "url": "<%= current_page.data.api_root_url %>/assignments/80463006",
+  "data_updated_at": "2017-11-29T19:37:03.571377Z",
+  "data": {
+    "created_at": "2017-09-05T23:38:10.695133Z",
+    "subject_id": 8761,
+    "subject_type": "radical",
+    "level": 1,
+    "srs_stage": 1,
+    "srs_stage_name": "Apprentice I",
+    "unlocked_at": "2017-09-05T23:38:10.695133Z",
+    "started_at": "2017-09-05T23:41:28.980679Z",
+    "passed_at": null,
+    "burned_at": null,
+    "available_at": "2018-02-27T00:00:00.000000Z",
+    "passed": false,
+    "resurrected_at": null,
+    "resurrected": false
+  }
+}
+```
+
+Returns the updated assignment.
+
+### HTTP Request
+
+`PUT <%= current_page.data.api_root_url %>/assignments/<id>/learned`
