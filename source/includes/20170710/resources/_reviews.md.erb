@@ -158,3 +158,99 @@ Retrieves a specific review by its `id`.
 Name | Data Type | Description
 ---- | ---------------- | -----------
 `id` | Integer | Unique identifier of the review.
+
+## Create a Review
+
+> Example Request
+
+<%= partial('examples/POST_shell', locals: { api_endpoint: 'reviews', params: { "review": { "assignment_id": 1422, "incorrect_meaning_answers": "1", "incorrect_reading_answers": "2", "created_at": "2017-09-30T01:42:13.453291Z" } } }) %>
+
+<%= partial('examples/POST_javascript', locals: { api_endpoint: 'reviews', params: { "review": { "assignment_id": 1422, "incorrect_meaning_answers": "1", "incorrect_reading_answers": "2", "created_at": "2017-09-30T01:42:13.453291Z" } } }) %>
+
+> Example Response
+
+```json
+{
+  "id": 72,
+  "object": "review",
+  "url": "<%= current_page.data.api_root_url %>/reviews/72",
+  "data_updated_at": "2018-05-13T03:34:54.000000Z",
+  "data": {
+    "created_at": "2018-05-13T03:34:54.000000Z",
+    "assignment_id": 1422,
+    "subject_id": 997,
+    "starting_srs_stage": 1,
+    "starting_srs_stage_name": "Apprentice I",
+    "ending_srs_stage": 1,
+    "ending_srs_stage_name": "Apprentice I",
+    "incorrect_meaning_answers": 1,
+    "incorrect_reading_answers": 2
+  },
+  "resources_updated": {
+    "assignment": {
+      "id": 1422,
+      "object": "assignment",
+      "url": "<%= current_page.data.api_root_url %>/assignments/1422",
+      "data_updated_at": "2018-05-14T03:35:34.180006Z",
+      "data": {
+        "created_at": "2018-01-24T21:32:38.967244Z",
+        "subject_id": 997,
+        "subject_type": "vocabulary",
+        "level": 2,
+        "srs_stage": 1,
+        "srs_stage_name": "Apprentice I",
+        "unlocked_at": "2018-01-24T21:32:39.888359Z",
+        "started_at": "2018-01-24T21:52:47.926376Z",
+        "passed_at": null,
+        "burned_at": null,
+        "available_at": "2018-05-14T07:00:00.000000Z",
+        "resurrected_at": null,
+        "passed": false,
+        "resurrected": false,
+        "hidden": false
+      }
+    },
+    "review_statistic": {
+      "id": 342,
+      "object": "review_statistic",
+      "url": "<%= current_page.data.api_root_url %>/review_statistics/342",
+      "data_updated_at": "2018-05-14T03:35:34.223515Z",
+      "data": {
+        "created_at": "2018-01-24T21:35:55.127513Z",
+        "subject_id": 997,
+        "subject_type": "vocabulary",
+        "meaning_correct": 1,
+        "meaning_incorrect": 1,
+        "meaning_max_streak": 1,
+        "meaning_current_streak": 1,
+        "reading_correct": 1,
+        "reading_incorrect": 2,
+        "reading_max_streak": 1,
+        "reading_current_streak": 1,
+        "percentage_correct": 67,
+        "hidden": false
+      }
+    }
+  }
+}
+```
+
+Creates a review for a specific `assignment_id`. Using the related `subject_id` is also a valid alternative to using `assignment_id`.
+
+Some criteria must be met in order for a review to be created: the assignment must be in a "review state". Basically, `available_at` must be not null and in the past.
+
+When a review is registered, a service is called to update `assignment` and `review_statistic`. These are returned in the response body under `resources_updated`.
+
+### HTTP Request
+
+`POST <%= current_page.data.api_root_url %>/reviews/`
+
+### Parameters
+
+Name | Data Type | Required? | Description
+---- | --------- | --------- | -----------
+`assignment_id` | Integer | true | Unique identifier of the assignment. This or `subject_id` must be explicit.
+`subject_id` | Integer | true | Unique identifier of the subject. This or `assignment_id` must be explicit.
+`incorrect_meaning_answers` | Integer | true | Must be zero or a positive number. The number of times the api key owner has answered the meaning incorrectly.
+`incorrect_reading_answers` | Integer | true | Must be zero or a positive number. The number of times the api key owner has answered the reading incorrectly. Note `subject_type = radical` does not quiz on readings. Thus, set this value to `0`.
+`created_at` | Date | false | Timestamp of when the review was registered. If left off from the response body, then the review will be created with the timestamp of when the record creation happens. Must be in the past, but after `assignment.available_at`.
