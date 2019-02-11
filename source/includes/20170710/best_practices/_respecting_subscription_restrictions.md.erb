@@ -1,0 +1,18 @@
+## Respecting Subscription Restrictions
+
+WaniKani has [paid subscriptions](https://www.wanikani.com/account/subscription). That may come as a surprise in <%= Date.today.year %>, but it's true. Those subscriptions grant access to all the content past level three and let people to do lessons and reviews for that content.
+
+When the API is used for your own uses (populating spreadsheets, backing up progress, etc.), those access restrictions don't have that much of an impact. Most of the data delivered by the API belongs to you: assignments, study materials, review statistics, and those bits about how you progress through WaniKani. The only data that isn't yours is the content in subjects. All those mnemonics, hints, and relationships have been painstakingly crafted by the WaniKani staff to make learning kanji faster and better. That content is covered by pertinent copyright laws — which also means that fair use allows you to use it to learn on your own.
+
+Once you start building tools that can be used by other people, things change, though. First, you can't use the content to build anything that's for profit. Second, you need to respect the limitations put in place by the subscriptions. Both of those requirements are per [our terms](https://www.wanikani.com/terms). So, how do you do meet those requirements?
+
+The `user` endpoint has a `subscription` attribute. That should have everything you need.
+
+* `max_level_granted` defines the maximum level of content that's available to the user. It has two possible values: 3 and 60. The user shouldn't be able to access subjects above those levels. Lessons and reviews above those levels shouldn't be available at all and will be rejected if you try and submit them to us.
+* `active` is a boolean that tells you if the person has an active subscription.
+* `type` defines the kind of subscription, and works closely with `period_ends_at`. There are three values:
+  * `free` subscriptions aren't really subscriptions, but can represent people who've never subscribed or have an inactive subscription. There's no `period_ends_at` for free subscriptions.
+  * `recurring` subscriptions renew on a periodic basis. `period_ends_at` tells you when the subscription renews. Since we give people access until the end of their subscription period even if they cancel, you can safely not check their subscription status until that time. We put this in to help with both caching and offline access.
+  * `lifetime` means the user can access WaniKani forever. `period_ends_at` is null, mainly because `∞` is hard for computers to get. You don't need to schedule checks on the subscription status for this person — we don't take away lifetime subscriptions.
+
+Your application can use `max_level_granted` as a first, easy line of defense. That restricts content access based on their subscription, and is most of what you need to do. The `active`, `type`, and `period_ends_at` fields are all their to let you build more robust solutions. Those help you figure out when your application needs to check up on subscription status (if ever) or do things like expire access if the user hasn't connected in a while.
