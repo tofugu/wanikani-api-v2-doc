@@ -35,6 +35,7 @@ includes:
   - 20170710/best_practices/caching
   - 20170710/best_practices/conditional_requests
   - 20170710/best_practices/leveraging_updated_after_filter
+  - 20170710/best_practices/respecting_subscription_restrictions
   - 20170710/additional_information
   - 20170710/resources
   - 20170710/resources/assignments
