@@ -43,6 +43,7 @@ includes:
   - 20170710/resources/resets
   - 20170710/resources/reviews
   - 20170710/resources/review_statistics
+  - 20170710/resources/srs_stages
   - 20170710/resources/study_materials
   - 20170710/resources/subjects
   - 20170710/resources/summary
