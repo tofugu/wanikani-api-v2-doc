@@ -139,3 +139,88 @@ Retrieves a specific study material by its `id`.
 Name | Data Type | Description
 ---- | ---------------- | -----------
 `id` | Integer | Unique identifier of the study material.
+
+## Create a Study Material
+
+> Example Request
+
+<%= partial('examples/POST_shell', locals: { api_endpoint: 'study_materials', params: { "study_material": { "subject_id": 2, "meaning_note": "The two grounds is too much", "reading_note": "This is tsu much", "meaning_synonyms": ["double"] } } }) %>
+
+<%= partial('examples/POST_javascript', locals: { api_endpoint: 'study_materials', params: { "study_material": { "subject_id": 2, "meaning_note": "The two grounds is too much", "reading_note": "This is tsu much", "meaning_synonyms": ["double"] } } }) %>
+
+> Example Response
+
+```json
+{
+ "id": 234,
+ "object": "study_material",
+ "url": "<%= current_page.data.api_root_url %>/study_materials/234",
+ "data_updated_at": "2017-09-30T01:42:13.453291Z",
+ "data": {
+   "created_at": "2017-09-30T01:42:13.453291Z",
+   "subject_id": 2,
+   "subject_type": "kanji",
+   "meaning_note": "The two grounds is too much",
+   "reading_note": "This is tsu much",
+   "meaning_synonyms": ["double"]
+ }
+}
+```
+
+Creates a study material for a specific `subject_id`.
+
+The owner of the api key can only create one study_material per `subject_id`.
+
+### HTTP Request
+
+`POST <%= current_page.data.api_root_url %>/study_materials/`
+
+### Parameters
+
+Name | Data Type | Required? | Description
+---- | --------- | --------- | -----------
+`subject_id` | Integer | true | Unique identifier of the subject.
+`meaning_note` | String | false | Meaning notes specific for the subject.
+`reading_note` | String | false | Reading notes specific for the subject.
+`meaning_synonyms` | Array of Strings | false | Meaning synonyms for the subject.
+
+## Update a Study Material
+
+> Example Request
+
+<%= partial('examples/PUT_shell', locals: { api_endpoint: 'study_materials/234', params: { "study_material": { "meaning_note": "The two grounds are on top of each other", "reading_note": "This is too tsu much", "meaning_synonyms": ["double, twice"] } } }) %>
+
+<%= partial('examples/PUT_javascript', locals: { api_endpoint: 'study_materials/234', params: { "study_material": { "meaning_note": "The two grounds are on top of each other", "reading_note": "This is too tsu much", "meaning_synonyms": ["double, twice"] } } }) %>
+
+> Example Response
+
+```json
+{
+ "id": 234,
+ "object": "study_material",
+ "url": "<%= current_page.data.api_root_url %>/study_materials/234",
+ "data_updated_at": "2017-10-15T06:23:43.345321Z",
+ "data": {
+   "created_at": "2017-09-30T01:42:13.453291Z",
+   "subject_id": 2,
+   "subject_type": "kanji",
+   "meaning_note": "The two grounds are on top of each other",
+   "reading_note": "This is too tsu much",
+   "meaning_synonyms": ["double", "twice"]
+ }
+}
+```
+
+Updates a study material for a specific `id`.
+
+### HTTP Request
+
+`PUT <%= current_page.data.api_root_url %>/study_materials/234`
+
+### Parameters
+
+Name | Data Type | Required? | Description
+---- | --------- | --------- | -----------
+`meaning_note` | String | false | Meaning notes specific for the subject.
+`reading_note` | String | false | Reading notes specific for the subject.
+`meaning_synonyms` | Array of Strings | false | Meaning synonyms for the subject.
