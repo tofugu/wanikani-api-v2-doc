@@ -196,31 +196,11 @@ The `unlocked_at`, `started_at`, `passed_at`, and `burned_at` timestamps are alw
 
 ## Start an Assignment
 
-Mark the assignment as started, moving the assignment from the lessons queue to the review queue. 
-
-The assignment must be in the following valid state:
-
-Attribute | State
---------- | -----
-`level` | Must be less than or equal to the lowest value of [User's](#user-data-structure) `level` and `max_level_granted_by_subscription`
-`srs_stage` | Must be equal to `0`
-`started_at` | Must be equal to `null`
-`unlocked_at` | Must not be `null`
-
-The following attributes are updated:
-
-Attribute | New Value
---------- | ---------
-`available_at` | ISO8601 String timestamp
-`srs_stage_name` | `Apprentice I`
-`srs_stage` | `1`
-`started_at` | ISO8601 String timestamp
-
 > Example Request
 
-<%= partial('examples/PUT_shell', locals: { api_endpoint: 'assignments/80463006/start' }) %>
+<%= partial('examples/PUT_shell', locals: { api_endpoint: 'assignments/80463006/start', params: { 'started_at': '2017-09-05T23:41:28.980679Z' } }) %>
 
-<%= partial('examples/PUT_javascript', locals: { api_endpoint: 'assignments/80463006/start' }) %>
+<%= partial('examples/PUT_javascript', locals: { api_endpoint: 'assignments/80463006/start', params: { 'started_at': '2017-09-05T23:41:28.980679Z' } }) %>
 
 > Example Response
 
@@ -249,8 +229,40 @@ Attribute | New Value
 }
 ```
 
-Returns the updated assignment.
+Mark the assignment as started, moving the assignment from the lessons queue to the review queue. Returns the updated assignment.
 
 ### HTTP Request
 
 `PUT <%= current_page.data.api_root_url %>/assignments/<id>/start`
+
+### Allowed Parameters
+
+Name | Data Type | Required?
+---- | --------- | ---------
+`started_at` | Date | false
+
+Notes:
+
+* If not set, `started_at` will default to the time the request is made.
+* `started_at` must be greater than or equal to `unlocked_at`.
+
+
+### Expected Starting State
+
+The assignment must be in the following valid state:
+
+Attribute | State
+--------- | -----
+`level` | Must be less than or equal to the lowest value of [User's](#user-data-structure) `level` and `max_level_granted_by_subscription`
+`srs_stage` | Must be equal to `0`
+`started_at` | Must be equal to `null`
+`unlocked_at` | Must not be `null`
+
+### Updated Attributes
+
+Attribute | New Value
+--------- | ---------
+`available_at` | ISO8601 String timestamp
+`srs_stage_name` | `Apprentice I`
+`srs_stage` | `1`
+`started_at` | ISO8601 String timestamp
