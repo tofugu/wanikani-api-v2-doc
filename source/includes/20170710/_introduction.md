@@ -9,19 +9,5 @@ We've got information on general usage, like authentication and error codes, in 
 Feel free to reach out [via email](mailto:hello@wanikani.com) or [through the community](https://community.wanikani.com/) if you have any questions, comments, or requests about the API.
 
 <aside class="warning">
-  <strong>Keep in mind this is an alpha! Expect breaking changes until the structure has been solidified. There may be more endpoints to come and the structure of API results can be changed dramatically before the beta release.</strong>
+  <strong>Keep in mind this is an beta! There may be more endpoints to come and the structure of API results can be changed before release.</strong>
 </aside>
-
-
-<!-- ## Roadmap
-
-The following are planned to be implemented before exiting beta:
-
-* Soft deletion field.
-* API terms and conditions.
-* Inclusion of asset content:
-  * Vocabulary audio
-  * Sentences
-  * Radical SVG and PNG
-* JSON authentication endpoint for better extraction of API key.
-* Move API v2 to subdomain api.wanikani.com/v2. -->
