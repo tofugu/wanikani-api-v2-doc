@@ -163,9 +163,9 @@ Name | Data Type | Description
 
 > Example Request
 
-<%= partial('examples/POST_shell', locals: { api_endpoint: 'reviews', params: { "review": { "assignment_id": 1422, "incorrect_meaning_answers": "1", "incorrect_reading_answers": "2", "created_at": "2017-09-30T01:42:13.453291Z" } } }) %>
+<%= partial('examples/POST_shell', locals: { api_endpoint: 'reviews', params: { "review": { "assignment_id": 1422, "incorrect_meaning_answers": 1, "incorrect_reading_answers": 2, "created_at": "2017-09-30T01:42:13.453291Z" } } }) %>
 
-<%= partial('examples/POST_javascript', locals: { api_endpoint: 'reviews', params: { "review": { "assignment_id": 1422, "incorrect_meaning_answers": "1", "incorrect_reading_answers": "2", "created_at": "2017-09-30T01:42:13.453291Z" } } }) %>
+<%= partial('examples/POST_javascript', locals: { api_endpoint: 'reviews', params: { "review": { "assignment_id": 1422, "incorrect_meaning_answers": 1, "incorrect_reading_answers": 2, "created_at": "2017-09-30T01:42:13.453291Z" } } }) %>
 
 > Example Response
 
@@ -237,20 +237,20 @@ Name | Data Type | Description
 
 Creates a review for a specific `assignment_id`. Using the related `subject_id` is also a valid alternative to using `assignment_id`.
 
-Some criteria must be met in order for a review to be created: the assignment must be in a "review state". Basically, `available_at` must be not null and in the past.
+Some criteria must be met in order for a review to be created: `available_at` must be not null and in the past.
 
-When a review is registered, a service is called to update `assignment` and `review_statistic`. These are returned in the response body under `resources_updated`.
+When a review is registered, the associated `assignment` and `review_statistic` are both updated. These are returned in the response body under `resources_updated`.
 
 ### HTTP Request
 
 `POST <%= current_page.data.api_root_url %>/reviews/`
 
-### Parameters
+### Allowed Parameters
 
 Name | Data Type | Required? | Description
 ---- | --------- | --------- | -----------
-`assignment_id` | Integer | true | Unique identifier of the assignment. This or `subject_id` must be explicit.
-`subject_id` | Integer | true | Unique identifier of the subject. This or `assignment_id` must be explicit.
-`incorrect_meaning_answers` | Integer | true | Must be zero or a positive number. The number of times the api key owner has answered the meaning incorrectly.
-`incorrect_reading_answers` | Integer | true | Must be zero or a positive number. The number of times the api key owner has answered the reading incorrectly. Note `subject_type = radical` does not quiz on readings. Thus, set this value to `0`.
-`created_at` | Date | false | Timestamp of when the review was registered. If left off from the response body, then the review will be created with the timestamp of when the record creation happens. Must be in the past, but after `assignment.available_at`.
+`assignment_id` | Integer | true | Unique identifier of the assignment. This or `subject_id` must be set.
+`subject_id` | Integer | true | Unique identifier of the subject. This or `assignment_id` must be set.
+`incorrect_meaning_answers` | Integer | true | Must be zero or a positive number. This is the number of times the meaning was answered **incorrectly**.
+`incorrect_reading_answers` | Integer | true | Must be zero or a positive number. This is the number of times the reading was answered **incorrectly**. Note that subjects with a `type` or `radical` do not quiz on readings. Thus, set this value to `0`.
+`created_at` | Date | false | Timestamp when the review was completed. Defaults to the time of the request if omitted from the request body. Must be in the past, but after `assignment.available_at`.
