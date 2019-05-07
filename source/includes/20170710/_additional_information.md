@@ -1,6 +1,6 @@
 # Additional Information
 
-## SRS Stages
+## Spaced Repetition System
 
 There are 10 stages in our spaced-repetition system. We start at `0`, which indicates that the subject hasn't been learned through lessons yet. When an assignment for a subject has obtained stage `5` once, the `assignment.passed_at` is touched, where it contributes towards level progress and can unlock additional assignments. Getting an assignment to stage `9` removes the timestamp on `assignment.available_at`, which removes the associated subject from the user's review queue — we think it's been firmly burned into memory at that point.
 
