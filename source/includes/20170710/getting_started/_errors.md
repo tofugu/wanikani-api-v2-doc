@@ -14,6 +14,7 @@ Code | Meaning | Message
 ---- | ------- | -------
 200 | Success | n/a
 401 | Unauthorized | “Unauthorized. Nice try.”
+403 | Forbidden | 
 404 | Not Found |
 422 | Unprocessable Entity | Description of how the request was malformed.
 429 | Too Many Requests |
