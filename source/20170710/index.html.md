@@ -48,6 +48,7 @@ includes:
   - 20170710/resources/subjects
   - 20170710/resources/summary
   - 20170710/resources/user
+  - 20170710/resources/voice_actors
 
 search: true
 ---
