@@ -24,8 +24,7 @@ Assignments contain information about a user's progress on a particular subject,
     "burned_at": null,
     "available_at": "2018-02-27T00:00:00.000000Z",
     "resurrected_at": null,
-    "passed": true,
-    "resurrected": false
+    "passed": true
   }
 }
 ```
@@ -39,7 +38,6 @@ Attribute | Data Type | Description
 `passed_at` | `null` or Date | Timestamp when the user reaches SRS stage `5` for the first time.
 `passed` | Boolean | The boolean equivalent of `passed_at`
 `resurrected_at` | `null` or Date | Timestamp when the subject is resurrected and placed back in the user's review queue.
-`resurrected` | Boolean | A convenience field indicating that the subject has been burned, resurrected, and is still in the user's review queue.
 `srs_stage_name` | String | The [stage name](#srs-stage-intervals) associated with the `srs_stage`.
 `srs_stage` | Integer | The current [SRS stage interval](#srs-stage-intervals), from `0` to `9`.
 `started_at` | `null` or Date | Timestamp when the user completes the lesson for the related subject.
@@ -86,8 +84,7 @@ Attribute | Data Type | Description
         "burned_at": null,
         "available_at": "2018-02-27T00:00:00.000000Z",
         "resurrected_at": null,
-        "passed": true,
-        "resurrected": false
+        "passed": true
       }
     }
   ]
@@ -116,7 +113,6 @@ Name | Data Type | Description
 `in_review` | (not required) | Returns assignments which are in the review state
 `levels` | Array of integers | Only assignments where the associated subject level matches one of the array values are returned. Valid values range from `1` to `60`.
 `passed` | Boolean | Returns assignments where `data.passed` equals `passed`.
-`resurrected` | Boolean | Returns assignments where `data.resurrected` equals `resurrected`.
 `srs_stages` | Array of integers | Only assignments where `data.srs_stage` matches one of the array values are returned. Valid values range from `0` to `9`
 `started` | Boolean | When set to `true`, returns assignments that have a value in `data.started_at`. Returns assignments with a `null` `data.started_at` if `false`.
 `subject_ids` | Array of integers | Only assignments where `data.subject_id` matches one of the array values are returned.
@@ -171,8 +167,7 @@ If the date time now is November 11, 2017 8:42:00 AM UTC:
     "burned_at": null,
     "available_at": "2018-02-27T00:00:00.000000Z",
     "passed": true,
-    "resurrected_at": null,
-    "resurrected": false
+    "resurrected_at": null
   }
 }
 ```
@@ -223,8 +218,7 @@ The `unlocked_at`, `started_at`, `passed_at`, and `burned_at` timestamps are alw
     "burned_at": null,
     "available_at": "2018-02-27T00:00:00.000000Z",
     "passed": false,
-    "resurrected_at": null,
-    "resurrected": false
+    "resurrected_at": null
   }
 }
 ```
