@@ -1,0 +1,118 @@
+# Voice actors
+
+Available voice actors used for vocabulary reading pronunciation audio.
+
+## Voice Actor Data Structure
+
+> Example Structure
+
+```json
+{
+  "id": 234,
+  "object": "voice_actor",
+  "url": "<%= current_page.data.api_root_url %>/voice_actors/1",
+  "data_updated_at": "2017-12-20T00:24:47.048380Z",
+  "data": {
+    "created_at": "2017-12-20T00:03:56.642838Z",
+    "name": "Kyoko",
+    "gender": "female",
+    "description": "Tokyo accent"
+  }
+}
+```
+
+Attribute | Data&nbsp;Type | Description
+--------- | --------------- | -----------
+`description` | String | Details about the voice actor.
+`gender` | String | `male` or `female`
+`name` | String | The voice actor's name
+
+## Get All Voice Actors
+
+> Example Request
+
+<%= partial('examples/GET_shell', locals: { api_endpoint: 'voice_actors' }) %>
+
+<%= partial('examples/GET_javascript', locals: { api_endpoint: 'voice_actors' }) %>
+
+> Example Response
+
+```json
+{
+  "object": "collection",
+  "url": "<%= current_page.data.api_root_url %>/voice_actors",
+  "pages": {
+    "per_page": 500,
+    "next_url": null,
+    "previous_url": null
+  },
+  "total_count": 2,
+  "data_updated_at": "2017-11-29T19:37:03.571377Z",
+  "data": [
+    {
+      "id": 234,
+      "object": "voice_actor",
+      "url": "<%= current_page.data.api_root_url %>/voice_actors/1",
+      "data_updated_at": "2017-12-20T00:24:47.048380Z",
+      "data": {
+        "created_at": "2017-12-20T00:03:56.642838Z",
+        "name": "Kyoko",
+        "gender": "female",
+        "description": "Tokyo accent"
+      }
+    }
+  ]
+}
+```
+
+Returns a collection of all voice_actors, ordered by ascending `created_at`, 500 at a time.
+
+### HTTP Request
+
+`GET <%= current_page.data.api_root_url %>/voice_actors`
+
+### Query Parameters
+
+The collection of voice_actors will be filtered on the parameters provided.
+
+Name | Permitted values | Description
+---- | ---------------- | -----------
+`ids` | Array of integers | Only voice_actors where `data.id` matches one of the array values are returned.
+`updated_after` | Date | Only voice_actors updated after this time are returned.
+
+## Get a Specific Reset
+
+> Example Request
+
+<%= partial('examples/GET_shell', locals: { api_endpoint: 'voice_actors/1' }) %>
+
+<%= partial('examples/GET_javascript', locals: { api_endpoint: 'voice_actors/1' }) %>
+
+> Example Response
+
+```json
+{
+  "id": 234,
+  "object": "voice_actor",
+  "url": "<%= current_page.data.api_root_url %>/voice_actors/1",
+  "data_updated_at": "2017-12-20T00:24:47.048380Z",
+  "data": {
+    "created_at": "2017-12-20T00:03:56.642838Z",
+    "name": "Kyoko",
+    "gender": "female",
+    "description": "Tokyo accent"
+  }
+}
+```
+
+Retrieves a specific voice_actor by its `id`.
+
+### HTTP Request
+
+`GET <%= current_page.data.api_root_url %>/voice_actors/<id>`
+
+### Parameters
+
+Name | Data Type | Description
+---- | ---------------- | -----------
+`id` | Integer | Unique identifier of the voice_actor.
