@@ -15,10 +15,8 @@ The user summary returns basic information for the user making the API request, 
     "id": "5a6a5234-a392-4a87-8f3f-33342afe8a42",
     "username": "example_user",
     "level": 5,
-    "max_level_granted_by_subscription": 60,
     "profile_url": "https://www.wanikani.com/users/example_user",
     "started_at": "2012-05-11T00:52:18.958466Z",
-    "subscribed": true,
     "current_vacation_started_at": null,
     "subscription": {
       "active": true,
@@ -42,11 +40,9 @@ Attribute | Data Type | Description
 --------- | --------------- | -----------
 `current_vacation_started_at` | `null` or Date | If the user is on vacation, this will be the timestamp of when that vacation started. If the user is not on vacation, this is `null`.
 `level` | Integer | The current level of the user. This ignores subscription status.
-`max_level_granted_by_subscription` | Integer | **NOTE: This will be dropped. Please use `subscription` instead.** The maximum level of content accessible to the user for lessons, reviews, and content review. For unsubscribed/free users, the maximum level is `3`. For subscribed users, this is `60`. **Any application that uses data from the WaniKani API must respect these access limits.**
 `preferences` | Object | User settings specific to the WaniKani application. See table below for the object structure.
 `profile_url` | String | The URL to the user's public facing profile page.
 `started_at` | Date | The signup date for the user.
-`subscribed` | Boolean | **NOTE: This will be dropped. Please use `subscription` instead.** Whether or not the user currently has a paid subscription.
 `subscription` | Object | Details about the user's subscription state. See table below for the object structure.
 `username` | String | The user's username.
 
@@ -89,10 +85,8 @@ Attribute | Data Type | Description
     "id": "5a6a5234-a392-4a87-8f3f-33342afe8a42",
     "username": "example_user",
     "level": 5,
-    "max_level_granted_by_subscription": 60,
     "profile_url": "https://www.wanikani.com/users/example_user",
     "started_at": "2012-05-11T00:52:18.958466Z",
-    "subscribed": true,
     "current_vacation_started_at": null,
     "subscription": {
       "active": true,
@@ -137,10 +131,8 @@ Returns a summary of user information.
     "id": "5a6a5234-a392-4a87-8f3f-33342afe8a42",
     "username": "example_user",
     "level": 5,
-    "max_level_granted_by_subscription": 60,
     "profile_url": "https://www.wanikani.com/users/example_user",
     "started_at": "2012-05-11T00:52:18.958466Z",
-    "subscribed": true,
     "current_vacation_started_at": null,
     "subscription": {
       "active": true,

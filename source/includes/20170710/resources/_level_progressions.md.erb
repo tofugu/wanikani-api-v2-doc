@@ -5,7 +5,7 @@ Level progressions contain information about a user's progress through the WaniK
 A level progression is created when a user has met the prerequisites for leveling up, which are:
 
 * Reach a 90% passing rate on assignments for a user's current level with a `subject_type` of `kanji`. Passed assignments have `data.passed` equal to `true` and a `data.passed_at` that's in the past.
-* Have access to the level. Under `/user`, the `data.level` must be less than or equal to `data.max_level_granted_by_subscription`.
+* Have access to the level. Under `/user`, the `data.level` must be less than or equal to `data.subscription.max_level_granted`.
 
 ## Level Progression Data Structure
 
