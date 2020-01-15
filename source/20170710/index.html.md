@@ -6,7 +6,7 @@ api_root_url: 'https://api.wanikani.com/v2'
 api_token_placeholder: '<api_token_here>'
 api_endpoint_placeholder: '<api_endpoint_here>'
 base_revision: 20170710
-documentation_root_path: '/api/v2'
+documentation_root_path: ''
 
 language_tabs: # must be one of https://git.io/vQNgJ
   - shell

@@ -8,7 +8,7 @@
 
 > Make sure to replace `<%= current_page.data.api_token_placeholder %>` with the API key.
 
-WaniKani uses your secret API token to authenticate requests to the API. You can obtain and manage your v2 token in [Settings / Account](https://www.wanikani.com/settings/account#public-api-key) on WaniKani. The token __has__ to be included with every request, and should be delivered in a HTTP header that looks like:
+WaniKani uses your secret API token to authenticate requests to the API. You can obtain and manage your v2 token in [Settings / API Tokens](https://www.wanikani.com/settings/personal_access_tokens) on WaniKani. The token __has__ to be included with every request, and should be delivered in a HTTP header that looks like:
 
 `Authorization: Bearer <%= current_page.data.api_token_placeholder %>`
 
