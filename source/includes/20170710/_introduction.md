@@ -7,7 +7,3 @@ This version is built around a [REST](http://en.wikipedia.org/wiki/Representatio
 We've got information on general usage, like authentication and error codes, in [Getting Started](#getting-started). We make a few suggestions on how to optimize your usage of the API in [Best Practices](#best-practices) and clarify a few obscure topics under [Additional Information](#additional-information). Finally, details for all of the available resources and endpoints are under [Resources](#resources).
 
 Feel free to reach out [via email](mailto:hello@wanikani.com) or [through the community](https://community.wanikani.com/) if you have any questions, comments, or requests about the API.
-
-<aside class="warning">
-  <strong>Keep in mind this is an beta! There may be more endpoints to come and the structure of API results can be changed before release.</strong>
-</aside>
