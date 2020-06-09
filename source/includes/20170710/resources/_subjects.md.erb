@@ -20,6 +20,7 @@ Attribute | Data Type | Description
 `meaning_mnemonic` | String | The subject's meaning mnemonic.
 `meanings` | Array of objects | The subject meanings. See table below for the object structure.
 `slug` | String | The string that is used when generating the document URL for the subject. Radicals use their meaning, downcased. Kanji and vocabulary use their characters.
+`spaced_repetition_system_id` | Integer | Unique identifier of the associated [spaced_repetition_system](#spaced_repetition_systems).
 
 #### Meaning Object Attributes
 
@@ -101,6 +102,7 @@ The strings can include a WaniKani specific markup syntax. The following is a li
     ],
     "meaning_mnemonic": "This radical consists of a single, horizontal stroke. What's the biggest, single, horizontal stroke? That's the ground. Look at the <radical>ground</radical>, look at this radical, now look at the ground again. Kind of the same, right?",
     "slug": "ground",
+    "spaced_repetition_system_id": 2
   }
 }
 ```
@@ -189,6 +191,7 @@ Attribute | Data Type | Description
     "reading_hint": "Make sure you feel the ridiculously <reading>itchy</reading> sensation covering your body. It climbs from your hands, where you're holding the number <kanji>One</kanji> up, and then goes through your arms, crawls up your neck, goes down your body, and then covers everything. It becomes uncontrollable, and you're scratching everywhere, writhing on the ground. It's so itchy that it's the most painful thing you've ever experienced (you should imagine this vividly, so you remember the reading of this kanji).",
     "slug": "一",
     "visually_similar_subject_ids": [],
+    "spaced_repetition_system_id": 1
   }
 }
 ```
@@ -297,6 +300,7 @@ Attribute | Data Type | Description
     ],
     "reading_mnemonic": "When a vocab word is all alone and has no okurigana (hiragana attached to kanji) connected to it, it usually uses the kun'yomi reading. Numbers are an exception, however. When a number is all alone, with no kanji or okurigana, it is going to be the on'yomi reading, which you learned with the kanji.  Just remember this exception for alone numbers and you'll be able to read future number-related vocab to come.",
     "slug": "一",
+    "spaced_repetition_system_id": 1
   }
 }
 ```
@@ -419,7 +423,8 @@ Attribute | Data Type | Description
         "meaning_hint": "To remember the meaning of <kanji>One</kanji>, imagine yourself there at the scene of the crime. You grab <kanji>One</kanji> in your arms, trying to prop it up, trying to hear its last words. Instead, it just splatters some blood on your face. \"Who did this to you?\" you ask. The number One points weakly, and you see number Two running off into an alleyway. He's always been jealous of number One and knows he can be number one now that he's taken the real number one out.",
         "reading_mnemonic": "As you're sitting there next to <kanji>One</kanji>, holding him up, you start feeling a weird sensation all over your skin. From the wound comes a fine powder (obviously coming from the special bullet used to kill One) that causes the person it touches to get extremely <reading>itchy</reading> (いち)",
         "reading_hint": "Make sure you feel the ridiculously <reading>itchy</reading> sensation covering your body. It climbs from your hands, where you're holding the number <kanji>One</kanji> up, and then goes through your arms, crawls up your neck, goes down your body, and then covers everything. It becomes uncontrollable, and you're scratching everywhere, writhing on the ground. It's so itchy that it's the most painful thing you've ever experienced (you should imagine this vividly, so you remember the reading of this kanji).",
-        "lesson_position": 2
+        "lesson_position": 2,
+        "spaced_repetition_system_id": 1
       }
     }
   ]
