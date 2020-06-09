@@ -1,0 +1,358 @@
+# Spaced Repetition Systems
+
+Available spaced repetition systems used for calculating `srs_stage` changes to [Assignments](#assignments) and [Reviews](#reviews). Has relationship with [Subjects](#subjects)
+
+## Spaced Repetition System Data Structure
+
+> Example Structure
+
+```json
+{
+  "id": 1,
+  "object": "spaced_repetition_system",
+  "url": "<%= current_page.data.api_root_url %>/spaced_repetition_systems/1",
+  "data_updated_at": "2020-05-27T16:42:06.705681Z",
+  "data": {
+    "created_at": "2020-05-21T20:46:06.464460Z",
+    "name": "Default system for dictionary subjects",
+    "description": "The original spaced repetition system",
+    "unlocking_stage_position": 0,
+    "starting_stage_position": 1,
+    "passing_stage_position": 5,
+    "burning_stage_position": 9,
+    "stages": [
+      {
+        "interval": null,
+        "position": 0,
+        "interval_unit": null
+      },
+      {
+        "interval": 14400,
+        "position": 1,
+        "interval_unit": "seconds"
+      },
+      {
+        "interval": 28800,
+        "position": 2,
+        "interval_unit": "seconds"
+      },
+      {
+        "interval": 82800,
+        "position": 3,
+        "interval_unit": "seconds"
+      },
+      {
+        "interval": 169200,
+        "position": 4,
+        "interval_unit": "seconds"
+      },
+      {
+        "interval": 601200,
+        "position": 5,
+        "interval_unit": "seconds"
+      },
+      {
+        "interval": 1206000,
+        "position": 6,
+        "interval_unit": "seconds"
+      },
+      {
+        "interval": 2588400,
+        "position": 7,
+        "interval_unit": "seconds"
+      },
+      {
+        "interval": 10364400,
+        "position": 8,
+        "interval_unit": "seconds"
+      },
+      {
+        "interval": null,
+        "position": 9,
+        "interval_unit": null
+      }
+    ]
+  }
+}
+```
+
+Attribute | Data&nbsp;Type | Description
+--------- | --------------- | -----------
+`burning_stage_position` | Integer | `position` of the burning stage.
+`description` | String | Details about the spaced repetition system.
+`name` | String | The name of the spaced repetition system
+`passing_stage_position` | Integer | `position` of the passing stage.
+`stages` | Array of objects | A collection of stages. See table below for the object structure.
+`starting_stage_position` | Integer | `position` of the starting stage.
+`unlocking_stage_position` | Integer | `position` of the unlocking stage.
+
+#### Stages Object Attributes
+
+Attribute | Data Type | Description
+--------- | --------------- | -----------
+`interval` | `null` or Integer |
+`interval_unit` | `null` or String |
+`position` | Integer |
+
+The unlocking (position 0) and burning (maximum position) will always have `null` for `interval` and `interval_unit` since the stages do not influence `assignment.available_at`. Stages in between the unlocking and burning stages are the "reviewable" stages.
+
+## Get All Spaced Repetition Systems
+
+> Example Request
+
+<%= partial('examples/GET_shell', locals: { api_endpoint: 'spaced_repetition_systems' }) %>
+
+<%= partial('examples/GET_javascript', locals: { api_endpoint: 'spaced_repetition_systems' }) %>
+
+> Example Response
+
+```json
+{
+  "object": "collection",
+  "url": "https://api.wanikani.com/v2/spaced_repetition_systems",
+  "pages": {
+    "per_page": 500,
+    "next_url": null,
+    "previous_url": null
+  },
+  "total_count": 2,
+  "data_updated_at": "2020-06-09T03:38:01.007395Z",
+  "data": [
+    {
+      "id": 1,
+      "object": "spaced_repetition_system",
+      "url": "https://api.wanikani.com/v2/spaced_repetition_systems/1",
+      "data_updated_at": "2020-06-09T03:36:51.134752Z",
+      "data": {
+        "created_at": "2020-05-21T20:46:06.464460Z",
+        "name": "Default system for dictionary subjects",
+        "description": "The original spaced repetition system",
+        "passing_stage_position": 5,
+        "stages": [
+          {
+            "interval": null,
+            "position": 0,
+            "interval_unit": null
+          },
+          {
+            "interval": 14400,
+            "position": 1,
+            "interval_unit": "seconds"
+          },
+          {
+            "interval": 28800,
+            "position": 2,
+            "interval_unit": "seconds"
+          },
+          {
+            "interval": 82800,
+            "position": 3,
+            "interval_unit": "seconds"
+          },
+          {
+            "interval": 169200,
+            "position": 4,
+            "interval_unit": "seconds"
+          },
+          {
+            "interval": 601200,
+            "position": 5,
+            "interval_unit": "seconds"
+          },
+          {
+            "interval": 1206000,
+            "position": 6,
+            "interval_unit": "seconds"
+          },
+          {
+            "interval": 2588400,
+            "position": 7,
+            "interval_unit": "seconds"
+          },
+          {
+            "interval": 10364400,
+            "position": 8,
+            "interval_unit": "seconds"
+          },
+          {
+            "interval": null,
+            "position": 9,
+            "interval_unit": null
+          }
+        ]
+      }
+    },
+    {
+      "id": 2,
+      "object": "spaced_repetition_system",
+      "url": "https://api.wanikani.com/v2/spaced_repetition_systems/2",
+      "data_updated_at": "2020-06-09T03:38:01.007395Z",
+      "data": {
+        "created_at": "2020-05-21T20:48:06.470578Z",
+        "name": "Default accelerated system for dictionary subjects",
+        "description": "The original spaced repetition system, but accelerated",
+        "passing_stage_position": 5,
+        "stages": [
+          {
+            "interval": null,
+            "position": 0,
+            "interval_unit": null
+          },
+          {
+            "interval": 7200,
+            "position": 1,
+            "interval_unit": "seconds"
+          },
+          {
+            "interval": 14400,
+            "position": 2,
+            "interval_unit": "seconds"
+          },
+          {
+            "interval": 28800,
+            "position": 3,
+            "interval_unit": "seconds"
+          },
+          {
+            "interval": 82800,
+            "position": 4,
+            "interval_unit": "seconds"
+          },
+          {
+            "interval": 601200,
+            "position": 5,
+            "interval_unit": "seconds"
+          },
+          {
+            "interval": 1206000,
+            "position": 6,
+            "interval_unit": "seconds"
+          },
+          {
+            "interval": 2588400,
+            "position": 7,
+            "interval_unit": "seconds"
+          },
+          {
+            "interval": 10364400,
+            "position": 8,
+            "interval_unit": "seconds"
+          },
+          {
+            "interval": null,
+            "position": 9,
+            "interval_unit": null
+          }
+        ]
+      }
+    }
+  ]
+}
+```
+
+Returns a collection of all spaced_repetition_systems, ordered by ascending `id`, 500 at a time.
+
+### HTTP Request
+
+`GET <%= current_page.data.api_root_url %>/spaced_repetition_systems`
+
+### Query Parameters
+
+The collection of spaced_repetition_systems will be filtered on the parameters provided.
+
+Name | Permitted values | Description
+---- | ---------------- | -----------
+`ids` | Array of integers | Only spaced_repetition_systems where `data.id` matches one of the array values are returned.
+`updated_after` | Date | Only spaced_repetition_systems updated after this time are returned.
+
+## Get a Specific Spaced Repetition System
+
+> Example Request
+
+<%= partial('examples/GET_shell', locals: { api_endpoint: 'spaced_repetition_systems/1' }) %>
+
+<%= partial('examples/GET_javascript', locals: { api_endpoint: 'spaced_repetition_systems/1' }) %>
+
+> Example Response
+
+```json
+{
+  "id": 1,
+  "object": "spaced_repetition_system",
+  "url": "<%= current_page.data.api_root_url %>/spaced_repetition_systems/1",
+  "data_updated_at": "2020-05-27T16:42:06.705681Z",
+  "data": {
+    "created_at": "2020-05-21T20:46:06.464460Z",
+    "name": "Default system for dictionary subjects",
+    "description": "The original spaced repetition system",
+    "unlocking_stage_position": 0,
+    "starting_stage_position": 1,
+    "passing_stage_position": 5,
+    "burning_stage_position": 9,
+    "stages": [
+      {
+        "interval": null,
+        "position": 0,
+        "interval_unit": null
+      },
+      {
+        "interval": 14400,
+        "position": 1,
+        "interval_unit": "seconds"
+      },
+      {
+        "interval": 28800,
+        "position": 2,
+        "interval_unit": "seconds"
+      },
+      {
+        "interval": 82800,
+        "position": 3,
+        "interval_unit": "seconds"
+      },
+      {
+        "interval": 169200,
+        "position": 4,
+        "interval_unit": "seconds"
+      },
+      {
+        "interval": 601200,
+        "position": 5,
+        "interval_unit": "seconds"
+      },
+      {
+        "interval": 1206000,
+        "position": 6,
+        "interval_unit": "seconds"
+      },
+      {
+        "interval": 2588400,
+        "position": 7,
+        "interval_unit": "seconds"
+      },
+      {
+        "interval": 10364400,
+        "position": 8,
+        "interval_unit": "seconds"
+      },
+      {
+        "interval": null,
+        "position": 9,
+        "interval_unit": null
+      }
+    ]
+  }
+}
+```
+
+Retrieves a specific spaced_repetition_system by its `id`.
+
+### HTTP Request
+
+`GET <%= current_page.data.api_root_url %>/spaced_repetition_systems/<id>`
+
+### Parameters
+
+Name | Data Type | Description
+---- | ---------------- | -----------
+`id` | Integer | Unique identifier of the spaced_repetition_system.
