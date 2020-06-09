@@ -15,6 +15,7 @@ Reviews log all the correct and incorrect answers provided through the 'Reviews'
   "data": {
     "created_at": "2017-12-20T01:00:59.255427Z",
     "assignment_id": 32132,
+    "spaced_repetition_system_id": 1,
     "subject_id": 8,
     "starting_srs_stage": 4,
     "starting_srs_stage_name": "Apprentice IV",
@@ -34,11 +35,14 @@ Attribute | Date&nbsp;Type | Description
 `ending_srs_stage` | Integer | The SRS stage interval calculated from the number of correct and incorrect answers, with valid values ranging from `1` to `9`
 `incorrect_meaning_answers` | Integer | The number of times the user has answered the meaning incorrectly.
 `incorrect_reading_answers` | Integer | The number of times the user has answered the reading incorrectly.
+`spaced_repetition_system_id` | Integer | Unique identifier of the associated [spaced_repetition_system](#spaced_repetition_systems).
 `starting_srs_stage_name` | String | The [stage name](#srs-stage-intervals) associated with the `starting_srs_stage`.
 `starting_srs_stage` | Integer | The starting SRS stage interval, with valid values ranging from `1` to `8`
 `subject_id` | Integer | Unique identifier of the associated [subject](#subjects).
 
 ### Notes
+
+#### Incorrect Answers
 
 A subject (radical, kanji, and vocabulary) may not require a meaning or reading. Therefore attributes `incorrect_meaning_answers` and `incorrect_reading_answers` will return a value of `0` for subjects which do not have the requirement.
 
@@ -47,6 +51,10 @@ Subject type | Answer types allowed
 kanji        | Meaning, Reading
 radical      | Meaning
 vocabulary   | Meaning, Reading
+
+#### Spaced Repetition System
+
+The associated spaced repetition system is the system used to do the SRS stage calculations at the time the review record was created. It does not necessarily mean it is the current `spaced_repetition_system` associated to `subject`. This is done to preserve history.
 
 ## Get All Reviews
 
@@ -78,6 +86,7 @@ vocabulary   | Meaning, Reading
       "data": {
         "created_at": "2017-12-20T01:00:59.255427Z",
         "assignment_id": 32132,
+        "spaced_repetition_system_id": 1,
         "subject_id": 8,
         "starting_srs_stage": 4,
         "starting_srs_stage_name": "Apprentice IV",
@@ -138,6 +147,7 @@ Assumptions:
   "data": {
     "created_at": "2017-12-20T01:00:59.255427Z",
     "assignment_id": 32132,
+    "spaced_repetition_system_id": 1,
     "subject_id": 8,
     "starting_srs_stage": 4,
     "starting_srs_stage_name": "Apprentice IV",
@@ -178,6 +188,7 @@ Name | Data Type | Description
   "data": {
     "created_at": "2018-05-13T03:34:54.000000Z",
     "assignment_id": 1422,
+    "spaced_repetition_system_id": 1,
     "subject_id": 997,
     "starting_srs_stage": 1,
     "starting_srs_stage_name": "Apprentice I",
