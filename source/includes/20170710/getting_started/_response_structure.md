@@ -59,8 +59,9 @@ The following are singular resources:
 * `level_progression`
 * `radical`
 * `reset`
-* `review`
 * `review_statistic`
+* `review`
+* `spaced_repetition_system`
 * `study_material`
 * `user`
 * `vocabulary`
