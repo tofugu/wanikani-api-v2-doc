@@ -18,22 +18,22 @@ Each system has the following common characteristics.
   </thead>
   <tbody>
     <tr>
-      <th style="text-align: right;">Unlocking stage</th>
+      <td style="text-align: right;">Unlocking stage</td>
       <td>0</td>
       <td>This is the initial stage for an assignment; it generally indicates the subject will appear in lessons.</td>
     </tr>
     <tr>
-      <th style="text-align: right;">Starting stage</th>
+      <td style="text-align: right;">Starting stage</td>
       <td>1</td>
       <td>The minimum stage for a subject to appear in reviews.</td>
     </tr>
     <tr>
-      <th style="text-align: right;">Passing stage</th>
+      <td style="text-align: right;">Passing stage</td>
       <td>Value from the starting stage position up to the burning stage position</td>
       <td>Reaching this milestone counts towards level progression and the unlocking of additional subjects.</td>
     </tr>
     <tr>
-      <th style="text-align: right;">Burning stage</th>
+      <td style="text-align: right;">Burning stage</td>
       <td>N</td>
       <td>This is the stage when the subject is complete, exits out of reviews and is no longer tested.</td>
     </tr>
