@@ -4,10 +4,6 @@ Assignments contain information about a user's progress on a particular subject,
 
 ## Assignment Data Structure
 
-<aside class="warning">
-  `assignment.passed` and `assignment.srs_stage_name` is marked for deprecation. It will be dropped on August 17, 2020. The same information from `assignment.passed` can be inferred by checking the presence of the `assignment.passed_at` timestamp.
-</aside>
-
 > Example Structure
 
 ```json
@@ -21,14 +17,12 @@ Assignments contain information about a user's progress on a particular subject,
     "subject_id": 8761,
     "subject_type": "radical",
     "srs_stage": 8,
-    "srs_stage_name": "Enlightened",
     "unlocked_at": "2017-09-05T23:38:10.695133Z",
     "started_at": "2017-09-05T23:41:28.980679Z",
     "passed_at": "2017-09-07T17:14:14.491889Z",
     "burned_at": null,
     "available_at": "2018-02-27T00:00:00.000000Z",
-    "resurrected_at": null,
-    "passed": true
+    "resurrected_at": null
   }
 }
 ```
@@ -40,9 +34,7 @@ Attribute | Data Type | Description
 `created_at` | Date | Timestamp when the assignment was created.
 `hidden` | Boolean | Indicates if the associated subject has been hidden, preventing it from appearing in lessons or reviews.
 `passed_at` | `null` or Date | Timestamp when the user reaches SRS stage `5` for the first time.
-`passed` | Boolean | The boolean equivalent of `passed_at`
 `resurrected_at` | `null` or Date | Timestamp when the subject is resurrected and placed back in the user's review queue.
-`srs_stage_name` | String | The [stage name](#srs-stage-intervals) associated with the `srs_stage`.
 `srs_stage` | Integer | The current [SRS stage interval](#srs-stage-intervals), from `0` to `9`.
 `started_at` | `null` or Date | Timestamp when the user completes the lesson for the related subject.
 `subject_id` | Integer | Unique identifier of the associated [subject](#subjects).
@@ -81,14 +73,12 @@ Attribute | Data Type | Description
         "subject_id": 8761,
         "subject_type": "radical",
         "srs_stage": 8,
-        "srs_stage_name": "Enlightened",
         "unlocked_at": "2017-09-05T23:38:10.695133Z",
         "started_at": "2017-09-05T23:41:28.980679Z",
         "passed_at": "2017-09-07T17:14:14.491889Z",
         "burned_at": null,
         "available_at": "2018-02-27T00:00:00.000000Z",
-        "resurrected_at": null,
-        "passed": true
+        "resurrected_at": null
       }
     }
   ]
@@ -116,7 +106,6 @@ Name | Data Type | Description
 `immediately_available_for_review` | (not required) | Returns assignments which are immediately available for review
 `in_review` | (not required) | Returns assignments which are in the review state
 `levels` | Array of integers | Only assignments where the associated subject level matches one of the array values are returned. Valid values range from `1` to `60`.
-`passed` | Boolean | Returns assignments where `data.passed` equals `passed`.
 `srs_stages` | Array of integers | Only assignments where `data.srs_stage` matches one of the array values are returned. Valid values range from `0` to `9`
 `started` | Boolean | When set to `true`, returns assignments that have a value in `data.started_at`. Returns assignments with a `null` `data.started_at` if `false`.
 `subject_ids` | Array of integers | Only assignments where `data.subject_id` matches one of the array values are returned.
@@ -164,13 +153,11 @@ If the date time now is November 11, 2017 8:42:00 AM UTC:
     "subject_type": "radical",
     "level": 1,
     "srs_stage": 8,
-    "srs_stage_name": "Enlightened",
     "unlocked_at": "2017-09-05T23:38:10.695133Z",
     "started_at": "2017-09-05T23:41:28.980679Z",
     "passed_at": "2017-09-07T17:14:14.491889Z",
     "burned_at": null,
     "available_at": "2018-02-27T00:00:00.000000Z",
-    "passed": true,
     "resurrected_at": null
   }
 }
@@ -215,13 +202,11 @@ The `unlocked_at`, `started_at`, `passed_at`, and `burned_at` timestamps are alw
     "subject_type": "radical",
     "level": 1,
     "srs_stage": 1,
-    "srs_stage_name": "Apprentice I",
     "unlocked_at": "2017-09-05T23:38:10.695133Z",
     "started_at": "2017-09-05T23:41:28.980679Z",
     "passed_at": null,
     "burned_at": null,
     "available_at": "2018-02-27T00:00:00.000000Z",
-    "passed": false,
     "resurrected_at": null
   }
 }
@@ -261,6 +246,5 @@ Attribute | State
 Attribute | New Value
 --------- | ---------
 `available_at` | ISO8601 String timestamp
-`srs_stage_name` | `Apprentice I`
 `srs_stage` | `1`
 `started_at` | ISO8601 String timestamp
