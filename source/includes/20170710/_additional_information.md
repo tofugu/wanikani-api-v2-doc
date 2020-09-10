@@ -2,7 +2,7 @@
 
 ## Spaced Repetition System
 
-Our [spaced repetition systems](#spaced-repetition-systems) determine how subjects progress from being unavailable to users (locked) through complete memorization (burned). The [knownledge guide](https://knowledge.wanikani.com/wanikani/srs-stages/) has some good general information about how we use SRS in WaniKani.
+Our [spaced repetition systems](#spaced-repetition-systems) determine how subjects progress from being unavailable to users (locked) through complete memorization (burned). The [knowledge guide](https://knowledge.wanikani.com/wanikani/srs-stages/) has some good general information about how we use SRS in WaniKani.
 
 A single spaced repetition system consists of `N` number of sequential stages. Each stage describes its position in the sequence as well as the time interval that’s used to determine when the subject will appear next in reviews.
 

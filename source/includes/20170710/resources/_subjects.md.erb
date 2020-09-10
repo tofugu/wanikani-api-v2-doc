@@ -14,7 +14,7 @@ Attribute | Data Type | Description
 `characters` | String | The UTF-8 characters for the subject, including kanji and hiragana.
 `created_at` | Date | Timestamp when the subject was created.
 `document_url` | String | A URL pointing to the page on wanikani.com that provides detailed information about this subject.
-`hidden_at` | Date | Timestamp when the subject was hidden, indicating associated assignments will no longer appear in lessons or reviews and that the subject page is no longer visible on wanikani.com.
+`hidden_at` | `null` or Date | Timestamp when the subject was hidden, indicating associated assignments will no longer appear in lessons or reviews and that the subject page is no longer visible on wanikani.com.
 `lesson_position` | Integer | The position that the subject appears in lessons. Note that the value is scoped to the level of the subject, so there are duplicate values across levels.
 `level` | Integer | The level of the subject, from `1` to `60`.
 `meaning_mnemonic` | String | The subject's meaning mnemonic.
@@ -200,8 +200,8 @@ Attribute | Data Type | Description
 --------- | --------------- | -----------
 `amalgamation_subject_ids` | Array of integers | An array of numeric identifiers for the vocabulary that have the kanji as a component.
 `component_subject_ids` | Array of integers | An array of numeric identifiers for the radicals that make up this kanji. Note that these are the subjects that must have passed assignments in order to unlock this subject's assignment.
-`meaning_hint` | String | Meaning hint for the kanji.
-`reading_hint` | String | Reading hint for the kanji.
+`meaning_hint` | `null` or String | Meaning hint for the kanji.
+`reading_hint` | `null` or String | Reading hint for the kanji.
 `reading_mnemonic` | String | The kanji's reading mnemonic.
 `readings` | Array of objects | Selected readings for the kanji. See table below for the object structure.
 `visually_similar_subject_ids`| Array of integers | An array of numeric identifiers for kanji which are visually similar to the kanji in question.

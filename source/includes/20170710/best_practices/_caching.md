@@ -14,4 +14,4 @@ Do take note any of the above recommendations may become outdated, but we will t
 
 Caching is always tricky business. When do you expire it? How do you refresh it? Who's in charge of it?
 
-We've done a couple things to try and help with a couple of the problems around caching. The first is to support [conditional requests](#conditional-requests), which lets us quickly tell you that a record hasn't changed since you got it last. The second is to give you tools to [get only the updated or new records after any point in time](#leveraging-the-updated_after-filter), letting you easily refresh your local data caches and stores without having to parse _all_ the records.
+We've done a couple things to try and help with a couple of the problems around caching. The first is to support [conditional requests](#conditional-requests), which lets us quickly tell you that a record hasn't changed since you got it last. The second is to give you tools to [get only the updated or new records after any point in time](#leveraging-the-updated_after-code-filter), letting you easily refresh your local data caches and stores without having to parse _all_ the records.
