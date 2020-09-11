@@ -121,6 +121,24 @@ Attribute | Data Type | Description
 `content_type` | String | The content type of the image. Currently the API delivers `image/png` and `image/svg+xml`.
 `metadata` | Object | Details about the image. Each `content_type` returns a uniquely structured object.
 
+##### Character Image Metadata Object Attributes
+
+The metadata object differs depending on the content_type
+
+##### When content_type is `image/svg+xml`
+
+Attribute | Data Type | Description
+--------- | --------------- | -----------
+`inline_styles` | Boolean | The SVG asset contains built in CSS styling
+
+##### When content_type is `image/png`
+
+Attribute | Data Type | Description
+--------- | --------------- | -----------
+`color` | String | Color of the asset in hexadecimal
+`dimensions` | String | Dimension of the asset in pixels
+`style_name` | String | A name descriptor
+
 ---
 
 ### Kanji Attributes
