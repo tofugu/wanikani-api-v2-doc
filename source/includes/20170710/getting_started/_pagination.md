@@ -14,8 +14,8 @@ Collections have the following nested within a `pages` attribute:
 
 Attribute | Data Type | Description
 --------- | --- | -----------
-`next_url` | String | The URL of the next page of results. If there are no more results, the value is `null`.
-`previous_url` | String | The URL of the previous page of results. If there are no results at all or no previous page to go to, the value is `null`.
+`next_url` | `null` or String | The URL of the next page of results. If there are no more results, the value is `null`.
+`previous_url` | `null` or String | The URL of the previous page of results. If there are no results at all or no previous page to go to, the value is `null`.
 `per_page` | Integer | Maximum number of resources delivered for this collection.
 
 <aside class="notice">

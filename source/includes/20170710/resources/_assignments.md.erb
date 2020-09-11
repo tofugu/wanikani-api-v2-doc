@@ -35,7 +35,7 @@ Attribute | Data Type | Description
 `hidden` | Boolean | Indicates if the associated subject has been hidden, preventing it from appearing in lessons or reviews.
 `passed_at` | `null` or Date | Timestamp when the user reaches SRS stage `5` for the first time.
 `resurrected_at` | `null` or Date | Timestamp when the subject is resurrected and placed back in the user's review queue.
-`srs_stage` | Integer | The current [SRS stage interval](#srs-stage-intervals), from `0` to `9`.
+`srs_stage` | Integer | The current [SRS stage interval](#spaced-repetition-systems). The interval range is determined by the related [subject's](#subjects) [spaced repetition system](#spaced-repetition-systems]).
 `started_at` | `null` or Date | Timestamp when the user completes the lesson for the related subject.
 `subject_id` | Integer | Unique identifier of the associated [subject](#subjects).
 `subject_type` | String | The type of the associated [subject](#subjects), one of: `kanji`, `radical`, or `vocabulary`.
