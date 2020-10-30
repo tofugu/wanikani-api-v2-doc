@@ -87,6 +87,10 @@ Attribute | Data Type | Description
 
 Returns a collection of all assignments, ordered by ascending `created_at`, 500 at a time.
 
+<aside class="warning">
+It is possible for a user to have started an assignment for a subject that was later moved to a level above their current level. To exclude those assignments, filter by `levels` from 1 to the users current level
+</aside>
+
 ### HTTP Request
 
 `GET <%= current_page.data.api_root_url %>/assignments`
