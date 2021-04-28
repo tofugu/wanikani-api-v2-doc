@@ -22,7 +22,8 @@ Assignments contain information about a user's progress on a particular subject,
     "passed_at": "2017-09-07T17:14:14.491889Z",
     "burned_at": null,
     "available_at": "2018-02-27T00:00:00.000000Z",
-    "resurrected_at": null
+    "resurrected_at": null,
+    "hidden": false
   }
 }
 ```
@@ -32,7 +33,7 @@ Attribute | Data Type | Description
 `available_at` | `null` or Date | Timestamp when the related subject will be available in the user's review queue.
 `burned_at` | `null` or Date | Timestamp when the user reaches SRS stage `9` the first time.
 `created_at` | Date | Timestamp when the assignment was created.
-`hidden` | Boolean | Indicates if the associated subject has been hidden, preventing it from appearing in lessons or reviews. If not present the value can be considered false.
+`hidden` | Boolean | Indicates if the associated subject has been hidden, preventing it from appearing in lessons or reviews.
 `passed_at` | `null` or Date | Timestamp when the user reaches SRS stage `5` for the first time.
 `resurrected_at` | `null` or Date | Timestamp when the subject is resurrected and placed back in the user's review queue.
 `srs_stage` | Integer | The current [SRS stage interval](#spaced-repetition-systems). The interval range is determined by the related [subject's](#subjects) [spaced repetition system](#spaced-repetition-systems]).
