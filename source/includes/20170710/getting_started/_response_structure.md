@@ -30,7 +30,7 @@ There's a third type of structure that's less common: a report. Reports summariz
     "per_page": <integer>
   },
   "total_count": <integer>,
-  "data_updated_at": <date>,
+  "data_updated_at": <date_or_null>,
   "data": <array_of_objects>
 }
 ```
@@ -41,7 +41,7 @@ Attribute | Description
 --------- | -----------
 `object` | The kind of object returned. See the [object types section](#object-types) below for all the kinds.
 `url` | The URL of the request. For collections, that will contain all the filters and options you've passed to the API. Resources have a single URL and don't need to be filtered, so the URL will be the same in both resource and collection responses.
-`data_updated_at` | For collections, this is the timestamp of the most recently updated resource in the [specified scope](#filters) and is not limited by pagination. For a resource, then this is the last time that particular resource was updated.
+`data_updated_at` | For collections, this is the timestamp of the most recently updated resource in the [specified scope](#filters) and is not limited by pagination. If no resources were returned for the specified scope, then this will be `null`. For a resource, then this is the last time that particular resource was updated.
 `data` | For collections, this is going to be the resources returned by the specified scope. For resources, these are the attributes that are specific to that particular instance and kind of resource.
 
 
