@@ -96,6 +96,10 @@ The associated spaced repetition system is the system used to do the SRS stage c
 
 Returns a collection of all reviews, ordered by ascending `created_at`, 1000 at a time.
 
+<aside class="warning">
+Logging for this endpoint has been implemented late in the application's life. Therefore, some Users will not have a full history.
+</aside>
+
 ### HTTP Request
 
 `GET <%= current_page.data.api_root_url %>/reviews`
