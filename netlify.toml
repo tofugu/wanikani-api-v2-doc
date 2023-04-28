@@ -2,9 +2,11 @@
   base = "/"
   publish = "build/"
   command = "middleman build --verbose && cp netlify_headers build/_headers"
+  environment = { NODE_VERSION = "16.19.0" }
 
 [context.production]
   command = "middleman build --verbose"
+  environment = { NODE_VERSION = "16.19.0" }
 
 [[redirects]]
   from = "/"

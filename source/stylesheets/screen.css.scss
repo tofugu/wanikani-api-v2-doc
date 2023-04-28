@@ -82,9 +82,10 @@ html, body {
   }
 
   // This is the logo at the top of the ToC
-  > img {
+  .logo {
     display: block;
     max-width: 100%;
+    margin-bottom: $logo-margin;
   }
 
   > .search {
@@ -97,7 +98,7 @@ html, body {
       padding: 6px 0 6px 20px;
       box-sizing: border-box;
       margin: $nav-v-padding $nav-padding;
-      width: $nav-width - 30;
+      width: $nav-width - ($nav-padding*2);
       outline: none;
       color: $nav-text;
       border-radius: 0; /* ios has a default border radius */
@@ -110,10 +111,6 @@ html, body {
       color: $nav-text;
       @extend %icon-search;
     }
-  }
-
-  .logo {
-    margin-bottom: $logo-margin;
   }
 
   .search-results {
@@ -221,7 +218,7 @@ html, body {
   white-space: nowrap;
   text-overflow: ellipsis;
   text-decoration: none;
-  color: #fff;
+  color: $nav-text;
   transition-property: background;
   transition-timing-function: linear;
   transition-duration: 130ms;
@@ -313,12 +310,13 @@ html, body {
 }
 
 .lang-selector {
+  display: flex;
   background-color: $lang-select-bg;
   width: 100%;
   font-weight: bold;
+  overflow-x: auto;
   a {
-    display: block;
-    float:left;
+    display: inline;
     color: $lang-select-text;
     text-decoration: none;
     padding: 0 10px;
@@ -560,6 +558,10 @@ html, body {
 // This is all the stuff that appears in the right half of the page
 
 .content {
+  &>div.highlight {
+    clear:none;
+  }
+
   pre, blockquote {
     background-color: $code-bg;
     color: #fff;
@@ -613,6 +615,62 @@ html, body {
 ////////////////////////////////////////////////////////////////////////////////
 // CODE HIGHLIGHTS
 ////////////////////////////////////////////////////////////////////////////////
+// These are the styles for phones and tablets
+// There are also a couple styles disperesed
+
+@media (max-width: $tablet-width) {
+  .toc-wrapper {
+    left: -$nav-width;
+
+    &.open {
+      left: 0;
+    }
+  }
+
+  .page-wrapper {
+    margin-left: 0;
+  }
+
+  #nav-button {
+    display: block;
+  }
+
+  .toc-link {
+    padding-top: 0.3em;
+    padding-bottom: 0.3em;
+  }
+}
+
+@media (max-width: $phone-width) {
+  .dark-box {
+    display: none;
+  }
+
+  %left-col {
+    margin-right: 0;
+  }
+
+  .toc-wrapper .lang-selector {
+    display: block;
+  }
+
+  .page-wrapper .lang-selector {
+    display: none;
+  }
+
+  %right-col {
+    width: auto;
+    float: none;
+  }
+
+  %right-col + %left-col {
+    margin-top: $main-padding;
+  }
+
+  .highlight + p {
+    margin-top: 20px;
+  }
+}
 
 .highlight .c, .highlight .cm, .highlight .c1, .highlight .cs {
   color: #909090;
@@ -620,6 +678,19 @@ html, body {
 
 .highlight, .highlight .w {
   background-color: $code-bg;
+}
+
+.copy-clipboard {
+  float: right;
+  fill: #9DAAB6;
+  cursor: pointer;
+  opacity: 0.4;
+  height: 18px;
+  width: 18px;
+}
+
+.copy-clipboard:hover {
+  opacity: 0.8;
 }
 
 @import 'overrides';

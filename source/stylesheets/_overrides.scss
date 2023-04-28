@@ -26,3 +26,15 @@
 .content table td:nth-child(2) {
   white-space: nowrap;
 }
+
+.content .highlight {
+  margin-top: 0;
+}
+
+.highlight .nl {
+  color: #e6db74;
+}
+
+.highlight .nt {
+  color: white;
+}
