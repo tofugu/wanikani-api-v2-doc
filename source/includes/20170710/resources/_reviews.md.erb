@@ -68,36 +68,19 @@ The associated spaced repetition system is the system used to do the SRS stage c
   "url": "<%= current_page.data.api_root_url %>/reviews",
   "pages": {
     "per_page": 1000,
-    "next_url": "<%= current_page.data.api_root_url %>/reviews?page_after_id=534345",
+    "next_url": null,
     "previous_url": null
   },
-  "total_count": 19201,
+  "total_count": 0,
   "data_updated_at": "2017-12-20T01:10:17.578705Z",
-  "data": [
-    {
-      "id": 534342,
-      "object": "review",
-      "url": "<%= current_page.data.api_root_url %>/reviews/534342",
-      "data_updated_at": "2017-12-20T01:00:59.255427Z",
-      "data": {
-        "created_at": "2017-12-20T01:00:59.255427Z",
-        "assignment_id": 32132,
-        "spaced_repetition_system_id": 1,
-        "subject_id": 8,
-        "starting_srs_stage": 4,
-        "ending_srs_stage": 2,
-        "incorrect_meaning_answers": 1,
-        "incorrect_reading_answers": 0
-      }
-    }
-  ]
+  "data": []
 }
 ```
 
 Returns a collection of all reviews, ordered by ascending `created_at`, 1000 at a time.
 
 <aside class="warning">
-Logging for this endpoint has been implemented late in the application's life. Therefore, some Users will not have a full history.
+This endpoint currently returns no data while we evaluate options regarding the performance of this endpoint.    
 </aside>
 
 ### HTTP Request
