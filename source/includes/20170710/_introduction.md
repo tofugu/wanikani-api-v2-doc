@@ -1,6 +1,6 @@
 # Introduction
 
-Welcome to <span title="Version 2: The Separating">"WaniKani: The API"</span>! You can use our API to access progress data for a user's account and a ton general reference data for the subjects within WaniKani.
+Welcome to <span title="Version 2: The Separating">"WaniKani: The API</span>!" You can use our API to access progress data for a user's account and a ton of general reference data for the subjects within WaniKani.
 
 This version is built around a [REST](http://en.wikipedia.org/wiki/Representational_State_Transfer)ful structure, with consistent, resource-oriented URLs. We support that structure with standard HTTP features: [HTTP verbs](#) for all our endpoints to indicate different actions, [HTTP authentication headers](https://developer.mozilla.org/en-US/docs/Web/HTTP/Methods), and [HTTP response codes](https://developer.mozilla.org/en-US/docs/Web/HTTP/Status) to indicate both success and various errors. We've turned on cross-origin resource sharing to allow for secure client-side access. We respond to all requests with JSON, making it easy to parse those responses into native objects in a variety of languages. These should open up the API to any client that supports these features and data structures.
 
