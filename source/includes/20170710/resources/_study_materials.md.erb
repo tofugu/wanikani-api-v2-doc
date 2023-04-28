@@ -31,7 +31,7 @@ Attribute | Data&nbsp;Type | Description
 `meaning_synonyms` | Array | Synonyms for the meaning of the subject. These are used as additional correct answers during reviews.
 `reading_note` | `null` or String | Free form note related to the reading(s) of the associated subject.
 `subject_id` | Integer | Unique identifier of the associated [subject](#subjects).
-`subject_type` | String | The type of the associated [subject](#subjects), one of: `kanji`, `radical`, or `vocabulary`.
+`subject_type` | String | The type of the associated [subject](#subjects), one of: `kana_vocabulary`, `kanji`, `radical`, or `vocabulary`.
 
 ## Get All Study Materials
 
@@ -88,7 +88,7 @@ Name | Data Type | Description
 `hidden` | Boolean | Return study materials with a matching value in the `hidden` attribute
 `ids` | Array of integers | Only study material records where `data.id` matches one of the array values are returned.
 `subject_ids` | Array of integers | Only study material records where `data.subject_id` matches one of the array values are returned.
-`subject_types` | Array of strings | Only study material records where `data.subject_type` matches one of the array values are returned. Valid values are: `radical`, `kanji`, or `vocabulary`.
+`subject_types` | Array of strings | Only study material records where `data.subject_type` matches one of the array values are returned. Valid values are: `kana_vocabulary`, `kanji`, `radical`, or `vocabulary`.
 `updated_after` | Date | Only study material records updated after this time are returned.
 
 ### Examples

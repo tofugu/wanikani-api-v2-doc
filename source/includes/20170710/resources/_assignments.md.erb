@@ -39,7 +39,7 @@ Attribute | Data Type | Description
 `srs_stage` | Integer | The current [SRS stage interval](#spaced-repetition-systems). The interval range is determined by the related [subject's](#subjects) [spaced repetition system](#spaced-repetition-systems]).
 `started_at` | `null` or Date | Timestamp when the user completes the lesson for the related subject.
 `subject_id` | Integer | Unique identifier of the associated [subject](#subjects).
-`subject_type` | String | The type of the associated [subject](#subjects), one of: `kanji`, `radical`, or `vocabulary`.
+`subject_type` | String | The type of the associated [subject](#subjects), one of: `kana_vocabulary`, `kanji`, `radical`, or `vocabulary`.
 `unlocked_at` | `null` or Date | <p>The timestamp when the related subject has its prerequisites satisfied and is made available in lessons.</p> <p>Prerequisites are:</p><ul><li>The subject components have reached SRS stage `5` once (they have been “passed”).</li><li>The user's level is equal to or greater than the level of the assignment’s subject.</li></ul>
 
 ## Get All Assignments
@@ -114,7 +114,7 @@ Name | Data Type | Description
 `srs_stages` | Array of integers | Only assignments where `data.srs_stage` matches one of the array values are returned. Valid values range from `0` to `9`
 `started` | Boolean | When set to `true`, returns assignments that have a value in `data.started_at`. Returns assignments with a `null` `data.started_at` if `false`.
 `subject_ids` | Array of integers | Only assignments where `data.subject_id` matches one of the array values are returned.
-`subject_types` | Array of strings | Only assignments where `data.subject_type` matches one of the array values are returned. Valid values are: `radical`, `kanji`, or `vocabulary`.
+`subject_types` | Array of strings | Only assignments where `data.subject_type` matches one of the array values are returned. Valid values are: `kana_vocabulary`, `kanji`, `radical`, or `vocabulary`.
 `unlocked` | Boolean | When set to `true`, returns assignments that have a value in `data.unlocked_at`. Returns assignments with a `null` `data.unlocked_at` if `false`.
 `updated_after` | Date | Only assignments updated after this time are returned.
 

@@ -55,6 +55,7 @@ Every successful API response contains an `object` attribute that tells you whic
 The following are singular resources:
 
 * `assignment`
+* `kana_vocabulary`
 * `kanji`
 * `level_progression`
 * `radical`
