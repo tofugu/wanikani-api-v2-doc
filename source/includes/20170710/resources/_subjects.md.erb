@@ -1,10 +1,10 @@
 # Subjects
 
-Subjects are the radicals, kanji, and vocabulary that are learned through lessons and reviews. They contain basic dictionary information, such as meanings and/or readings, and information about their relationship to other items with WaniKani, like their level.
+Subjects are the radicals, kanji, vocabulary, and kana_vocabulary that are learned through lessons and reviews. They contain basic dictionary information, such as meanings and/or readings, and information about their relationship to other items with WaniKani, like their level.
 
 ## Subject Data Structure
 
-The exact structure of a subject depends on the subject type. The available subject types are `radical`, `kanji`, and `vocabulary`. Note that any attributes called out for the specific subject type behaves differently than the common attribute of the same name.
+The exact structure of a subject depends on the subject type. The available subject types are `kana_vocabulary`, `kanji`, `radical`, and `vocabulary`. Note that any attributes called out for the specific subject type behaves differently than the common attribute of the same name.
 
 ### Common Attributes
 
@@ -343,6 +343,164 @@ Attribute | Data Type | Description
 `accepted_answer` | Boolean | Indicates if the reading is used to evaluate user input for correctness.
 `primary` | Boolean | Indicates priority in the WaniKani system.
 `reading` | String | A singular subject reading.
+
+#### Context Sentence Object Attributes
+
+Attribute | Data Type | Description
+--------- | --------------- | -----------
+`en` | String | English translation of the sentence
+`ja` | String | Japanese context sentence
+
+#### Pronunciation Audio Object Attributes
+
+Attribute | Data Type | Description
+--------- | --------------- | -----------
+`url` | String | The location of the audio.
+`content_type` | String | The content type of the audio. Currently the API delivers `audio/mpeg` and `audio/ogg`.
+`metadata` | Object | Details about the pronunciation audio. See table below for details.
+
+##### Pronunciation Audio Metadata Object Attributes
+
+Attribute | Data Type | Description
+--------- | --------------- | -----------
+`gender` | String | The gender of the voice actor.
+`source_id` | Integer | A unique ID shared between same source pronunciation audio.
+`pronunciation` | String | Vocabulary being pronounced in kana.
+`voice_actor_id` | Integer | A unique ID belonging to the voice actor.
+`voice_actor_name` | String | Humanized name of the voice actor.
+`voice_description` | String | Description of the voice.
+
+---
+
+### Kana Vocabulary Attributes
+
+> Example Structure
+
+```json
+{
+    "id": 9210,
+    "object": "kana_vocabulary",
+    "url": "<%= current_page.data.api_root_url %>/subjects/9210",
+    "data_updated_at": "2023-05-03T13:01:51.333012Z",
+    "data": {
+        "created_at": "2023-04-24T23:52:43.457614Z",
+        "level": 8,
+        "slug": "おやつ",
+        "hidden_at": null,
+        "document_url": "https://www.wanikani.com/vocabulary/おやつ",
+        "characters": "おやつ",
+        "meanings": [
+            {
+                "meaning": "Snack",
+                "primary": true,
+                "accepted_answer": true
+            }
+        ],
+        "auxiliary_meanings": [],
+        "parts_of_speech": [
+            "noun"
+        ],
+        "meaning_mnemonic": "<reading>Oh yah! Two</reading> (<ja>おやつ</ja>) <vocabulary>snack</vocabulary>s, just for you. Imagine your two snacks. What are they? I bet they're delicious. Oh yah!\r\n\r\nYou can use <ja>おやつ</ja> to refer to a small amount of food eaten between meals, including candies and light meals like onigiri.",
+        "context_sentences": [
+            {
+                "en": "Today I had a muffin for a snack.",
+                "ja": "今日はおやつにマフィンを食べた。"
+            },
+            {
+                "en": "Shall we take a snack break?",
+                "ja": "そろそろおやつにする？"
+            },
+            {
+                "en": "Kaori's snacks are always homemade!",
+                "ja": "カオリちゃんのおやつは、いつも手作りだよ！"
+            }
+        ],
+        "pronunciation_audios": [
+            {
+                "url": "https://files.wanikani.com/w4yp5o02betioucki05lp6x78quy",
+                "metadata": {
+                    "gender": "male",
+                    "source_id": 44757,
+                    "pronunciation": "おやつ",
+                    "voice_actor_id": 2,
+                    "voice_actor_name": "Kenichi",
+                    "voice_description": "Tokyo accent"
+                },
+                "content_type": "audio/webm"
+            },
+            {
+                "url": "https://files.wanikani.com/qd82u8ijchzt196fiaoqxnv2ktmg",
+                "metadata": {
+                    "gender": "male",
+                    "source_id": 44757,
+                    "pronunciation": "おやつ",
+                    "voice_actor_id": 2,
+                    "voice_actor_name": "Kenichi",
+                    "voice_description": "Tokyo accent"
+                },
+                "content_type": "audio/ogg"
+            },
+            {
+                "url": "https://files.wanikani.com/232ivelhhbvy5uhih0ozuyyxvjla",
+                "metadata": {
+                    "gender": "male",
+                    "source_id": 44757,
+                    "pronunciation": "おやつ",
+                    "voice_actor_id": 2,
+                    "voice_actor_name": "Kenichi",
+                    "voice_description": "Tokyo accent"
+                },
+                "content_type": "audio/mpeg"
+            },
+            {
+                "url": "https://files.wanikani.com/8d1o3zi4nz6vdxyjyjgs47rmep6t",
+                "metadata": {
+                    "gender": "female",
+                    "source_id": 44698,
+                    "pronunciation": "おやつ",
+                    "voice_actor_id": 1,
+                    "voice_actor_name": "Kyoko",
+                    "voice_description": "Tokyo accent"
+                },
+                "content_type": "audio/webm"
+            },
+            {
+                "url": "https://files.wanikani.com/dsri4976w1x9qm0zfm98ck7jqwge",
+                "metadata": {
+                    "gender": "female",
+                    "source_id": 44698,
+                    "pronunciation": "おやつ",
+                    "voice_actor_id": 1,
+                    "voice_actor_name": "Kyoko",
+                    "voice_description": "Tokyo accent"
+                },
+                "content_type": "audio/mpeg"
+            },
+            {
+                "url": "https://files.wanikani.com/k1fdjcyvierz0ajmfjkxy0jjsabl",
+                "metadata": {
+                    "gender": "female",
+                    "source_id": 44698,
+                    "pronunciation": "おやつ",
+                    "voice_actor_id": 1,
+                    "voice_actor_name": "Kyoko",
+                    "voice_description": "Tokyo accent"
+                },
+                "content_type": "audio/ogg"
+            }
+        ],
+        "lesson_position": 0,
+        "spaced_repetition_system_id": 1
+    }
+}
+```
+
+Attribute | Data Type | Description
+--------- | --------------- | -----------
+`context_sentences` | Array of objects | A collection of context sentences. See table below for the object structure.
+`meaning_mnemonic` | String | The subject's meaning mnemonic.
+`parts_of_speech` | Array of strings | Parts of speech.
+`pronunciation_audios` | Array of objects | A collection of pronunciation audio. See table below for the object structure.
 
 #### Context Sentence Object Attributes
 

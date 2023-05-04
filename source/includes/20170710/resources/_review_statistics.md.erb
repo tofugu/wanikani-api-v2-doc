@@ -46,7 +46,7 @@ Attribute | Data&nbsp;Type | Description
 `reading_incorrect` | Integer | Total number of incorrect answers submitted for the reading of the associated subject.
 `reading_max_streak` | Integer | The longest, uninterrupted series of correct answers ever given for the reading of the associated subject.
 `subject_id` | Integer | Unique identifier of the associated [subject](#subjects).
-`subject_type` | String | The type of the associated [subject](#subjects), one of: `kanji`, `radical`, or `vocabulary`.
+`subject_type` | String | The type of the associated [subject](#subjects), one of: `kana_vocabulary`, `kanji`, `radical`, or `vocabulary`.
 
 ### Notes
 
@@ -116,7 +116,7 @@ Name | Data&nbsp;Type | Description
 `percentages_greater_than` | Integer | Return review statistics where the `percentage_correct` is greater than the value.
 `percentages_less_than` | Integer | Return review statistics where the `percentage_correct` is less than the value.
 `subject_ids` | Array of integers | Only review statistics where `data.subject_id` matches one of the array values are returned.
-`subject_types` | Array of strings | Only review statistics where `data.subject_type` matches one of the array values are returned. Valid values are: `radical`, `kanji`, or `vocabulary`.
+`subject_types` | Array of strings | Only review statistics where `data.subject_type` matches one of the array values are returned. Valid values are: `kana_vocabulary`, `kanji`, `radical`, or `vocabulary`.
 `updated_after` | Date | Only review statistics updated after this time are returned.
 
 ## Get a Specific Review Statistic
