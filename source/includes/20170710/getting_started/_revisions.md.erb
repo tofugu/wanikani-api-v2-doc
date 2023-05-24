@@ -13,8 +13,6 @@ Any time we make ‘breaking changes’ to the API, we release a new, timestampe
 
 Revisions are designated by timestamps in the format `YYYYMMDD`. We expect the revision to be included in all API requests to the server in a header that looks like the following: `Wanikani-Revision: <%= current_page.data.api_revision %>`.
 
-See the [list of revisions and changelogs](<%= current_page.data.documentation_root_path %>) for more details.
-
 <aside class="notice">
 If you don't specify a revision, the API will default to the first revision: <a href="<%= current_page.data.documentation_root_path %>/<%= current_page.data.base_revision %>" title="View API revision 20170710 documentation"><%= current_page.data.base_revision %></a>.
 </aside>
