@@ -66,6 +66,7 @@ The following are singular resources:
 * `study_material`
 * `user`
 * `vocabulary`
+* `voice_actor`
 
 
 ### Data Types

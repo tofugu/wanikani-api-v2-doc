@@ -26,11 +26,13 @@ The user summary returns basic information for the user making the API request, 
     },
     "preferences": {
       "default_voice_actor_id": 1,
+      "extra_study_autoplay_audio": false,
       "lessons_autoplay_audio": false,
       "lessons_batch_size": 10,
       "lessons_presentation_order": "ascending_level_then_subject",
       "reviews_autoplay_audio": false,
-      "reviews_display_srs_indicator": true
+      "reviews_display_srs_indicator": true,
+      "reviews_presentation_order": "shuffled"
     }
   }
 }
@@ -51,11 +53,13 @@ Attribute | Data Type | Description
 Attribute | Data Type | Description
 --------- | --------------- | -----------
 `default_voice_actor_id` | Integer | The voice actor to be used for lessons and reviews. The value is associated to `subject.pronunciation_audios.metadata.voice_actor_id`.
+`extra_study_autoplay_audio` | Boolean | Automatically play pronunciation audio for vocabulary during extra study.
 `lessons_autoplay_audio` | Boolean | Automatically play pronunciation audio for vocabulary during lessons.
 `lessons_batch_size` | Integer | Number of subjects introduced to the user during lessons before quizzing.
 `lessons_presentation_order` | String | The order in which lessons are presented. The options are `ascending_level_then_subject`, `shuffled`, and `ascending_level_then_shuffled`. The default (and best experience) is `ascending_level_then_subject`.
 `reviews_autoplay_audio` | Boolean | Automatically play pronunciation audio for vocabulary during reviews.
 `reviews_display_srs_indicator` | Boolean | Toggle for display SRS change indicator after a subject has been completely answered during review.
+`reviews_presentation_order` | String | The order in which reviews are presented. The options are `shuffled` and `lower_levels_first`. The default (and best experience) is `shuffled`.
 
 ### Subscription Object Attributes
 
@@ -96,11 +100,13 @@ Attribute | Data Type | Description
     },
     "preferences": {
       "default_voice_actor_id": 1,
+      "extra_study_autoplay_audio": false,
       "lessons_autoplay_audio": false,
       "lessons_batch_size": 5,
       "lessons_presentation_order": "ascending_level_then_subject",
       "reviews_autoplay_audio": false,
-      "reviews_display_srs_indicator": true
+      "reviews_display_srs_indicator": true,
+      "reviews_presentation_order": "shuffled"
     }
   }
 }
@@ -142,11 +148,13 @@ Returns a summary of user information.
     },
     "preferences": {
       "default_voice_actor_id": 1,
+      "extra_study_autoplay_audio": false,
       "lessons_autoplay_audio": true,
       "lessons_batch_size": 3,
       "lessons_presentation_order": "shuffled",
       "reviews_autoplay_audio": true,
-      "reviews_display_srs_indicator": false
+      "reviews_display_srs_indicator": false,
+      "reviews_presentation_order": "shuffled"
     }
   }
 }
@@ -165,8 +173,10 @@ Only the values under `preferences` are allowed to be updated.
 Name | Data Type | Required?
 ---- | --------- | ---------
 `default_voice_actor_id` | Integer | false
+`extra_study_autoplay_audio` | Boolean | false
 `lessons_autoplay_audio` | Boolean | false
 `lessons_batch_size` | Integer | false
 `lessons_presentation_order` | String | false
 `reviews_autoplay_audio` | Boolean | false
 `reviews_display_srs_indicator` | Boolean | false
+`reviews_presentation_order` | String | false
