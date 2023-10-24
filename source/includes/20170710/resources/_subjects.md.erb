@@ -81,9 +81,9 @@ The strings can include a WaniKani specific markup syntax. The following is a li
     "characters": "一",
     "character_images": [
       {
-        "url": "https://cdn.wanikani.com/images/legacy/576-subject-1-without-css-original.svg?1520987227",
+        "url": "https://cdn.wanikani.com/images/legacy/576-subject-1.svg?1520987227",
         "metadata": {
-          "inline_styles": false
+          "inline_styles": true
         },
         "content_type": "image/svg+xml"
       }
@@ -118,7 +118,7 @@ Attribute | Data Type | Description
 Attribute | Data Type | Description
 --------- | --------------- | -----------
 `url` | String | The location of the image.
-`content_type` | String | The content type of the image. Currently the API delivers `image/png` and `image/svg+xml`.
+`content_type` | String | The content type of the image. The API only delivers `image/svg+xml`.
 `metadata` | Object | Details about the image. Each `content_type` returns a uniquely structured object.
 
 ##### Character Image Metadata Object Attributes
@@ -129,15 +129,7 @@ The metadata object differs depending on the content_type
 
 Attribute | Data Type | Description
 --------- | --------------- | -----------
-`inline_styles` | Boolean | The SVG asset contains built-in CSS styling
-
-##### When content_type is `image/png`
-
-Attribute | Data Type | Description
---------- | --------------- | -----------
-`color` | String | Color of the asset in hexadecimal
-`dimensions` | String | Dimension of the asset in pixels
-`style_name` | String | A name descriptor
+`inline_styles` | Boolean | The SVG asset contains built-in CSS styling.  This is currently always set to true and exists for historical reasons only.
 
 ---
 
