@@ -56,7 +56,7 @@ Attribute | Data Type | Description
 `extra_study_autoplay_audio` | Boolean | Automatically play pronunciation audio for vocabulary during extra study.
 `lessons_autoplay_audio` | Boolean | Automatically play pronunciation audio for vocabulary during lessons.
 `lessons_batch_size` | Integer | Number of subjects introduced to the user during lessons before quizzing.
-`lessons_presentation_order` | String | The order in which lessons are presented. The options are `ascending_level_then_subject`, `shuffled`, and `ascending_level_then_shuffled`. The default (and best experience) is `ascending_level_then_subject`.
+`lessons_presentation_order` | String | This is a deprecated user preference. It always returns `ascending_level_then_subject`.  Setting this preference will do nothing.  It exists only to ensure existing consumers of this API don't break.
 `reviews_autoplay_audio` | Boolean | Automatically play pronunciation audio for vocabulary during reviews.
 `reviews_display_srs_indicator` | Boolean | Toggle for display SRS change indicator after a subject has been completely answered during review.
 `reviews_presentation_order` | String | The order in which reviews are presented. The options are `shuffled` and `lower_levels_first`. The default (and best experience) is `shuffled`.
@@ -122,9 +122,9 @@ Returns a summary of user information.
 
 > Example Request
 
-<%= partial('examples/PUT_shell', locals: { api_endpoint: 'user', params: { "user": { "preferences": { "lessons_autoplay_audio": true, "lessons_batch_size": 3, "lessons_presentation_order": "shuffled", "reviews_autoplay_audio": true, "reviews_display_srs_indicator": false } } } }) %>
+<%= partial('examples/PUT_shell', locals: { api_endpoint: 'user', params: { "user": { "preferences": { "lessons_autoplay_audio": true, "lessons_batch_size": 3, "reviews_autoplay_audio": true, "reviews_display_srs_indicator": false } } } }) %>
 
-<%= partial('examples/PUT_javascript', locals: { api_endpoint: 'user', params: { "user": { "preferences": { "lessons_autoplay_audio": true, "lessons_batch_size": 3, "lessons_presentation_order": "shuffled", "reviews_autoplay_audio": true, "reviews_display_srs_indicator": false } } } }) %>
+<%= partial('examples/PUT_javascript', locals: { api_endpoint: 'user', params: { "user": { "preferences": { "lessons_autoplay_audio": true, "lessons_batch_size": 3, "reviews_autoplay_audio": true, "reviews_display_srs_indicator": false } } } }) %>
 
 > Example Response
 
@@ -151,7 +151,7 @@ Returns a summary of user information.
       "extra_study_autoplay_audio": false,
       "lessons_autoplay_audio": true,
       "lessons_batch_size": 3,
-      "lessons_presentation_order": "shuffled",
+      "lessons_presentation_order": "ascending_level_then_subject",
       "reviews_autoplay_audio": true,
       "reviews_display_srs_indicator": false,
       "reviews_presentation_order": "shuffled"
@@ -176,7 +176,6 @@ Name | Data Type | Required?
 `extra_study_autoplay_audio` | Boolean | false
 `lessons_autoplay_audio` | Boolean | false
 `lessons_batch_size` | Integer | false
-`lessons_presentation_order` | String | false
 `reviews_autoplay_audio` | Boolean | false
 `reviews_display_srs_indicator` | Boolean | false
 `reviews_presentation_order` | String | false
