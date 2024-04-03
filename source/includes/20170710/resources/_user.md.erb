@@ -52,7 +52,7 @@ Attribute | Data Type | Description
 
 Attribute | Data Type | Description
 --------- | --------------- | -----------
-`default_voice_actor_id` | Integer | The voice actor to be used for lessons and reviews. The value is associated to `subject.pronunciation_audios.metadata.voice_actor_id`.
+`default_voice_actor_id` | Integer | This is a deprecated user preference.  It will always return `1` and cannot be set. It exists only to ensure existing consumers of this API don't break.
 `extra_study_autoplay_audio` | Boolean | Automatically play pronunciation audio for vocabulary during extra study.
 `lessons_autoplay_audio` | Boolean | Automatically play pronunciation audio for vocabulary during lessons.
 `lessons_batch_size` | Integer | Number of subjects introduced to the user during lessons before quizzing.
@@ -172,7 +172,6 @@ Only the values under `preferences` are allowed to be updated.
 
 Name | Data Type | Required?
 ---- | --------- | ---------
-`default_voice_actor_id` | Integer | false
 `extra_study_autoplay_audio` | Boolean | false
 `lessons_autoplay_audio` | Boolean | false
 `lessons_batch_size` | Integer | false
