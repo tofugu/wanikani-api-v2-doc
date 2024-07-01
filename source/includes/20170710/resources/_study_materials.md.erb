@@ -27,9 +27,9 @@ Attribute | Data&nbsp;Type | Description
 --------- | --------------- | -----------
 `created_at` | Date | Timestamp when the study material was created.
 `hidden` | Boolean | Indicates if the associated subject has been hidden, preventing it from appearing in lessons or reviews.
-`meaning_note` | `null` or String | Free form note related to the meaning(s) of the associated subject.
+`meaning_note` | String | Free form note related to the meaning(s) of the associated subject.
 `meaning_synonyms` | Array | Synonyms for the meaning of the subject. These are used as additional correct answers during reviews.
-`reading_note` | `null` or String | Free form note related to the reading(s) of the associated subject.
+`reading_note` | String | Free form note related to the reading(s) of the associated subject.
 `subject_id` | Integer | Unique identifier of the associated [subject](#subjects).
 `subject_type` | String | The type of the associated [subject](#subjects), one of: `kana_vocabulary`, `kanji`, `radical`, or `vocabulary`.
 
