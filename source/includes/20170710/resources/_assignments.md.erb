@@ -189,9 +189,9 @@ The `unlocked_at`, `started_at`, `passed_at`, and `burned_at` timestamps are alw
 
 > Example Request
 
-<%= partial('examples/PUT_shell', locals: { api_endpoint: 'assignments/80463006/start', params: { 'started_at': '2017-09-05T23:41:28.980679Z' } }) %>
+<%= partial('examples/PUT_shell', locals: { api_endpoint: 'assignments/80463006/start', params: { 'assignment': { 'started_at': '2017-09-05T23:41:28.980679Z' } } }) %>
 
-<%= partial('examples/PUT_javascript', locals: { api_endpoint: 'assignments/80463006/start', params: { 'started_at': '2017-09-05T23:41:28.980679Z' } }) %>
+<%= partial('examples/PUT_javascript', locals: { api_endpoint: 'assignments/80463006/start', params: { 'assignment': { 'started_at': '2017-09-05T23:41:28.980679Z' } } }) %>
 
 > Example Response
 
